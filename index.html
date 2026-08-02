@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Athletix SKBK - Pendaftaran Pasukan</title>
+    <title>SMART DIGITAL - Pendaftaran Pasukan</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,320 +33,150 @@
         .animate-pulse-fast {
             animation: pulse-fast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body class="min-h-full flex flex-col bg-slate-50 text-slate-800">
 
-    <!-- Modal Keselamatan / Log Masuk -->
-    <div id="login-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-slate-100">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner">
-                    <i class="fa-solid fa-user-shield text-2xl"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-slate-900 font-heading">Pengesahan Keselamatan</h2>
-                <p class="text-slate-500 text-sm mt-1">Sila masukkan ID Pengguna dan Kata Laluan untuk mengakses sistem.</p>
-            </div>
-
-            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">ID Pengguna</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                            <i class="fa-solid fa-user"></i>
-                        </span>
-                        <input type="text" id="login-userid" required placeholder="Contoh: helang / 1003"
-                            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Kata Laluan</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                            <i class="fa-solid fa-lock"></i>
-                        </span>
-                        <input type="password" id="login-password" required placeholder="••••••••"
-                            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
-                    </div>
-                </div>
-
-                <div id="login-error" class="hidden p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-600 text-xs font-medium text-center">
-                    ID Pengguna atau Kata Laluan tidak sah!
-                </div>
-
-                <button type="submit"
-                    class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/30 transition duration-200 flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-right-to-bracket"></i> Log Masuk Portal
-                </button>
-            </form>
-
-            <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400 text-center">
-                Akses Khas Pengurus Pasukan & Admin Kejohanan
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation Bar -->
-    <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-40">
+    <header class="bg-blue-950 text-white shadow-lg sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Branding -->
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-xl flex items-center justify-center shadow-md">
-                        <i class="fa-solid fa-person-running text-white text-2xl"></i>
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-blue-950 font-black text-xl shadow">
+                        <i class="fa-solid fa-trophy"></i>
                     </div>
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-black font-heading tracking-tight leading-none text-white">
-                            Arena Athletix
-                        </h1>
-                        <p class="text-xs text-emerald-200 font-medium tracking-wide mt-0.5">Smart Digital Pendaftaran</p>
+                        <h1 class="text-lg font-bold font-heading tracking-wide">SMART DIGITAL</h1>
+                        <p class="text-[10px] text-blue-300 -mt-1 font-medium">Sistem Pendaftaran Olahraga</p>
                     </div>
                 </div>
 
-                <!-- Desktop Nav Links -->
-                <nav class="hidden md:flex items-center space-x-1">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard"
-                        class="px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-emerald-100 hover:bg-emerald-700/60">
-                        <i class="fa-solid fa-chart-pie"></i> Utama
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <button id="nav-dashboard" onclick="switchTab('dashboard')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-900 text-white shadow-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line"></i> Papan Pemuka
                     </button>
-                    <button onclick="switchTab('register')" id="nav-register"
-                        class="px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-emerald-100 hover:bg-emerald-700/60">
-                        <i class="fa-solid fa-user-plus"></i> Pendaftaran
+                    <button id="nav-register" onclick="switchTab('register')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus"></i> Daftar Atlet
                     </button>
-                    <button onclick="switchTab('directory')" id="nav-directory"
-                        class="px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-emerald-100 hover:bg-emerald-700/60">
-                        <i class="fa-solid fa-users"></i> Senarai Atlet
+                    <button id="nav-directory" onclick="switchTab('directory')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
+                        <i class="fa-solid fa-users"></i> Direktori Atlet
                     </button>
-                    <button onclick="switchTab('summary')" id="nav-summary"
-                        class="px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-emerald-100 hover:bg-emerald-700/60">
-                        <i class="fa-solid fa-trophy"></i> Analisis
+                    <button id="nav-summary" onclick="switchTab('summary')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Analisis Penyertaan
                     </button>
-                    <button onclick="openAdminModal()" id="nav-admin"
-                        class="hidden px-4 py-2 rounded-xl text-sm font-semibold bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 transition flex items-center gap-2 border border-amber-400/30">
-                        <i class="fa-solid fa-calendar-gear"></i> Urus Tarikh
+                    <button id="nav-admin" onclick="openAdminModal()" class="px-3 py-2 rounded-xl text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition flex items-center gap-2 hidden">
+                        <i class="fa-solid fa-gear"></i> Tetapan Admin
                     </button>
                 </nav>
 
-                <!-- User Profile & Logout -->
-                <div class="hidden md:flex items-center space-x-3 border-l border-emerald-700/80 pl-4">
-                    <div class="text-right">
-                        <div id="current-user-badge" class="text-xs font-bold uppercase px-2.5 py-1 rounded-md bg-emerald-700 text-emerald-100">
-                            Pengguna
-                        </div>
-                    </div>
-                    <button onclick="handleLogout()"
-                        class="px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-right-from-bracket"></i> Log Keluar
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center gap-2">
-                    <div id="mobile-current-user-badge" class="text-[11px] font-bold uppercase px-2.5 py-1 rounded-md bg-emerald-700 text-emerald-100 max-w-[110px] truncate">
-                        Pengguna
-                    </div>
-                    <button onclick="openAdminModal()" id="mobile-nav-admin"
-                        class="hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 transition flex items-center gap-1 border border-amber-400/30">
-                        <i class="fa-solid fa-calendar-gear"></i> Tarikh
-                    </button>
-                    <button onclick="handleLogout()" class="p-2 bg-rose-600 text-white rounded-lg text-xs font-bold">
-                        <i class="fa-solid fa-power-off"></i>
+                <!-- User Profile / Logout -->
+                <div class="flex items-center gap-3">
+                    <span id="current-user-badge" class="px-3 py-1 bg-blue-900 border border-blue-800 rounded-full text-xs font-semibold text-amber-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-shield text-[10px]"></i> Pengguna
+                    </span>
+                    <button onclick="handleLogout()" title="Log Keluar" class="p-2 bg-blue-900 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold transition">
+                        <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Navigation Sub-bar -->
-        <div class="md:hidden bg-emerald-900 border-t border-emerald-700/50 px-2 py-2 flex justify-around text-xs font-semibold sticky top-20 z-30 shadow-md">
-            <button onclick="switchTab('dashboard')" id="mobile-nav-dashboard" class="px-3 py-2 rounded-xl text-emerald-100 transition active:scale-95 flex items-center gap-1.5">
-                <i class="fa-solid fa-chart-pie text-sm"></i> Utama
+        <!-- Mobile Navigation Bar -->
+        <div class="md:hidden bg-blue-900 border-t border-blue-800 px-2 py-1.5 flex justify-around text-xs">
+            <button id="mobile-nav-dashboard" onclick="switchTab('dashboard')" class="p-2 rounded-lg text-white font-bold bg-blue-950 flex flex-col items-center">
+                <i class="fa-solid fa-chart-line text-sm mb-0.5"></i> Pemuka
             </button>
-            <button onclick="switchTab('register')" id="mobile-nav-register" class="px-3 py-2 rounded-xl text-emerald-100 transition active:scale-95 flex items-center gap-1.5">
-                <i class="fa-solid fa-user-plus text-sm"></i> Daftar
+            <button id="mobile-nav-register" onclick="switchTab('register')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
+                <i class="fa-solid fa-user-plus text-sm mb-0.5"></i> Daftar
             </button>
-            <button onclick="switchTab('directory')" id="mobile-nav-directory" class="px-3 py-2 rounded-xl text-emerald-100 transition active:scale-95 flex items-center gap-1.5">
-                <i class="fa-solid fa-users text-sm"></i> Senarai
+            <button id="mobile-nav-directory" onclick="switchTab('directory')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
+                <i class="fa-solid fa-users text-sm mb-0.5"></i> Direktori
             </button>
-            <button onclick="switchTab('summary')" id="mobile-nav-summary" class="px-3 py-2 rounded-xl text-emerald-100 transition active:scale-95 flex items-center gap-1.5">
-                <i class="fa-solid fa-trophy text-sm"></i> Analisis
+            <button id="mobile-nav-summary" onclick="switchTab('summary')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
+                <i class="fa-solid fa-list-check text-sm mb-0.5"></i> Analisis
+            </button>
+            <button id="mobile-nav-admin" onclick="openAdminModal()" class="p-2 rounded-lg text-amber-300 flex flex-col items-center hidden">
+                <i class="fa-solid fa-gear text-sm mb-0.5"></i> Admin
             </button>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
-
-        <!-- Notification Toast -->
-        <div id="toast" class="hidden fixed bottom-6 right-6 z-50 max-w-md bg-slate-900 text-white p-4 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700">
-            <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
-            <span id="toast-message" class="text-sm font-medium">Operasi Berjaya</span>
-        </div>
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
         <!-- TAB 1: DASHBOARD -->
-        <section id="tab-dashboard" class="tab-content space-y-8">
-            <!-- KPI Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <!-- Kad 1: Tarikh Tutup Pendaftaran -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+        <section id="tab-dashboard" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-blue-950 to-slate-900 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold font-heading">Selamat Datang ke SMART DIGITAL Pendaftaran</h2>
+                    <p class="text-xs text-blue-200 mt-1">Uruskan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="switchTab('register')" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold rounded-xl text-xs shadow transition flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Tambah Atlet Baharu
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tarikh Tutup Pendaftaran</p>
-                        <h3 id="stat-closing-date" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1 font-heading">15 Ogos 2026</h3>
+                        <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Tarikh Tutup Pendaftaran</p>
+                        <h3 id="stat-closing-date" class="text-sm font-bold text-slate-800 mt-1">-</h3>
                     </div>
-                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-calendar-xmark"></i>
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-calendar-check"></i>
                     </div>
                 </div>
 
-                <!-- Kad 2: Jumlah Atlet Berdaftar -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Jumlah Atlet Berdaftar</p>
-                        <h3 id="stat-total-athletes" class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">0</h3>
+                        <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Jumlah Atlet Berdaftar</p>
+                        <h3 id="stat-total-athletes" class="text-2xl font-black text-slate-900 mt-1">0</h3>
                     </div>
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-users"></i>
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-user-ninja"></i>
                     </div>
                 </div>
 
-                <!-- Kad 3: Acara Dipertandingkan -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Acara Dipertandingkan</p>
-                        <h3 id="stat-total-events" class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">12</h3>
+                        <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Jumlah Kategori Acara</p>
+                        <h3 id="stat-total-events" class="text-2xl font-black text-slate-900 mt-1">16</h3>
                     </div>
-                    <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-trophy"></i>
-                    </div>
-                </div>
-
-                <!-- Kad 4: Bilangan Pasukan Bertanding -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pasukan Bertanding</p>
-                        <h3 class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">4</h3>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-flag"></i>
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-stopwatch"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- Acara Dipertandingkan & Syarat Penyertaan -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Card 1: Acara yang Dipertandingkan -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-base font-bold text-slate-900 font-heading mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-trophy text-amber-500"></i> Acara yang Dipertandingkan
+            <!-- Recent Registration Table -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+                    <h3 class="font-bold text-slate-900 text-sm font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-blue-600"></i> Pendaftaran Terbaharu
                     </h3>
-                    <div class="space-y-3.5 text-xs">
-                        <div>
-                            <span class="font-bold text-cyan-800 block mb-1.5">1. Acara Balapan Individu (Track):</span>
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="px-2.5 py-1 bg-cyan-100 text-cyan-800 rounded-lg font-medium border border-cyan-200">80m</span>
-                                <span class="px-2.5 py-1 bg-cyan-100 text-cyan-800 rounded-lg font-medium border border-cyan-200">100m</span>
-                                <span class="px-2.5 py-1 bg-cyan-100 text-cyan-800 rounded-lg font-medium border border-cyan-200">200m</span>
-                                <span class="px-2.5 py-1 bg-cyan-100 text-cyan-800 rounded-lg font-medium border border-cyan-200">80m Lari Berpagar</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="font-bold text-blue-800 block mb-1.5">2. Acara Balapan Pasukan (Track):</span>
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-medium border border-blue-700 shadow-sm">4x100m Tahap 1</span>
-                                <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-medium border border-blue-700 shadow-sm">4x100m Tahun 4</span>
-                                <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-medium border border-blue-700 shadow-sm">4x100m Tahun 5</span>
-                                <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-medium border border-blue-700 shadow-sm">4x200m Tahun 4</span>
-                                <span class="px-2.5 py-1 bg-blue-600 text-white rounded-lg font-medium border border-blue-700 shadow-sm">4x200m Tahun 5</span>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="font-bold text-amber-800 block mb-1.5">3. Acara Padang (Field):</span>
-                            <div class="flex flex-wrap gap-1.5">
-                                <span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-lg font-medium border border-amber-200">Lompat Jauh</span>
-                                <span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-lg font-medium border border-amber-200">Lompat Tinggi</span>
-                                <span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-lg font-medium border border-amber-200">Lontar Peluru</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Syarat Penyertaan (Accordion / Expandable) -->
-                <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 transition-all duration-200" open>
-                    <summary class="p-6 cursor-pointer list-none flex items-center justify-between font-bold text-slate-900 font-heading text-base select-none hover:bg-slate-50/50 rounded-2xl transition">
-                        <span class="flex items-center gap-2">
-                            <i class="fa-solid fa-clipboard-list text-emerald-600"></i> Syarat & Kelayakan Penyertaan
-                        </span>
-                        <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center transition-transform duration-200 group-open:rotate-180 text-xs">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
-                    </summary>
-                    <div class="px-6 pb-6 pt-1 border-t border-slate-100">
-                        <ul class="space-y-2.5 text-xs text-slate-600 mt-2">
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
-                                <span><b>Had Acara:</b> Maksimum 2 acara individu & 2 acara berpasukan (Maksimum 4 acara secara keseluruhan).</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
-                                <span><b>Format No. Bib:</b> Wajib mengikut awalan pasukan (<b>H</b>elang, <b>G</b>aruda, <b>R</b>ajawali, <b>K</b>enyalang).</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
-                                <span><b>Kelayakan Tahun:</b> 80m & 4x100m Tahap 1 (T1-T3) | 100m & 200m (T4-T6) | Lompat Tinggi & Lontar Peluru (T4-T5) | Lompat Jauh (T3-T5).</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-0.5"></i>
-                                <span><b>Semakan Ralat Automatik:</b> <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span> Lampu Merah menyala jika No. Bib / Nama bertindih, acara > 4, atau acara tidak layak mengikut Tahun.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </details>
-            </div>
-
-            <!-- Charts Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Chart 1: Team Distribution -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 font-heading mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-column text-emerald-600"></i> Taburan Atlet Mengikut Pasukan
-                    </h3>
-                    <div class="h-64 relative">
-                        <canvas id="teamChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Chart 2: Gender Distribution -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 font-heading mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> Pecahan Atlet Mengikut Jantina
-                    </h3>
-                    <div class="h-64 relative flex items-center justify-center">
-                        <canvas id="genderChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Registrations Table -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-900 font-heading">Pendaftaran Terbaharu</h3>
-                        <p class="text-xs text-slate-500 mt-0.5">5 atlet terakhir yang telah didaftarkan ke dalam sistem</p>
-                    </div>
-                    <button onclick="switchTab('directory')" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
-                        Lihat Semua <i class="fa-solid fa-arrow-right"></i>
+                    <button onclick="switchTab('directory')" class="text-xs font-semibold text-blue-600 hover:underline">
+                        Lihat Semua <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
                     </button>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-600">
-                        <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500 border-b border-slate-200">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
                             <tr>
                                 <th class="py-3 px-4">Nama Atlet</th>
                                 <th class="py-3 px-4">Jantina</th>
                                 <th class="py-3 px-4">Pasukan</th>
-                                <th class="py-3 px-4">No. Bib</th>
+                                <th class="py-3 px-4">Bib</th>
                                 <th class="py-3 px-4">Tahun</th>
-                                <th class="py-3 px-4">Acara Disertai</th>
+                                <th class="py-3 px-4">Acara</th>
                                 <th class="py-3 px-4 text-center">Tindakan</th>
                             </tr>
                         </thead>
@@ -358,61 +188,34 @@
             </div>
         </section>
 
-        <!-- TAB 2: REGISTER -->
-        <section id="tab-register" class="tab-content hidden max-w-4xl mx-auto">
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-                <!-- Form Header -->
-                <div class="bg-gradient-to-r from-emerald-800 to-teal-800 p-6 sm:p-8 text-white">
-                    <h2 class="text-2xl font-bold font-heading flex items-center gap-3">
-                        <i class="fa-solid fa-user-plus text-emerald-300"></i> Borang Pendaftaran Atlet
-                    </h2>
-                    <p class="text-emerald-100 text-sm mt-1">Sila isi maklumat atlet dan pilih acara kejohanan yang ingin disertai.</p>
-                </div>
+        <!-- TAB 2: REGISTER ATHLETE -->
+        <section id="tab-register" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-xl font-bold font-heading text-slate-900 mb-1">Borang Pendaftaran Atlet</h2>
+                <p class="text-xs text-slate-500 mb-6">Sila isi maklumat atlet dan pilih acara yang ingin disertai.</p>
 
-                <!-- Form Content -->
-                <form id="athlete-form" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-8">
-                    <input type="hidden" id="athlete-id" value="">
-                    <!-- Warning Alert Banner -->
-                    <div class="p-4 bg-amber-50 border-l-4 border-amber-500 rounded-xl flex items-start gap-3 text-amber-900 text-sm">
-                        <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mt-0.5"></i>
+                <form id="athlete-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <input type="hidden" id="athlete-id">
+
+                    <!-- Basic Information -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div>
-                            <p class="font-bold">Syarat Penyertaan Acara Kejohanan:</p>
-                            <p class="mt-0.5 text-xs text-amber-800">Peserta hanya dibenarkan menyertai 2 acara individu dan 2 acara berpasukan.</p>
-                        </div>
-                    </div>
-
-                    <!-- 5 Main Inputs -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Input 1: Nama Atlet -->
-                        <div class="sm:col-span-2">
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                                1. Nama Atlet <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="text" id="input-nama" required placeholder="E.g. Muhammad Ammar Bin Razak"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nama Penuh Atlet *</label>
+                            <input type="text" id="input-nama" required placeholder="Contoh: Muhammad Adam"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                         </div>
 
-                        <!-- Input 2: Jantina -->
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                                2. Jantina <span class="text-rose-500">*</span>
-                            </label>
-                            <select id="input-jantina" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
-                                <option value="">-- Pilih Jantina --</option>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Jantina *</label>
+                            <select id="input-jantina" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                                 <option value="Lelaki">Lelaki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
 
-                        <!-- Input 3: Pasukan Dropdown -->
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                                3. Pasukan / Rumah Sukan <span class="text-rose-500">*</span>
-                            </label>
-                            <select id="input-pasukan" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
-                                <option value="">-- Pilih Pasukan --</option>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Pasukan / Rumah Sukan *</label>
+                            <select id="input-pasukan" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                                 <option value="Helang">Helang (Hijau)</option>
                                 <option value="Garuda">Garuda (Merah)</option>
                                 <option value="Rajawali">Rajawali (Biru)</option>
@@ -420,23 +223,15 @@
                             </select>
                         </div>
 
-                        <!-- Input 4: No Bib -->
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                                4. No. Bib <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="text" id="input-bib" required placeholder="E.g. H101 / G201 / R301 / K401"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm uppercase">
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nombor Bib *</label>
+                            <input type="text" id="input-bib" required placeholder="Contoh: H101"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium uppercase">
                         </div>
 
-                        <!-- Input 5: Tahun -->
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                                5. Tahun <span class="text-rose-500">*</span>
-                            </label>
-                            <select id="input-tahun" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
-                                <option value="">-- Pilih Tahun --</option>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Tahun Persekolahan *</label>
+                            <select id="input-tahun" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                                 <option value="Tahun 1">Tahun 1</option>
                                 <option value="Tahun 2">Tahun 2</option>
                                 <option value="Tahun 3">Tahun 3</option>
@@ -447,96 +242,67 @@
                         </div>
                     </div>
 
-                    <!-- Event Selection Section -->
-                    <div class="space-y-6 pt-4 border-t border-slate-200">
-                        <h3 class="text-base font-bold text-slate-900 font-heading">Pemilihan Acara Kejohanan</h3>
+                    <!-- Event Selection Checkboxes -->
+                    <div class="space-y-4 pt-2">
+                        <h3 class="text-sm font-bold font-heading text-slate-900 border-b border-slate-100 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-blue-600"></i> Pilih Acara Disertai (Maksimum 4 Acara)
+                        </h3>
 
-                        <!-- 1. Acara Balapan Individu -->
-                        <div class="bg-cyan-50/50 p-4 sm:p-5 rounded-2xl border border-cyan-200">
-                            <h4 class="text-sm font-bold text-cyan-900 font-heading flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-person-running text-cyan-600"></i> 1. Acara Balapan Individu (Track)
-                            </h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3" id="container-track-individual">
-                                <!-- JS check-boxes -->
+                        <!-- Track Individual -->
+                        <div>
+                            <p class="text-xs font-bold text-cyan-700 mb-2">Acara Balapan Individu</p>
+                            <div id="container-track-individual" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                                <!-- Generated by JS -->
                             </div>
                         </div>
 
-                        <!-- 2. Acara Balapan Pasukan -->
-                        <div class="bg-blue-50/50 p-4 sm:p-5 rounded-2xl border border-blue-200">
-                            <h4 class="text-sm font-bold text-blue-900 font-heading flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-people-group text-blue-600"></i> 2. Acara Balapan Pasukan (Track)
-                            </h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3" id="container-track-team">
-                                <!-- JS check-boxes -->
+                        <!-- Track Team -->
+                        <div>
+                            <p class="text-xs font-bold text-green-700 mb-2">Acara Balapan Berpasukan / Lari Beraganti-ganti</p>
+                            <div id="container-track-team" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                                <!-- Generated by JS -->
                             </div>
                         </div>
 
-                        <!-- 3. Acara Padang -->
-                        <div class="bg-amber-50/50 p-4 sm:p-5 rounded-2xl border border-amber-200">
-                            <h4 class="text-sm font-bold text-amber-900 font-heading flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-child-reaching text-amber-600"></i> 3. Acara Padang (Field)
-                            </h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3" id="container-field">
-                                <!-- JS check-boxes -->
+                        <!-- Field Events -->
+                        <div>
+                            <p class="text-xs font-bold text-amber-700 mb-2">Acara Padang</p>
+                            <div id="container-field" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                                <!-- Generated by JS -->
                             </div>
                         </div>
                     </div>
 
-                    <!-- Form Controls -->
-                    <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-200">
-                        <button type="button" onclick="resetForm()"
-                            class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-semibold text-sm transition">
-                            Format Semula
+                    <!-- Submit Buttons -->
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <button type="submit" class="px-5 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Pendaftaran
                         </button>
-                        <button type="submit"
-                            class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-lg shadow-emerald-600/30 transition flex items-center gap-2">
-                            <i class="fa-solid fa-save"></i> Simpan Pendaftaran
+                        <button type="button" onclick="resetForm()" class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition">
+                            Sifar Semula
                         </button>
                     </div>
                 </form>
             </div>
         </section>
 
-        <!-- TAB 3: DIRECTORY -->
-        <section id="tab-directory" class="tab-content hidden space-y-6">
-            <!-- Header & Export -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-2xl font-bold font-heading text-slate-900">Data Atlet Berdaftar</h2>
-                    <p class="text-xs text-slate-500 mt-0.5">Senarai penuh rekod pendaftaran atlet kejohanan</p>
-                </div>
-                <button onclick="exportToCSV()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow transition self-start sm:self-auto">
-                    <i class="fa-solid fa-file-csv text-emerald-400 text-sm"></i> Eksport CSV
-                </button>
-            </div>
+        <!-- TAB 3: ATHLETE DIRECTORY -->
+        <section id="tab-directory" class="tab-content hidden space-y-4">
+            <!-- Search & Filters -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full md:w-auto flex-grow">
+                    <input type="text" id="filter-search" oninput="renderAthletesTable()" placeholder="Cari nama atau No. Bib..."
+                        class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
 
-            <!-- Filters Bar -->
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Search Input -->
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input type="text" id="filter-search" oninput="renderAthletesTable()" placeholder="Cari Nama / No. Bib..."
-                        class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-xs">
-                </div>
-
-                <!-- Filter Pasukan -->
-                <div>
-                    <select id="filter-pasukan" onchange="renderAthletesTable()"
-                        class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-xs">
+                    <select id="filter-pasukan" onchange="renderAthletesTable()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Pasukan</option>
                         <option value="Helang">Helang</option>
                         <option value="Garuda">Garuda</option>
                         <option value="Rajawali">Rajawali</option>
                         <option value="Kenyalang">Kenyalang</option>
                     </select>
-                </div>
 
-                <!-- Filter Tahun -->
-                <div>
-                    <select id="filter-tahun" onchange="renderAthletesTable()"
-                        class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-xs">
+                    <select id="filter-tahun" onchange="renderAthletesTable()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Tahun</option>
                         <option value="Tahun 1">Tahun 1</option>
                         <option value="Tahun 2">Tahun 2</option>
@@ -545,30 +311,30 @@
                         <option value="Tahun 5">Tahun 5</option>
                         <option value="Tahun 6">Tahun 6</option>
                     </select>
-                </div>
 
-                <!-- Filter Acara -->
-                <div>
-                    <select id="filter-acara" onchange="renderAthletesTable()"
-                        class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-xs">
+                    <select id="filter-acara" onchange="renderAthletesTable()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Acara</option>
-                        <!-- Populated via JS -->
+                        <!-- Populated by JS -->
                     </select>
                 </div>
+
+                <button onclick="exportToCSV()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2 shrink-0 w-full md:w-auto justify-center">
+                    <i class="fa-solid fa-file-csv"></i> Eksport CSV
+                </button>
             </div>
 
-            <!-- Table Container -->
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <!-- Table -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-600">
-                        <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500 border-b border-slate-200">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
                             <tr>
                                 <th class="py-3.5 px-4">Nama Atlet</th>
                                 <th class="py-3.5 px-4">Jantina</th>
                                 <th class="py-3.5 px-4">Pasukan</th>
-                                <th class="py-3.5 px-4">No. Bib</th>
+                                <th class="py-3.5 px-4">Bib</th>
                                 <th class="py-3.5 px-4">Tahun</th>
-                                <th class="py-3.5 px-4">Acara Disertai</th>
+                                <th class="py-3.5 px-4">Acara</th>
                                 <th class="py-3.5 px-4 text-center">Tindakan</th>
                             </tr>
                         </thead>
@@ -584,7 +350,7 @@
         <section id="tab-summary" class="tab-content hidden space-y-8">
             <div>
                 <h2 class="text-2xl font-bold font-heading text-slate-900">Analisis Penyertaan</h2>
-                <p class="text-xs text-slate-500 mt-0.5">Bilangan penyertaan peserta bagi setiap acara pertandingan</p>
+                <p class="text-xs text-slate-500 mt-0.5">Bilangan penyertaan peserta bagi setiap acara pertandingan. Klik pada mana-mana acara untuk melihat senarai peserta.</p>
             </div>
 
             <!-- Track Events Breakdown -->
@@ -610,10 +376,81 @@
 
     </main>
 
+    <!-- Login Modal Pop-up -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 animate-fade-in">
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 bg-blue-950 text-amber-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg">
+                    <i class="fa-solid fa-user-lock"></i>
+                </div>
+                <h3 class="text-xl font-bold font-heading text-slate-900">Log Masuk Pengguna</h3>
+                <p class="text-xs text-slate-500 mt-1">Sila masukkan ID dan Kata Laluan anda.</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div id="login-error" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs hidden">
+                    ID atau Kata Laluan Salah!
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">ID Pengguna</label>
+                    <input type="text" id="login-userid" required placeholder="Contoh: 0000 atau helang"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Kata Laluan</label>
+                    <input type="password" id="login-password" required placeholder="••••••••"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-blue-950 hover:bg-blue-900 text-white rounded-xl text-xs font-bold shadow-lg transition">
+                    Log Masuk
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Pop-Up Senarai Peserta Acara (Analisis Penyertaan) -->
+    <div id="event-participants-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-[12px] shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 animate-fade-in flex flex-col max-h-[90vh]">
+            <!-- Header Modal -->
+            <div class="p-5 bg-gradient-to-r from-blue-900 to-slate-900 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-amber-400 text-lg">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 id="event-participants-title" class="text-lg font-bold font-heading">Senarai peserta - 80m tahun 1</h3>
+                        <p id="event-participants-count" class="text-blue-200 text-xs mt-0.5">Jumlah: 0 Peserta</p>
+                    </div>
+                </div>
+                <button onclick="closeEventParticipantsModal()" class="text-white/80 hover:text-white text-xl transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Body / Senarai Kad Kecil Atlet -->
+            <div class="p-5 overflow-y-auto space-y-3 flex-grow bg-slate-50/50" id="event-participants-list">
+                <!-- Populated via JS -->
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between shrink-0">
+                <button onclick="closeEventParticipantsModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition">
+                    <i class="fa-solid fa-xmark"></i> Tutup
+                </button>
+                <button id="btn-print-event-list" onclick="" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-md transition">
+                    <i class="fa-solid fa-print"></i> Cetak Senarai
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Athlete Detail View Modal -->
     <div id="detail-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100">
-            <div id="detail-header" class="p-6 text-white bg-emerald-800">
+        <div class="bg-white rounded-[12px] shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 animate-fade-in">
+            <div id="detail-header" class="p-6 text-white bg-blue-950">
                 <div class="flex items-center justify-between">
                     <span id="detail-pasukan-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-white/20">
                         Pasukan
@@ -623,7 +460,7 @@
                     </button>
                 </div>
                 <h3 id="detail-nama" class="text-xl font-bold font-heading mt-3">Nama Atlet</h3>
-                <p id="detail-bib" class="text-emerald-100 text-xs font-mono mt-0.5">Bib: -</p>
+                <p id="detail-bib" class="text-blue-100 text-xs font-mono mt-0.5">Bib: -</p>
             </div>
 
             <div class="p-6 space-y-4 text-sm">
@@ -646,9 +483,56 @@
                 </div>
             </div>
 
-            <div class="p-4 bg-slate-50 border-t border-slate-100 text-right">
-                <button onclick="closeDetailModal()" class="px-5 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold">
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                    <button id="detail-action-edit" onclick="" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-pen-to-square"></i> ✏️ Edit
+                    </button>
+                    <button id="detail-action-delete" onclick="" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-trash"></i> 🗑️ Padam
+                    </button>
+                </div>
+                <button onclick="closeDetailModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition">
                     Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pop-Up Ralat Pendaftaran Atlet -->
+    <div id="error-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-rose-100 animate-fade-in">
+            <div class="p-6 text-white bg-rose-600 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white text-lg">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold font-heading">Senarai Ralat Pendaftaran</h3>
+                        <p id="error-modal-subtitle" class="text-rose-100 text-xs">Atlet</p>
+                    </div>
+                </div>
+                <button onclick="closeErrorModal()" class="text-white/80 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4 text-sm">
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs">
+                    <i class="fa-solid fa-circle-info mr-1"></i>
+                    Sila semak dan kemas kini maklumat atlet untuk menyelesaikan isu berikut:
+                </div>
+                <ul id="error-modal-list" class="space-y-2 text-xs text-rose-700">
+                    <!-- Populated via JS -->
+                </ul>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                <button onclick="closeErrorModal()" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold">
+                    Tutup
+                </button>
+                <button id="error-modal-edit-btn" onclick="" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-pen-to-square"></i> Kemas Kini Atlet
                 </button>
             </div>
         </div>
@@ -656,10 +540,10 @@
 
     <!-- Admin Closing Date Settings Modal -->
     <div id="admin-date-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100 animate-fade-in">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
                 <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
-                    <i class="fa-solid fa-calendar-gear text-amber-500"></i> Tetapan Tarikh & Masa Tutup
+                    <i class="fa-solid fa-calendar-gear text-amber-500"></i> Tetapan Tutup Pendaftaran
                 </h3>
                 <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 text-lg">
                     <i class="fa-solid fa-xmark"></i>
@@ -670,17 +554,17 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                            Pilih Tarikh Tutup
+                            Pilih Tarikh
                         </label>
                         <input type="date" id="admin-date-input" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-sm">
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                            Pilih Masa Tutup
+                            Pilih Masa
                         </label>
                         <input type="time" id="admin-time-input" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-sm">
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
                     </div>
                 </div>
 
@@ -701,7 +585,7 @@
                             Batal
                         </button>
                         <button type="submit"
-                            class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                            class="px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
                             <i class="fa-solid fa-floppy-disk"></i> Simpan
                         </button>
                     </div>
@@ -710,18 +594,26 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-xl"></i>
+        <span id="toast-message" class="text-xs font-medium">Mesej pemberitahuan.</span>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-emerald-800 text-emerald-100 py-6 border-t border-emerald-700/60 mt-auto">
+    <footer class="bg-blue-950 text-blue-100 py-6 border-t border-blue-900 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs">
-            <p class="font-medium"> Sistem Pendaftaran Kejohanan Olahraga</p>
-            <p class="text-emerald-300 mt-1">Hak Cipta Terpelihara © 2026 eL_mioZ Organiser Team </p>
+            <p class="font-medium">Sistem Pendaftaran Athletix V 1.0.0</p>
+            <p class="text-sky-300 mt-1">Hak Cipta Terpelihara © 2026 eL_mioZ Organiser Team</p>
         </div>
     </footer>
 
     <script>
         // Data Definitions
         const TRACK_INDIVIDUAL = [
-            "80m", "100m", "200m", "80m Lari Berpagar"
+            "80m Tahun 1", "80m Tahun 2", "80m Tahun 3",
+            "100m Tahun 4", "100m Tahun 5", "100m Tahun 6",
+            "200m Tahun 4", "200m Tahun 5"
         ];
 
         const TRACK_TEAM = [
@@ -733,11 +625,11 @@
         ];
 
         const USER_ACCOUNTS = {
-            "0000": { name: "Admin", role: "admin", team: null, pass: "0000" },
-            "helang": { name: "Admin Helang", role: "manager", team: "Helang", pass: "admin@helang" },
-            "garuda": { name: "Admin Garuda", role: "manager", team: "Garuda", pass: "admin@garuda" },
-            "rajawali": { name: "Admin Rajawali", role: "manager", team: "Rajawali", pass: "admin@rajawali" },
-            "kenyalang": { name: "Admin Kenyalang", role: "manager", team: "Kenyalang", pass: "admin@kenyalang" }
+            "0000": { name: "Admin Utama", role: "admin", team: null, pass: "0000" },
+            "helang": { name: "Admin Helang", role: "manager", team: "Helang", pass: "0000" },
+            "garuda": { name: "Admin Garuda", role: "manager", team: "Garuda", pass: "0000" },
+            "rajawali": { name: "Admin Rajawali", role: "manager", team: "Rajawali", pass: "0000" },
+            "kenyalang": { name: "Admin Kenyalang", role: "manager", team: "Kenyalang", pass: "0000" }
         };
 
         const TEAM_COLORS = {
@@ -750,10 +642,7 @@
         // State Variables
         let athletes = [];
         let currentUser = null;
-        let teamChartInstance = null;
-        let genderChartInstance = null;
 
-        // Closing Date & Time Management Functions
         function getClosingDate() {
             return localStorage.getItem('skbk_closing_date') || '2026-08-15';
         }
@@ -797,19 +686,23 @@
         }
 
         function openAdminModal() {
-            document.getElementById('admin-date-input').value = getClosingDate() || '';
-            document.getElementById('admin-time-input').value = getClosingTime() || '23:59';
-            document.getElementById('admin-date-modal').classList.remove('hidden');
+            const dateInput = document.getElementById('admin-date-input');
+            const timeInput = document.getElementById('admin-time-input');
+            const modal = document.getElementById('admin-date-modal');
+            if (dateInput) dateInput.value = getClosingDate() || '';
+            if (timeInput) timeInput.value = getClosingTime() || '23:59';
+            if (modal) modal.classList.remove('hidden');
         }
 
         function closeAdminModal() {
-            document.getElementById('admin-date-modal').classList.add('hidden');
+            const modal = document.getElementById('admin-date-modal');
+            if (modal) modal.classList.add('hidden');
         }
 
         function handleSaveClosingDate(e) {
             e.preventDefault();
-            const newDate = document.getElementById('admin-date-input').value;
-            const newTime = document.getElementById('admin-time-input').value;
+            const newDate = document.getElementById('admin-date-input')?.value;
+            const newTime = document.getElementById('admin-time-input')?.value;
             setClosingDateTime(newDate, newTime);
             closeAdminModal();
             renderDashboard();
@@ -823,59 +716,6 @@
             showToast("Tarikh dan masa tutup pendaftaran telah dipadam.");
         }
 
-        function setClosingDate(dateStr) {
-            if (dateStr) {
-                localStorage.setItem('skbk_closing_date', dateStr);
-            } else {
-                localStorage.removeItem('skbk_closing_date');
-            }
-        }
-
-        function isPastClosingDate() {
-            const closing = getClosingDate();
-            if (!closing) return false;
-            
-            const today = new Date();
-            const todayStr = today.toISOString().split('T')[0];
-            return todayStr > closing;
-        }
-
-        function getFormattedClosingDate() {
-            const closing = getClosingDate();
-            if (!closing) return "Tiada Had Tarikh";
-            const parts = closing.split('-');
-            if (parts.length !== 3) return closing;
-            
-            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-            return dateObj.toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric' });
-        }
-
-        function openAdminModal() {
-            document.getElementById('admin-date-input').value = getClosingDate() || '';
-            document.getElementById('admin-date-modal').classList.remove('hidden');
-        }
-
-        function closeAdminModal() {
-            document.getElementById('admin-date-modal').classList.add('hidden');
-        }
-
-        function handleSaveClosingDate(e) {
-            e.preventDefault();
-            const newDate = document.getElementById('admin-date-input').value;
-            setClosingDate(newDate);
-            closeAdminModal();
-            renderDashboard();
-            showToast("Tarikh tutup pendaftaran berjaya dikemas kini!");
-        }
-
-        function handleDeleteClosingDate() {
-            setClosingDate(null);
-            closeAdminModal();
-            renderDashboard();
-            showToast("Tarikh tutup pendaftaran telah dipadam.");
-        }
-
-        // Load & Save Data
         function loadAthletesData() {
             const stored = localStorage.getItem('skbk_athletes_data');
             if (stored) {
@@ -896,60 +736,68 @@
 
         function getSampleData() {
             return [
-                { id: "1", nama: "Muhammad Adam", jantina: "Lelaki", pasukan: "Helang", bib: "H101", tahun: "Tahun 5", acara: ["100m", "4x100m Tahun 5", "Lompat Jauh"] },
-                { id: "2", nama: "Nur Aisyah", jantina: "Perempuan", pasukan: "Garuda", bib: "G201", tahun: "Tahun 4", acara: ["80m", "4x100m Tahun 4"] },
-                { id: "3", nama: "Amirul Haziq", jantina: "Lelaki", pasukan: "Rajawali", bib: "R301", tahun: "Tahun 6", acara: ["200m", "4x200m Tahun 5", "Lompat Tinggi"] },
-                { id: "4", nama: "Siti Sarah", jantina: "Perempuan", pasukan: "Kenyalang", bib: "K401", tahun: "Tahun 5", acara: ["80m Lari Berpagar", "Lontar Peluru"] }
+                { id: "1", nama: "Muhammad Adam", jantina: "Lelaki", pasukan: "Helang", bib: "H101", tahun: "Tahun 5", acara: ["100m Tahun 5", "4x100m Tahun 5", "Lompat Jauh"] },
+                { id: "2", nama: "Nur Aisyah", jantina: "Perempuan", pasukan: "Garuda", bib: "G201", tahun: "Tahun 4", acara: ["100m Tahun 4", "4x100m Tahun 4"] },
+                { id: "3", nama: "Amirul Haziq", jantina: "Lelaki", pasukan: "Rajawali", bib: "R301", tahun: "Tahun 6", acara: ["100m Tahun 6", "4x200m Tahun 5", "Lompat Tinggi"] },
+                { id: "4", nama: "Siti Sarah", jantina: "Perempuan", pasukan: "Kenyalang", bib: "K401", tahun: "Tahun 5", acara: ["100m Tahun 5", "Lontar Peluru"] }
             ];
         }
 
-        // Authentication Handling
         function checkAuth() {
             const savedUser = sessionStorage.getItem('skbk_auth_user');
+            const loginModal = document.getElementById('login-modal');
             if (savedUser && USER_ACCOUNTS[savedUser]) {
                 currentUser = USER_ACCOUNTS[savedUser];
-                document.getElementById('login-modal').classList.add('hidden');
+                if (loginModal) loginModal.classList.add('hidden');
                 updateUserUI();
             } else {
-                document.getElementById('login-modal').classList.remove('hidden');
+                if (loginModal) loginModal.classList.remove('hidden');
             }
         }
 
         function handleLogin(e) {
             e.preventDefault();
-            const uid = document.getElementById('login-userid').value.trim().toLowerCase();
-            const pass = document.getElementById('login-password').value.trim();
+            const uid = document.getElementById('login-userid')?.value.trim().toLowerCase();
+            const pass = document.getElementById('login-password')?.value.trim();
             const errDiv = document.getElementById('login-error');
 
             if (USER_ACCOUNTS[uid] && USER_ACCOUNTS[uid].pass === pass) {
                 const user = USER_ACCOUNTS[uid];
 
-                // Semakan kunci log masuk selepas tarikh tutup
                 if (user.role !== 'admin' && isPastClosingDate()) {
-                    errDiv.textContent = `Pendaftaran telah ditutup pada ${getFormattedClosingDate()}. Sila hubungi Admin Utama untuk sebarang bantuan.`;
-                    errDiv.classList.remove('hidden');
+                    if (errDiv) {
+                        errDiv.textContent = `Pendaftaran telah ditutup pada ${getFormattedClosingDate()}. Sila hubungi Admin Utama untuk sebarang bantuan.`;
+                        errDiv.classList.remove('hidden');
+                    }
                     return;
                 }
 
                 currentUser = user;
                 sessionStorage.setItem('skbk_auth_user', uid);
-                errDiv.classList.add('hidden');
-                document.getElementById('login-modal').classList.add('hidden');
+                if (errDiv) errDiv.classList.add('hidden');
+                const loginModal = document.getElementById('login-modal');
+                if (loginModal) loginModal.classList.add('hidden');
                 updateUserUI();
                 renderAll();
                 showToast(`Selamat datang, ${currentUser.name}!`);
             } else {
-                errDiv.textContent = "ID Pengguna atau Kata Laluan tidak sah!";
-                errDiv.classList.remove('hidden');
+                if (errDiv) {
+                    errDiv.textContent = "ID Pengguna atau Kata Laluan tidak sah!";
+                    errDiv.classList.remove('hidden');
+                }
             }
         }
 
         function handleLogout() {
             sessionStorage.removeItem('skbk_auth_user');
             currentUser = null;
-            document.getElementById('login-userid').value = '';
-            document.getElementById('login-password').value = '';
-            document.getElementById('login-modal').classList.remove('hidden');
+            const uidInput = document.getElementById('login-userid');
+            const passInput = document.getElementById('login-password');
+            const loginModal = document.getElementById('login-modal');
+
+            if (uidInput) uidInput.value = '';
+            if (passInput) passInput.value = '';
+            if (loginModal) loginModal.classList.remove('hidden');
         }
 
         function updateUserUI() {
@@ -958,10 +806,6 @@
             const badge = document.getElementById('current-user-badge');
             if (badge) badge.textContent = currentUser.name;
 
-            const mobileBadge = document.getElementById('mobile-current-user-badge');
-            if (mobileBadge) mobileBadge.textContent = currentUser.name;
-
-            // Tentukan paparan butang Urus Tarikh Khas Admin Utama
             const adminBtn = document.getElementById('nav-admin');
             const mobileAdminBtn = document.getElementById('mobile-nav-admin');
             
@@ -973,39 +817,35 @@
                 if (mobileAdminBtn) mobileAdminBtn.classList.add('hidden');
             }
 
-            // Lock Team dropdown if team manager
             const pasSelect = document.getElementById('input-pasukan');
             const pasFilter = document.getElementById('filter-pasukan');
 
             if (currentUser.team) {
-                pasSelect.value = currentUser.team;
-                pasSelect.disabled = true;
-
-                pasFilter.value = currentUser.team;
-                pasFilter.disabled = true;
+                if (pasSelect) { pasSelect.value = currentUser.team; pasSelect.disabled = true; }
+                if (pasFilter) { pasFilter.value = currentUser.team; pasFilter.disabled = true; }
             } else {
-                pasSelect.disabled = false;
-                pasFilter.disabled = false;
+                if (pasSelect) pasSelect.disabled = false;
+                if (pasFilter) pasFilter.disabled = false;
             }
         }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) targetTab.classList.remove('hidden');
 
-            // Highlight nav
             ['dashboard', 'register', 'directory', 'summary'].forEach(id => {
                 const btn = document.getElementById(`nav-${id}`);
                 const mBtn = document.getElementById(`mobile-nav-${id}`);
 
                 if (id === tabId) {
-                    btn?.classList.add('bg-emerald-700', 'text-white', 'shadow-sm');
-                    mBtn?.classList.add('bg-emerald-700', 'text-white', 'font-bold', 'shadow-sm');
-                    mBtn?.classList.remove('text-emerald-100');
+                    btn?.classList.add('bg-blue-900', 'text-white', 'shadow-sm');
+                    mBtn?.classList.add('bg-blue-900', 'text-white', 'font-bold', 'shadow-sm');
+                    mBtn?.classList.remove('text-blue-100');
                 } else {
-                    btn?.classList.remove('bg-emerald-700', 'text-white', 'shadow-sm');
-                    mBtn?.classList.remove('bg-emerald-700', 'text-white', 'font-bold', 'shadow-sm');
-                    mBtn?.classList.add('text-emerald-100');
+                    btn?.classList.remove('bg-blue-900', 'text-white', 'shadow-sm');
+                    mBtn?.classList.remove('bg-blue-900', 'text-white', 'font-bold', 'shadow-sm');
+                    mBtn?.classList.add('text-blue-100');
                 }
             });
 
@@ -1014,52 +854,57 @@
             if (tabId === 'summary') renderEventBreakdown();
         }
 
-        // Initialize Checkboxes
         function initEventCheckboxes() {
             const trackIndCont = document.getElementById('container-track-individual');
             const trackTeamCont = document.getElementById('container-track-team');
             const fieldCont = document.getElementById('container-field');
 
-            trackIndCont.innerHTML = TRACK_INDIVIDUAL.map(ev => `
-                <label class="flex items-center gap-2.5 p-3 sm:p-2.5 bg-white rounded-xl border border-cyan-200 hover:border-cyan-400 active:bg-cyan-50 cursor-pointer text-xs font-semibold text-slate-700 shadow-sm touch-manipulation">
-                    <input type="checkbox" name="acara" value="${ev}" class="w-4 h-4 text-cyan-600 rounded focus:ring-cyan-500 cursor-pointer">
-                    <span>${ev}</span>
-                </label>
-            `).join('');
+            if (trackIndCont) {
+                trackIndCont.innerHTML = TRACK_INDIVIDUAL.map(ev => `
+                    <label class="flex items-center gap-2.5 p-3 sm:p-2.5 bg-white rounded-xl border border-cyan-200 hover:border-cyan-400 active:bg-cyan-50 cursor-pointer text-xs font-semibold text-slate-700 shadow-sm touch-manipulation">
+                        <input type="checkbox" name="acara" value="${ev}" class="w-4 h-4 text-cyan-600 rounded focus:ring-cyan-500 cursor-pointer">
+                        <span>${ev}</span>
+                    </label>
+                `).join('');
+            }
 
-            trackTeamCont.innerHTML = TRACK_TEAM.map(ev => `
-                <label class="flex items-center gap-2.5 p-3 sm:p-2.5 bg-white rounded-xl border border-blue-200 hover:border-blue-400 active:bg-blue-50 cursor-pointer text-xs font-semibold text-slate-700 shadow-sm touch-manipulation">
-                    <input type="checkbox" name="acara" value="${ev}" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
-                    <span>${ev}</span>
-                </label>
-            `).join('');
+            if (trackTeamCont) {
+                trackTeamCont.innerHTML = TRACK_TEAM.map(ev => `
+                    <label class="flex items-center gap-2.5 p-3 sm:p-2.5 bg-white rounded-xl border border-green-200 hover:border-blue-400 active:bg-blue-50 cursor-pointer text-xs font-semibold text-slate-700 shadow-sm touch-manipulation">
+                        <input type="checkbox" name="acara" value="${ev}" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
+                        <span>${ev}</span>
+                    </label>
+                `).join('');
+            }
 
-            fieldCont.innerHTML = FIELD_EVENTS.map(ev => `
-                <label class="flex items-center gap-2.5 p-3 sm:p-2.5 bg-white rounded-xl border border-amber-200 hover:border-amber-400 active:bg-amber-50 cursor-pointer text-xs font-semibold text-slate-700 shadow-sm touch-manipulation">
-                    <input type="checkbox" name="acara" value="${ev}" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
-                    <span>${ev}</span>
-                </label>
-            `).join('');
+            if (fieldCont) {
+                fieldCont.innerHTML = FIELD_EVENTS.map(ev => `
+                    <label class="flex items-center gap-2.5 p-3 sm:p-2.5 bg-white rounded-xl border border-amber-200 hover:border-amber-400 active:bg-amber-50 cursor-pointer text-xs font-semibold text-slate-700 shadow-sm touch-manipulation">
+                        <input type="checkbox" name="acara" value="${ev}" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer">
+                        <span>${ev}</span>
+                    </label>
+                `).join('');
+            }
 
-            // Populate Filter Acara Dropdown
             const filterAcara = document.getElementById('filter-acara');
-            const allEvents = [...TRACK_INDIVIDUAL, ...TRACK_TEAM, ...FIELD_EVENTS];
-            filterAcara.innerHTML = `<option value="">Semua Acara</option>` + allEvents.map(e => `<option value="${e}">${e}</option>`).join('');
+            if (filterAcara) {
+                const allEvents = [...TRACK_INDIVIDUAL, ...TRACK_TEAM, ...FIELD_EVENTS];
+                filterAcara.innerHTML = `<option value="">Semua Acara</option>` + allEvents.map(e => `<option value="${e}">${e}</option>`).join('');
+            }
         }
 
         function handleFormSubmit(e) {
             e.preventDefault();
 
-            const athleteId = document.getElementById('athlete-id').value;
-            const nama = document.getElementById('input-nama').value.trim();
-            const jantina = document.getElementById('input-jantina').value;
-            const pasukan = document.getElementById('input-pasukan').value;
-            const bib = document.getElementById('input-bib').value.trim().toUpperCase();
-            const tahun = document.getElementById('input-tahun').value;
+            const athleteId = document.getElementById('athlete-id')?.value;
+            const nama = document.getElementById('input-nama')?.value.trim();
+            const jantina = document.getElementById('input-jantina')?.value;
+            const pasukan = document.getElementById('input-pasukan')?.value;
+            const bib = document.getElementById('input-bib')?.value.trim().toUpperCase();
+            const tahun = document.getElementById('input-tahun')?.value;
 
             const selectedEvents = Array.from(document.querySelectorAll('input[name="acara"]:checked')).map(cb => cb.value);
 
-            // Semakan awalan huruf No. Bib mengikut Pasukan
             const TEAM_PREFIXES = { "Helang": "H", "Garuda": "G", "Rajawali": "R", "Kenyalang": "K" };
             if (pasukan && TEAM_PREFIXES[pasukan]) {
                 const reqPrefix = TEAM_PREFIXES[pasukan];
@@ -1075,14 +920,12 @@
             }
 
             if (athleteId) {
-                // Update
                 const idx = athletes.findIndex(a => a.id === athleteId);
                 if (idx !== -1) {
                     athletes[idx] = { id: athleteId, nama, jantina, pasukan, bib, tahun, acara: selectedEvents };
                     showToast("Rekod atlet berjaya dikemas kini!");
                 }
             } else {
-                // Create
                 const newObj = {
                     id: Date.now().toString(),
                     nama, jantina, pasukan, bib, tahun, acara: selectedEvents
@@ -1100,14 +943,20 @@
             const ath = athletes.find(a => a.id === id);
             if (!ath) return;
 
-            document.getElementById('athlete-id').value = ath.id;
-            document.getElementById('input-nama').value = ath.nama;
-            document.getElementById('input-jantina').value = ath.jantina;
-            document.getElementById('input-pasukan').value = ath.pasukan;
-            document.getElementById('input-bib').value = ath.bib;
-            document.getElementById('input-tahun').value = ath.tahun;
+            const idInput = document.getElementById('athlete-id');
+            const namaInput = document.getElementById('input-nama');
+            const jantinaInput = document.getElementById('input-jantina');
+            const pasukanInput = document.getElementById('input-pasukan');
+            const bibInput = document.getElementById('input-bib');
+            const tahunInput = document.getElementById('input-tahun');
 
-            // Check checkboxes
+            if (idInput) idInput.value = ath.id;
+            if (namaInput) namaInput.value = ath.nama;
+            if (jantinaInput) jantinaInput.value = ath.jantina;
+            if (pasukanInput) pasukanInput.value = ath.pasukan;
+            if (bibInput) bibInput.value = ath.bib;
+            if (tahunInput) tahunInput.value = ath.tahun;
+
             document.querySelectorAll('input[name="acara"]').forEach(cb => {
                 cb.checked = ath.acara.includes(cb.value);
             });
@@ -1124,15 +973,16 @@
         }
 
         function resetForm() {
-            document.getElementById('athlete-id').value = '';
-            document.getElementById('athlete-form').reset();
+            const idInput = document.getElementById('athlete-id');
+            const form = document.getElementById('athlete-form');
+            if (idInput) idInput.value = '';
+            if (form) form.reset();
             updateUserUI();
         }
 
         function getAthleteErrorStatus(athlete) {
             let reasons = [];
             
-            // Check bib prefix according to team
             const TEAM_PREFIXES = { "Helang": "H", "Garuda": "G", "Rajawali": "R", "Kenyalang": "K" };
             if (athlete.pasukan && TEAM_PREFIXES[athlete.pasukan]) {
                 const reqPrefix = TEAM_PREFIXES[athlete.pasukan];
@@ -1141,24 +991,25 @@
                 }
             }
 
-            // Check bib duplicate
             const isBibDuplicate = athletes.filter(a => a.bib.toUpperCase() === athlete.bib.toUpperCase()).length > 1;
             if (isBibDuplicate) reasons.push("No. Bib Pertindihan / Duplikasi");
 
-            // Check nama duplicate
             const isNamaDuplicate = athletes.filter(a => a.nama.trim().toLowerCase() === athlete.nama.trim().toLowerCase()).length > 1;
             if (isNamaDuplicate) reasons.push("Nama Atlet Pertindihan / Duplikasi");
             
-            // Check event count > 4
             const isOverEvents = athlete.acara.length > 4;
             if (isOverEvents) reasons.push("Penyertaan melebihi 4 acara");
 
-            // Check event eligibility based on year
             const EVENT_ELIGIBILITY = {
-                "80m": ["Tahun 1", "Tahun 2", "Tahun 3"],
+                "80m Tahun 1": ["Tahun 1"],
+                "80m Tahun 2": ["Tahun 2"],
+                "80m Tahun 3": ["Tahun 3"],
+                "100m Tahun 4": ["Tahun 4"],
+                "100m Tahun 5": ["Tahun 5"],
+                "100m Tahun 6": ["Tahun 6"],
+                "200m Tahun 4": ["Tahun 4"],
+                "200m Tahun 5": ["Tahun 5"],
                 "4x100m Tahap 1": ["Tahun 1", "Tahun 2", "Tahun 3"],
-                "100m": ["Tahun 4", "Tahun 5", "Tahun 6"],
-                "200m": ["Tahun 4", "Tahun 5", "Tahun 6"],
                 "4x100m Tahun 4": ["Tahun 4"],
                 "4x200m Tahun 4": ["Tahun 4"],
                 "4x100m Tahun 5": ["Tahun 5"],
@@ -1200,13 +1051,11 @@
                 statEvents.textContent = totalEventsCount;
             }
 
-            // Recent table (last 5)
             const recentBody = document.getElementById('recent-table-body');
-            const recentAthletes = [...filtered].slice(0, 5);
-
-            recentBody.innerHTML = recentAthletes.map(ath => createTableRowHtml(ath)).join('');
-
-            renderCharts();
+            if (recentBody) {
+                const recentAthletes = [...filtered].slice(0, 5);
+                recentBody.innerHTML = recentAthletes.map(ath => createTableRowHtml(ath)).join('');
+            }
         }
 
         function createTableRowHtml(ath) {
@@ -1218,13 +1067,13 @@
                 if (FIELD_EVENTS.includes(ev)) {
                     cls = 'bg-amber-100 text-amber-800 border-amber-200';
                 } else if (TRACK_TEAM.includes(ev)) {
-                    cls = 'bg-blue-600 text-white border-blue-700 shadow-sm';
+                    cls = 'bg-green-100 text-green-800 border-green-200';
                 }
                 return `<span class="px-2 py-0.5 rounded-md text-[10px] font-semibold border ${cls}">${ev}</span>`;
             }).join(' ');
 
             const lightHtml = errorStatus.hasError ? 
-                `<span title="Ralat: ${errorStatus.reason}" class="w-3.5 h-3.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50 animate-pulse-fast inline-block"></span>` :
+                `<button type="button" onclick="showAthleteErrors('${ath.id}')" title="Klik untuk lihat ralat: ${errorStatus.reason}" class="w-3.5 h-3.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50 animate-pulse-fast inline-block cursor-pointer hover:scale-125 transition-transform" aria-label="Lihat Ralat"></button>` :
                 `<span title="Status Sah" class="w-3.5 h-3.5 rounded-full bg-emerald-500 inline-block"></span>`;
 
             return `
@@ -1242,7 +1091,7 @@
                     <td class="py-3 px-4 text-center">
                         <div class="flex items-center justify-center gap-2">
                             ${lightHtml}
-                            <button onclick="viewAthleteDetails('${ath.id}')" title="Lihat Butiran" class="p-1.5 text-slate-500 hover:text-emerald-600 transition">
+                            <button onclick="viewAthleteDetails('${ath.id}')" title="Lihat Butiran" class="p-1.5 text-slate-500 hover:text-blue-800 transition">
                                 <i class="fa-solid fa-eye text-sm"></i>
                             </button>
                             <button onclick="editAthlete('${ath.id}')" title="Kemas Kini" class="p-1.5 text-slate-500 hover:text-blue-600 transition">
@@ -1258,10 +1107,15 @@
         }
 
         function renderAthletesTable() {
-            const search = document.getElementById('filter-search').value.toLowerCase();
-            const pasukan = document.getElementById('filter-pasukan').value;
-            const tahun = document.getElementById('filter-tahun').value;
-            const acara = document.getElementById('filter-acara').value;
+            const searchInput = document.getElementById('filter-search');
+            const pasukanInput = document.getElementById('filter-pasukan');
+            const tahunInput = document.getElementById('filter-tahun');
+            const acaraInput = document.getElementById('filter-acara');
+
+            const search = searchInput ? searchInput.value.toLowerCase() : '';
+            const pasukan = pasukanInput ? pasukanInput.value : '';
+            const tahun = tahunInput ? tahunInput.value : '';
+            const acara = acaraInput ? acaraInput.value : '';
 
             let filtered = athletes;
 
@@ -1281,60 +1135,13 @@
             }
 
             const dirBody = document.getElementById('directory-table-body');
-            if (filtered.length === 0) {
-                dirBody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400 text-sm">Tiada rekod atlet dijumpai.</td></tr>`;
-            } else {
-                dirBody.innerHTML = filtered.map(ath => createTableRowHtml(ath)).join('');
+            if (dirBody) {
+                if (filtered.length === 0) {
+                    dirBody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400 text-sm">Tiada rekod atlet dijumpai.</td></tr>`;
+                } else {
+                    dirBody.innerHTML = filtered.map(ath => createTableRowHtml(ath)).join('');
+                }
             }
-        }
-
-        function renderCharts() {
-            const teamCounts = { "Helang": 0, "Garuda": 0, "Rajawali": 0, "Kenyalang": 0 };
-            const genderCounts = { "Lelaki": 0, "Perempuan": 0 };
-
-            athletes.forEach(a => {
-                if (teamCounts[a.pasukan] !== undefined) teamCounts[a.pasukan]++;
-                if (genderCounts[a.jantina] !== undefined) genderCounts[a.jantina]++;
-            });
-
-            // Team Chart
-            const ctxTeam = document.getElementById('teamChart').getContext('2d');
-            if (teamChartInstance) teamChartInstance.destroy();
-            teamChartInstance = new Chart(ctxTeam, {
-                type: 'bar',
-                data: {
-                    labels: ['Helang', 'Garuda', 'Rajawali', 'Kenyalang'],
-                    datasets: [{
-                        label: 'Bilangan Atlet',
-                        data: [teamCounts.Helang, teamCounts.Garuda, teamCounts.Rajawali, teamCounts.Kenyalang],
-                        backgroundColor: [TEAM_COLORS.Helang.hex, TEAM_COLORS.Garuda.hex, TEAM_COLORS.Rajawali.hex, TEAM_COLORS.Kenyalang.hex],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Gender Chart
-            const ctxGender = document.getElementById('genderChart').getContext('2d');
-            if (genderChartInstance) genderChartInstance.destroy();
-            genderChartInstance = new Chart(ctxGender, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Lelaki', 'Perempuan'],
-                    datasets: [{
-                        data: [genderCounts.Lelaki, genderCounts.Perempuan],
-                        backgroundColor: ['#0284c7', '#ec4899']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
         }
 
         function renderEventBreakdown() {
@@ -1344,57 +1151,255 @@
 
             const filtered = currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
 
-            trackGrid.innerHTML = allTrack.map(ev => {
-                const count = filtered.filter(a => a.acara.includes(ev)).length;
-                return `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">${ev}</h4>
-                            <p class="text-xs text-slate-400 mt-0.5">Balapan</p>
+            if (trackGrid) {
+                trackGrid.innerHTML = allTrack.map(ev => {
+                    const count = filtered.filter(a => a.acara.includes(ev)).length;
+                    return `
+                        <div onclick="openEventParticipantsModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-400 hover:shadow-md active:scale-[0.98] transition">
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">${ev} <i class="fa-solid fa-circle-info text-blue-500 text-xs"></i></h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Balapan</p>
+                            </div>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-800 font-extrabold text-sm rounded-xl">${count} Peserta</span>
                         </div>
-                        <span class="px-3 py-1 bg-cyan-100 text-cyan-800 font-extrabold text-sm rounded-xl">${count} Peserta</span>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            }
 
-            fieldGrid.innerHTML = FIELD_EVENTS.map(ev => {
-                const count = filtered.filter(a => a.acara.includes(ev)).length;
-                return `
-                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">${ev}</h4>
-                            <p class="text-xs text-slate-400 mt-0.5">Padang</p>
+            if (fieldGrid) {
+                fieldGrid.innerHTML = FIELD_EVENTS.map(ev => {
+                    const count = filtered.filter(a => a.acara.includes(ev)).length;
+                    return `
+                        <div onclick="openEventParticipantsModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-400 hover:shadow-md active:scale-[0.98] transition">
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">${ev} <i class="fa-solid fa-circle-info text-amber-500 text-xs"></i></h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Padang</p>
+                            </div>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-sm rounded-xl">${count} Peserta</span>
                         </div>
-                        <span class="px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-sm rounded-xl">${count} Peserta</span>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            }
+        }
+
+        function openEventParticipantsModal(eventName) {
+            const modal = document.getElementById('event-participants-modal');
+            const titleEl = document.getElementById('event-participants-title');
+            const countEl = document.getElementById('event-participants-count');
+            const listEl = document.getElementById('event-participants-list');
+            const printBtn = document.getElementById('btn-print-event-list');
+
+            if (titleEl) titleEl.textContent = `Senarai peserta - ${eventName}`;
+
+            const filteredAthletes = (currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
+                .filter(a => a.acara.includes(eventName));
+
+            if (countEl) countEl.textContent = `Jumlah: ${filteredAthletes.length} Peserta`;
+
+            if (listEl) {
+                if (filteredAthletes.length === 0) {
+                    listEl.innerHTML = `
+                        <div class="py-12 text-center text-slate-400 text-sm">
+                            <i class="fa-solid fa-users-slash text-3xl mb-2 text-slate-300 block"></i>
+                            Tiada peserta mendaftar untuk acara ini lagi.
+                        </div>
+                    `;
+                } else {
+                    listEl.innerHTML = filteredAthletes.map(ath => {
+                        const teamInfo = TEAM_COLORS[ath.pasukan] || { bg: "bg-slate-100", text: "text-slate-800", border: "border-slate-300" };
+                        return `
+                            <div onclick="viewAthleteDetails('${ath.id}')" class="bg-white p-3.5 rounded-xl border border-slate-200 hover:border-blue-400 shadow-sm transition flex items-center justify-between group cursor-pointer">
+                                <div class="space-y-1">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <span class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition">${ath.nama}</span>
+                                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${teamInfo.bg} ${teamInfo.text} ${teamInfo.border}">
+                                            ${ath.pasukan}
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-xs text-slate-500">
+                                        <span><i class="fa-solid fa-venus-mars text-slate-400 mr-1"></i>${ath.jantina}</span>
+                                        <span><i class="fa-solid fa-graduation-cap text-slate-400 mr-1"></i>${ath.tahun}</span>
+                                        <span><i class="fa-solid fa-id-badge text-slate-400 mr-1"></i>Bib: <strong class="text-slate-700 font-mono">${ath.bib || '-'}</strong></span>
+                                    </div>
+                                </div>
+                                <button onclick="event.stopPropagation(); viewAthleteDetails('${ath.id}')" title="Lihat Maklumat Atlet" class="w-9 h-9 bg-slate-100 hover:bg-blue-100 text-slate-600 hover:text-blue-800 rounded-xl flex items-center justify-center transition shrink-0 ml-2">
+                                    <i class="fa-solid fa-eye text-base"></i>
+                                </button>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
+            if (printBtn) {
+                printBtn.onclick = function() {
+                    printEventParticipantsList(eventName, filteredAthletes);
+                };
+            }
+
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeEventParticipantsModal() {
+            const modal = document.getElementById('event-participants-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function printEventParticipantsList(eventName, athleteList) {
+            const printWin = window.open('', '_blank');
+            if (!printWin) {
+                showToast("Sila benarkan pop-up pelayar untuk mencetak senarai!", "error");
+                return;
+            }
+
+            const rowsHtml = athleteList.map((a, i) => `
+                <tr>
+                    <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">${i + 1}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">${a.nama}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${a.jantina}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${a.pasukan}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd; font-family: monospace;">${a.bib}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${a.tahun}</td>
+                </tr>
+            `).join('');
+
+            printWin.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Senarai Peserta - ${eventName}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; color: #1e293b; }
+                        h2 { margin-bottom: 4px; color: #0f172a; }
+                        p { font-size: 13px; color: #64748b; margin-top: 0; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+                        th { background-color: #f1f5f9; padding: 8px; border: 1px solid #cbd5e1; text-align: left; }
+                        .footer { margin-top: 25px; font-size: 11px; color: #94a3b8; text-align: right; }
+                    </style>
+                </head>
+                <body>
+                    <h2>Senarai Peserta - ${eventName}</h2>
+                    <p>Sistem Pendaftaran Athletix SKBK | Jumlah Peserta: ${athleteList.length}</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px; text-align: center;">Bil</th>
+                                <th>Nama Atlet</th>
+                                <th>Jantina</th>
+                                <th>Pasukan</th>
+                                <th>No. Bib</th>
+                                <th>Tahun</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rowsHtml.length > 0 ? rowsHtml : '<tr><td colspan="6" style="text-align:center; padding: 15px;">Tiada peserta</td></tr>'}
+                        </tbody>
+                    </table>
+                    <div class="footer">Dicetak pada: ${new Date().toLocaleString('ms-MY')}</div>
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            printWin.document.close();
         }
 
         function viewAthleteDetails(id) {
             const ath = athletes.find(a => a.id === id);
             if (!ath) return;
 
-            document.getElementById('detail-nama').textContent = ath.nama;
-            document.getElementById('detail-bib').textContent = `No. Bib: ${ath.bib}`;
-            document.getElementById('detail-jantina').textContent = ath.jantina;
-            document.getElementById('detail-tahun').textContent = ath.tahun;
-
+            const nameEl = document.getElementById('detail-nama');
+            const bibEl = document.getElementById('detail-bib');
+            const jantinaEl = document.getElementById('detail-jantina');
+            const tahunEl = document.getElementById('detail-tahun');
             const badge = document.getElementById('detail-pasukan-badge');
-            badge.textContent = ath.pasukan;
-
             const listCont = document.getElementById('detail-acara-list');
-            listCont.innerHTML = ath.acara.map(ev => `
-                <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
-                    ${ev}
-                </span>
-            `).join('');
 
-            document.getElementById('detail-modal').classList.remove('hidden');
+            if (nameEl) nameEl.textContent = ath.nama;
+            if (bibEl) bibEl.textContent = `No. Bib: ${ath.bib}`;
+            if (jantinaEl) jantinaEl.textContent = ath.jantina;
+            if (tahunEl) tahunEl.textContent = ath.tahun;
+            if (badge) badge.textContent = ath.pasukan;
+
+            if (listCont) {
+                listCont.innerHTML = ath.acara.map(ev => `
+                    <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                        ${ev}
+                    </span>
+                `).join('');
+            }
+
+            const editBtn = document.getElementById('detail-action-edit');
+            const deleteBtn = document.getElementById('detail-action-delete');
+
+            if (editBtn) {
+                editBtn.onclick = function() {
+                    closeDetailModal();
+                    closeEventParticipantsModal();
+                    editAthlete(id);
+                };
+            }
+
+            if (deleteBtn) {
+                deleteBtn.onclick = function() {
+                    closeDetailModal();
+                    deleteAthlete(id);
+                    const modalPart = document.getElementById('event-participants-modal');
+                    if (modalPart && !modalPart.classList.contains('hidden')) {
+                        const currentTitle = document.getElementById('event-participants-title')?.textContent.replace('Senarai peserta - ', '');
+                        if (currentTitle) openEventParticipantsModal(currentTitle);
+                    }
+                };
+            }
+
+            const detailModal = document.getElementById('detail-modal');
+            if (detailModal) detailModal.classList.remove('hidden');
         }
 
         function closeDetailModal() {
-            document.getElementById('detail-modal').classList.add('hidden');
+            const detailModal = document.getElementById('detail-modal');
+            if (detailModal) detailModal.classList.add('hidden');
+        }
+
+        function showAthleteErrors(id) {
+            const ath = athletes.find(a => a.id === id);
+            if (!ath) return;
+
+            const errStatus = getAthleteErrorStatus(ath);
+            if (!errStatus.hasError) return;
+
+            const subEl = document.getElementById('error-modal-subtitle');
+            if (subEl) subEl.textContent = `${ath.nama} (${ath.bib} - ${ath.pasukan})`;
+
+            const reasons = errStatus.reason.split(' | ');
+            const listCont = document.getElementById('error-modal-list');
+            if (listCont) {
+                listCont.innerHTML = reasons.map(r => `
+                    <li class="flex items-start gap-2 bg-rose-50/80 p-2.5 rounded-xl border border-rose-100">
+                        <i class="fa-solid fa-circle-exclamation text-rose-500 mt-0.5 shrink-0"></i>
+                        <span>${r}</span>
+                    </li>
+                `).join('');
+            }
+
+            const editBtn = document.getElementById('error-modal-edit-btn');
+            if (editBtn) {
+                editBtn.onclick = function() {
+                    closeErrorModal();
+                    editAthlete(id);
+                };
+            }
+
+            const errorModal = document.getElementById('error-modal');
+            if (errorModal) errorModal.classList.remove('hidden');
+        }
+
+        function closeErrorModal() {
+            const errorModal = document.getElementById('error-modal');
+            if (errorModal) errorModal.classList.add('hidden');
         }
 
         function exportToCSV() {
@@ -1432,11 +1437,13 @@
             const icon = document.getElementById('toast-icon');
             const message = document.getElementById('toast-message');
 
+            if (!toast || !icon || !message) return;
+
             message.textContent = msg;
             if (type === "error") {
                 icon.className = "fa-solid fa-circle-xmark text-rose-400 text-xl";
             } else {
-                icon.className = "fa-solid fa-circle-check text-emerald-400 text-xl";
+                icon.className = "fa-solid fa-circle-check text-sky-400 text-xl";
             }
 
             toast.classList.remove('hidden');
@@ -1449,7 +1456,6 @@
             renderEventBreakdown();
         }
 
-        // Initialize Application
         window.onload = function() {
             loadAthletesData();
             initEventCheckboxes();
@@ -1459,5 +1465,3 @@
     </script>
 </body>
 </html>
-
-"Demo 14"
