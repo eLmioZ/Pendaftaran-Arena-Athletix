@@ -55,7 +55,7 @@
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
                             <i class="fa-solid fa-user"></i>
                         </span>
-                        <input type="text" id="login-userid" required placeholder="Admin / Pengurus"
+                        <input type="text" id="login-userid" required placeholder="Contoh: helang / 1003"
                             class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-sm">
                     </div>
                 </div>
@@ -122,6 +122,10 @@
                         class="px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 text-emerald-100 hover:bg-emerald-700/60">
                         <i class="fa-solid fa-trophy"></i> Analisis
                     </button>
+                    <button onclick="openAdminModal()" id="nav-admin"
+                        class="hidden px-4 py-2 rounded-xl text-sm font-semibold bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 transition flex items-center gap-2 border border-amber-400/30">
+                        <i class="fa-solid fa-calendar-gear"></i> Urus Tarikh
+                    </button>
                 </nav>
 
                 <!-- User Profile & Logout -->
@@ -139,6 +143,13 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center gap-2">
+                    <div id="mobile-current-user-badge" class="text-[11px] font-bold uppercase px-2.5 py-1 rounded-md bg-emerald-700 text-emerald-100 max-w-[110px] truncate">
+                        Pengguna
+                    </div>
+                    <button onclick="openAdminModal()" id="mobile-nav-admin"
+                        class="hidden px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 transition flex items-center gap-1 border border-amber-400/30">
+                        <i class="fa-solid fa-calendar-gear"></i> Tarikh
+                    </button>
                     <button onclick="handleLogout()" class="p-2 bg-rose-600 text-white rounded-lg text-xs font-bold">
                         <i class="fa-solid fa-power-off"></i>
                     </button>
@@ -176,42 +187,46 @@
         <section id="tab-dashboard" class="tab-content space-y-8">
             <!-- KPI Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <!-- Kad 1: Tarikh Tutup Pendaftaran -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Jumlah Atlet</p>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Tarikh Tutup Pendaftaran</p>
+                        <h3 id="stat-closing-date" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1 font-heading">15 Ogos 2026</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-calendar-xmark"></i>
+                    </div>
+                </div>
+
+                <!-- Kad 2: Jumlah Atlet Berdaftar -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Jumlah Atlet Berdaftar</p>
                         <h3 id="stat-total-athletes" class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">0</h3>
                     </div>
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl shrink-0">
                         <i class="fa-solid fa-users"></i>
                     </div>
                 </div>
 
+                <!-- Kad 3: Acara Dipertandingkan -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Penyertaan Balapan</p>
-                        <h3 id="stat-total-track" class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">0</h3>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Acara Dipertandingkan</p>
+                        <h3 id="stat-total-events" class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">12</h3>
                     </div>
-                    <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-xl flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-stopwatch"></i>
+                    <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-xl flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-trophy"></i>
                     </div>
                 </div>
 
+                <!-- Kad 4: Bilangan Pasukan Bertanding -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
                     <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Penyertaan Padang</p>
-                        <h3 id="stat-total-field" class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">0</h3>
-                    </div>
-                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-child-reaching"></i>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Rumah Sukan</p>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pasukan Bertanding</p>
                         <h3 class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">4</h3>
                     </div>
-                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl shrink-0">
                         <i class="fa-solid fa-flag"></i>
                     </div>
                 </div>
@@ -255,30 +270,37 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Syarat Penyertaan -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 class="text-base font-bold text-slate-900 font-heading mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-list text-emerald-600"></i> Syarat & Kelayakan Penyertaan
-                    </h3>
-                    <ul class="space-y-2.5 text-xs text-slate-600">
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
-                            <span><b>Had Acara:</b> Maksimum 2 acara individu & 2 acara berpasukan (Maksimum 4 acara secara keseluruhan).</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
-                            <span><b>Format No. Bib:</b> Wajib mengikut awalan pasukan (<b>H</b>elang, <b>G</b>aruda, <b>R</b>ajawali, <b>K</b>enyalang).</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
-                            <span><b>Kelayakan Tahun:</b> 80m & 4x100m Tahap 1 (T1-T3) | 100m & 200m (T4-T6) | Lompat Tinggi & Lontar Peluru (T4-T5) | Lompat Jauh (T3-T5).</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-0.5"></i>
-                            <span><b>Semakan Ralat Automatik:</b> <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span> Lampu Merah menyala jika No. Bib / Nama bertindih, acara > 4, atau acara tidak layak mengikut Tahun.</span>
-                        </li>
-                    </ul>
-                </div>
+                <!-- Card 2: Syarat Penyertaan (Accordion / Expandable) -->
+                <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 transition-all duration-200" open>
+                    <summary class="p-6 cursor-pointer list-none flex items-center justify-between font-bold text-slate-900 font-heading text-base select-none hover:bg-slate-50/50 rounded-2xl transition">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-clipboard-list text-emerald-600"></i> Syarat & Kelayakan Penyertaan
+                        </span>
+                        <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center transition-transform duration-200 group-open:rotate-180 text-xs">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-1 border-t border-slate-100">
+                        <ul class="space-y-2.5 text-xs text-slate-600 mt-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><b>Had Acara:</b> Maksimum 2 acara individu & 2 acara berpasukan (Maksimum 4 acara secara keseluruhan).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><b>Format No. Bib:</b> Wajib mengikut awalan pasukan (<b>H</b>elang, <b>G</b>aruda, <b>R</b>ajawali, <b>K</b>enyalang).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5"></i>
+                                <span><b>Kelayakan Tahun:</b> 80m & 4x100m Tahap 1 (T1-T3) | 100m & 200m (T4-T6) | Lompat Tinggi & Lontar Peluru (T4-T5) | Lompat Jauh (T3-T5).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-rose-500 mt-0.5"></i>
+                                <span><b>Semakan Ralat Automatik:</b> <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span> Lampu Merah menyala jika No. Bib / Nama bertindih, acara > 4, atau acara tidak layak mengikut Tahun.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
             </div>
 
             <!-- Charts Section -->
@@ -308,7 +330,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-bold text-slate-900 font-heading">Pendaftaran baharu</h3>
+                        <h3 class="text-lg font-bold text-slate-900 font-heading">Pendaftaran Terbaharu</h3>
                         <p class="text-xs text-slate-500 mt-0.5">5 atlet terakhir yang telah didaftarkan ke dalam sistem</p>
                     </div>
                     <button onclick="switchTab('directory')" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
@@ -632,6 +654,62 @@
         </div>
     </div>
 
+    <!-- Admin Closing Date Settings Modal -->
+    <div id="admin-date-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-gear text-amber-500"></i> Tetapan Tarikh & Masa Tutup
+                </h3>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <form onsubmit="handleSaveClosingDate(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+                            Pilih Tarikh Tutup
+                        </label>
+                        <input type="date" id="admin-date-input" required
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+                            Pilih Masa Tutup
+                        </label>
+                        <input type="time" id="admin-time-input" required
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 text-sm">
+                    </div>
+                </div>
+
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs">
+                    <i class="fa-solid fa-circle-info mr-1"></i>
+                    Selepas tarikh dan masa ini, log masuk untuk akaun Pengurus Pasukan (Helang, Garuda, Rajawali, Kenyalang) akan dikunci secara automatik.
+                </div>
+
+                <div class="flex items-center justify-between gap-2 pt-2">
+                    <button type="button" onclick="handleDeleteClosingDate()"
+                        class="px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-trash-can"></i> Padam Tarikh
+                    </button>
+
+                    <div class="flex gap-2">
+                        <button type="button" onclick="closeAdminModal()"
+                            class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-emerald-800 text-emerald-100 py-6 border-t border-emerald-700/60 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs">
@@ -674,6 +752,128 @@
         let currentUser = null;
         let teamChartInstance = null;
         let genderChartInstance = null;
+
+        // Closing Date & Time Management Functions
+        function getClosingDate() {
+            return localStorage.getItem('skbk_closing_date') || '2026-08-15';
+        }
+
+        function getClosingTime() {
+            return localStorage.getItem('skbk_closing_time') || '23:59';
+        }
+
+        function setClosingDateTime(dateStr, timeStr) {
+            if (dateStr) {
+                localStorage.setItem('skbk_closing_date', dateStr);
+                localStorage.setItem('skbk_closing_time', timeStr || '23:59');
+            } else {
+                localStorage.removeItem('skbk_closing_date');
+                localStorage.removeItem('skbk_closing_time');
+            }
+        }
+
+        function isPastClosingDate() {
+            const closing = getClosingDate();
+            if (!closing) return false;
+            const closingTime = getClosingTime();
+            
+            const closingDateTime = new Date(`${closing}T${closingTime}:00`);
+            const now = new Date();
+            return now > closingDateTime;
+        }
+
+        function getFormattedClosingDate() {
+            const closing = getClosingDate();
+            if (!closing) return "Tiada Had Tarikh";
+            const closingTime = getClosingTime();
+            const parts = closing.split('-');
+            const timeParts = closingTime.split(':');
+            if (parts.length !== 3) return closing;
+            
+            const dateObj = new Date(parts[0], parts[1] - 1, parts[2], timeParts[0] || 23, timeParts[1] || 59);
+            const formattedDate = dateObj.toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric' });
+            const formattedTime = dateObj.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', hour12: true });
+            return `${formattedDate}, ${formattedTime}`;
+        }
+
+        function openAdminModal() {
+            document.getElementById('admin-date-input').value = getClosingDate() || '';
+            document.getElementById('admin-time-input').value = getClosingTime() || '23:59';
+            document.getElementById('admin-date-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-date-modal').classList.add('hidden');
+        }
+
+        function handleSaveClosingDate(e) {
+            e.preventDefault();
+            const newDate = document.getElementById('admin-date-input').value;
+            const newTime = document.getElementById('admin-time-input').value;
+            setClosingDateTime(newDate, newTime);
+            closeAdminModal();
+            renderDashboard();
+            showToast("Tarikh dan masa tutup pendaftaran berjaya dikemas kini!");
+        }
+
+        function handleDeleteClosingDate() {
+            setClosingDateTime(null, null);
+            closeAdminModal();
+            renderDashboard();
+            showToast("Tarikh dan masa tutup pendaftaran telah dipadam.");
+        }
+
+        function setClosingDate(dateStr) {
+            if (dateStr) {
+                localStorage.setItem('skbk_closing_date', dateStr);
+            } else {
+                localStorage.removeItem('skbk_closing_date');
+            }
+        }
+
+        function isPastClosingDate() {
+            const closing = getClosingDate();
+            if (!closing) return false;
+            
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            return todayStr > closing;
+        }
+
+        function getFormattedClosingDate() {
+            const closing = getClosingDate();
+            if (!closing) return "Tiada Had Tarikh";
+            const parts = closing.split('-');
+            if (parts.length !== 3) return closing;
+            
+            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+            return dateObj.toLocaleDateString('ms-MY', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function openAdminModal() {
+            document.getElementById('admin-date-input').value = getClosingDate() || '';
+            document.getElementById('admin-date-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-date-modal').classList.add('hidden');
+        }
+
+        function handleSaveClosingDate(e) {
+            e.preventDefault();
+            const newDate = document.getElementById('admin-date-input').value;
+            setClosingDate(newDate);
+            closeAdminModal();
+            renderDashboard();
+            showToast("Tarikh tutup pendaftaran berjaya dikemas kini!");
+        }
+
+        function handleDeleteClosingDate() {
+            setClosingDate(null);
+            closeAdminModal();
+            renderDashboard();
+            showToast("Tarikh tutup pendaftaran telah dipadam.");
+        }
 
         // Load & Save Data
         function loadAthletesData() {
@@ -722,7 +922,16 @@
             const errDiv = document.getElementById('login-error');
 
             if (USER_ACCOUNTS[uid] && USER_ACCOUNTS[uid].pass === pass) {
-                currentUser = USER_ACCOUNTS[uid];
+                const user = USER_ACCOUNTS[uid];
+
+                // Semakan kunci log masuk selepas tarikh tutup
+                if (user.role !== 'admin' && isPastClosingDate()) {
+                    errDiv.textContent = `Pendaftaran telah ditutup pada ${getFormattedClosingDate()}. Sila hubungi Admin Utama untuk sebarang bantuan.`;
+                    errDiv.classList.remove('hidden');
+                    return;
+                }
+
+                currentUser = user;
                 sessionStorage.setItem('skbk_auth_user', uid);
                 errDiv.classList.add('hidden');
                 document.getElementById('login-modal').classList.add('hidden');
@@ -730,6 +939,7 @@
                 renderAll();
                 showToast(`Selamat datang, ${currentUser.name}!`);
             } else {
+                errDiv.textContent = "ID Pengguna atau Kata Laluan tidak sah!";
                 errDiv.classList.remove('hidden');
             }
         }
@@ -746,7 +956,22 @@
             if (!currentUser) return;
 
             const badge = document.getElementById('current-user-badge');
-            badge.textContent = currentUser.name;
+            if (badge) badge.textContent = currentUser.name;
+
+            const mobileBadge = document.getElementById('mobile-current-user-badge');
+            if (mobileBadge) mobileBadge.textContent = currentUser.name;
+
+            // Tentukan paparan butang Urus Tarikh Khas Admin Utama
+            const adminBtn = document.getElementById('nav-admin');
+            const mobileAdminBtn = document.getElementById('mobile-nav-admin');
+            
+            if (currentUser.role === 'admin') {
+                if (adminBtn) adminBtn.classList.remove('hidden');
+                if (mobileAdminBtn) mobileAdminBtn.classList.remove('hidden');
+            } else {
+                if (adminBtn) adminBtn.classList.add('hidden');
+                if (mobileAdminBtn) mobileAdminBtn.classList.add('hidden');
+            }
 
             // Lock Team dropdown if team manager
             const pasSelect = document.getElementById('input-pasukan');
@@ -963,19 +1188,17 @@
         function renderDashboard() {
             const filtered = currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
 
-            document.getElementById('stat-total-athletes').textContent = filtered.length;
+            const statClosing = document.getElementById('stat-closing-date');
+            if (statClosing) statClosing.textContent = getFormattedClosingDate();
 
-            let trackCount = 0;
-            let fieldCount = 0;
-            filtered.forEach(a => {
-                a.acara.forEach(ev => {
-                    if (FIELD_EVENTS.includes(ev)) fieldCount++;
-                    else trackCount++;
-                });
-            });
+            const statAthletes = document.getElementById('stat-total-athletes');
+            if (statAthletes) statAthletes.textContent = filtered.length;
 
-            document.getElementById('stat-total-track').textContent = trackCount;
-            document.getElementById('stat-total-field').textContent = fieldCount;
+            const statEvents = document.getElementById('stat-total-events');
+            if (statEvents) {
+                const totalEventsCount = TRACK_INDIVIDUAL.length + TRACK_TEAM.length + FIELD_EVENTS.length;
+                statEvents.textContent = totalEventsCount;
+            }
 
             // Recent table (last 5)
             const recentBody = document.getElementById('recent-table-body');
@@ -1236,3 +1459,5 @@
     </script>
 </body>
 </html>
+
+"Demo 14"
