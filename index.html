@@ -60,7 +60,7 @@
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-1">
                     <button id="nav-dashboard" onclick="switchTab('dashboard')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-900 text-white shadow-sm transition flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line"></i> Papan Pemuka
+                        <i class="fa-solid fa-chart-line"></i> Papan Utama
                     </button>
                     <button id="nav-register" onclick="switchTab('register')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
                         <i class="fa-solid fa-user-plus"></i> Daftar Atlet
@@ -130,7 +130,7 @@
                 <div class="p-[20px] rounded-[20px] border border-white/50 border-l-[5px] border-l-[#F59E0B] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(15,23,42,0.14)] transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #FFF8E8, #FFF2CC);">
                     <div>
                         <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Tarikh Tutup Pendaftaran</p>
-                        <h3 id="stat-closing-date" class="text-[18px] sm:text-[20px] font-bold text-[#0F172A] mt-1 leading-snug">-</h3>
+                        <h3 id="stat-closing-date" class="text-[18px] sm:text-[18px] font-bold text-[#0F172A] mt-1 leading-snug">-</h3>
                     </div>
                     <div class="w-12 h-12 bg-amber-500/20 text-[#F59E0B] rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2">
                         <i class="fa-solid fa-calendar-check"></i>
@@ -140,8 +140,8 @@
                 <!-- Kad 2 – Jumlah Atlet Berdaftar -->
                 <div class="p-[20px] rounded-[20px] border border-white/50 border-l-[5px] border-l-[#2563EB] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(15,23,42,0.14)] transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #EEF4FF, #DCEBFF);">
                     <div>
-                        <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Jumlah Atlet Berdaftar</p>
-                        <h3 id="stat-total-athletes" class="text-[36px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
+                        <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Atlet Berdaftar</p>
+                        <h3 id="stat-total-athletes" class="text-[18px] sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
                     </div>
                     <div class="w-12 h-12 bg-blue-600/20 text-[#2563EB] rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2">
                         <i class="fa-solid fa-user-ninja"></i>
@@ -152,7 +152,7 @@
                 <div class="p-[20px] rounded-[20px] border border-white/50 border-l-[5px] border-l-[#10B981] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(15,23,42,0.14)] transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #ECFDF5, #D1FAE5);">
                     <div>
                         <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Penyertaan Pasukan</p>
-                        <h3 id="stat-total-teams" class="text-[34px] sm:text-[36px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
+                        <h3 id="stat-total-teams" class="text-[18px] sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
                     </div>
                     <div class="w-12 h-12 bg-emerald-600/20 text-[#10B981] rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2">
                         <i class="fa-solid fa-people-group"></i>
@@ -473,7 +473,7 @@
                             <i class="fa-solid fa-floppy-disk"></i> Simpan Pendaftaran
                         </button>
                         <button type="button" onclick="resetForm()" class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition">
-                            Sifar Semula
+                            Reset Semula
                         </button>
                     </div>
                 </form>
@@ -588,7 +588,7 @@
 
                 <div>
                     <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">ID Pengguna</label>
-                    <input type="text" id="login-userid" required placeholder="Contoh: 0000 atau helang"
+                    <input type="text" id="login-userid" required placeholder="Admin / Pengurus"
                         class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                 </div>
 
@@ -819,7 +819,7 @@
         ];
 
         const USER_ACCOUNTS = {
-            "0000": { name: "Admin Utama", role: "admin", team: null, pass: "0000" },
+            "admin": { name: "Admin Utama", role: "admin", team: null, pass: "0000" },
             "helang": { name: "Admin Helang", role: "manager", team: "Helang", pass: "0000" },
             "garuda": { name: "Admin Garuda", role: "manager", team: "Garuda", pass: "0000" },
             "rajawali": { name: "Admin Rajawali", role: "manager", team: "Rajawali", pass: "0000" },
@@ -1130,12 +1130,22 @@
 
             saveAthletesData();
             resetForm();
+            renderAll();
             switchTab('directory');
+        }
+
+        function deleteAthlete(id) {
+            athletes = athletes.filter(a => a.id !== id);
+            saveAthletesData();
+            renderAll();
+            showToast("Rekod atlet telah dipadam.");
         }
 
         function editAthlete(id) {
             const ath = athletes.find(a => a.id === id);
             if (!ath) return;
+
+            switchTab('register');
 
             const idInput = document.getElementById('athlete-id');
             const namaInput = document.getElementById('input-nama');
@@ -1155,15 +1165,8 @@
                 cb.checked = ath.acara.includes(cb.value);
             });
 
-            switchTab('register');
-        }
-
-        function deleteAthlete(id) {
-            athletes = athletes.filter(a => a.id !== id);
-            saveAthletesData();
-            renderAthletesTable();
-            renderDashboard();
-            showToast("Rekod atlet telah dipadam.");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast(`Mengemas kini maklumat ${ath.nama}`);
         }
 
         function resetForm() {
@@ -1236,6 +1239,7 @@
             const statClosing = document.getElementById('stat-closing-date');
             if (statClosing) statClosing.textContent = getFormattedClosingDate();
 
+            // Kemaskini dinamik angka Jumlah Atlet Berdaftar sahaja (Real-time)
             const statAthletes = document.getElementById('stat-total-athletes');
             if (statAthletes) statAthletes.textContent = filtered.length;
 
