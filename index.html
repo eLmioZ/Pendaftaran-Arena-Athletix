@@ -66,10 +66,10 @@
                         <i class="fa-solid fa-user-plus"></i> Daftar Atlet
                     </button>
                     <button id="nav-directory" onclick="switchTab('directory')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
-                        <i class="fa-solid fa-users"></i> Direktori Atlet
+                        <i class="fa-solid fa-users"></i> Senarai Atlet
                     </button>
                     <button id="nav-summary" onclick="switchTab('summary')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
-                        <i class="fa-solid fa-list-check"></i> Analisis Penyertaan
+                        <i class="fa-solid fa-list-check"></i> Analisis
                     </button>
                     <button id="nav-admin" onclick="openAdminModal()" class="px-3 py-2 rounded-xl text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition flex items-center gap-2 hidden">
                         <i class="fa-solid fa-gear"></i> Tetapan Admin
@@ -91,13 +91,13 @@
         <!-- Mobile Navigation Bar -->
         <div class="md:hidden bg-blue-900 border-t border-blue-800 px-2 py-1.5 flex justify-around text-xs">
             <button id="mobile-nav-dashboard" onclick="switchTab('dashboard')" class="p-2 rounded-lg text-white font-bold bg-blue-950 flex flex-col items-center">
-                <i class="fa-solid fa-chart-line text-sm mb-0.5"></i> Pemuka
+                <i class="fa-solid fa-chart-line text-sm mb-0.5"></i> Utama
             </button>
             <button id="mobile-nav-register" onclick="switchTab('register')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
                 <i class="fa-solid fa-user-plus text-sm mb-0.5"></i> Daftar
             </button>
             <button id="mobile-nav-directory" onclick="switchTab('directory')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
-                <i class="fa-solid fa-users text-sm mb-0.5"></i> Direktori
+                <i class="fa-solid fa-users text-sm mb-0.5"></i> Senarai
             </button>
             <button id="mobile-nav-summary" onclick="switchTab('summary')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
                 <i class="fa-solid fa-list-check text-sm mb-0.5"></i> Analisis
@@ -115,7 +115,7 @@
             <div class="bg-gradient-to-r from-blue-950 to-slate-900 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-2xl font-bold font-heading">Selamat Datang ke SMART DIGITAL Pendaftaran</h2>
-                    <p class="text-xs text-blue-200 mt-1">Uruskan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah.</p>
+                    <p class="text-xs text-blue-200 mt-1">Pengurusan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah.</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <button onclick="switchTab('register')" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold rounded-xl text-xs shadow transition flex items-center gap-2">
@@ -605,7 +605,57 @@
         </div>
     </div>
 
-    <!-- Modal Pop-Up Senarai Peserta Acara (Analisis Penyertaan) -->
+    <!-- Modal Selection Kategori Jantina (Popup Pertama Analisis Penyertaan) -->
+    <div id="gender-select-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-[18px] shadow-2xl max-w-md w-full overflow-hidden border border-slate-100 animate-fade-in">
+            <!-- Header Modal -->
+            <div class="p-5 bg-gradient-to-r from-blue-950 to-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-venus-mars"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold font-heading">Pilih Kategori Jantina</h3>
+                        <p id="gender-select-event-title" class="text-xs text-blue-200 mt-0.5">Acara: -</p>
+                    </div>
+                </div>
+                <button onclick="closeGenderSelectModal()" class="text-white/80 hover:text-white text-lg transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Body Modal -->
+            <div class="p-6 space-y-4 text-center">
+                <p class="text-xs text-slate-600 font-medium">Sila pilih kategori jantina peserta untuk melihat senarai pendaftaran:</p>
+                <div class="grid grid-cols-2 gap-4 pt-1">
+                    <button onclick="selectGenderCategory('Lelaki')" class="p-5 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-500 rounded-2xl flex flex-col items-center justify-center gap-2 group transition shadow-sm active:scale-95">
+                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl group-hover:scale-110 transition shadow">
+                            <i class="fa-solid fa-mars"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-800">Lelaki</span>
+                        <span id="gender-count-m" class="text-[11px] font-semibold text-blue-700 bg-blue-100/80 px-2.5 py-0.5 rounded-full">0 daripada 2 peserta</span>
+                    </button>
+
+                    <button onclick="selectGenderCategory('Perempuan')" class="p-5 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 hover:border-pink-500 rounded-2xl flex flex-col items-center justify-center gap-2 group transition shadow-sm active:scale-95">
+                        <div class="w-12 h-12 rounded-full bg-pink-600 text-white flex items-center justify-center text-xl group-hover:scale-110 transition shadow">
+                            <i class="fa-solid fa-venus"></i>
+                        </div>
+                        <span class="text-sm font-bold text-slate-800">Perempuan</span>
+                        <span id="gender-count-f" class="text-[11px] font-semibold text-pink-700 bg-pink-100/80 px-2.5 py-0.5 rounded-full">0 daripada 2 peserta</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="closeGenderSelectModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition">
+                    Batal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pop-Up Senarai Peserta Acara (Analisis Penyertaan - Popup Kedua) -->
     <div id="event-participants-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-[12px] shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 animate-fade-in flex flex-col max-h-[90vh]">
             <!-- Header Modal -->
@@ -680,10 +730,10 @@
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
                     <button id="detail-action-edit" onclick="" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-pen-to-square"></i> ✏️ Edit
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
                     </button>
                     <button id="detail-action-delete" onclick="" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-trash"></i> 🗑️ Padam
+                        <i class="fa-solid fa-trash"></i> Padam
                     </button>
                 </div>
                 <button onclick="closeDetailModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition">
@@ -732,72 +782,127 @@
         </div>
     </div>
 
-    <!-- Admin Closing Date Settings Modal -->
+    <!-- Admin Date & Qualification Settings Modal -->
     <div id="admin-date-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100 animate-fade-in">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
-                <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
-                    <i class="fa-solid fa-calendar-gear text-amber-500"></i> Tetapan Tutup Pendaftaran
-                </h3>
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 border border-slate-100 animate-fade-in max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4 shrink-0">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-amber-500"></i> Tetapan Admin
+                    </h3>
+                    <p class="text-xs text-slate-500">Pengurusan tarikh tutup dan kelayakan pendaftaran acara.</p>
+                </div>
                 <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 text-lg">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-            
-            <form onsubmit="handleSaveClosingDate(event)" class="space-y-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                            Pilih Tarikh
-                        </label>
-                        <input type="date" id="admin-date-input" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
-                            Pilih Masa
-                        </label>
-                        <input type="time" id="admin-time-input" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
-                    </div>
-                </div>
 
-                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs">
+            <!-- Sub-tab Bar -->
+            <div class="flex border-b border-slate-200 mb-4 shrink-0 gap-2">
+                <button id="admin-tab-btn-date" onclick="switchAdminTab('date')" class="pb-2.5 px-3 text-xs font-bold border-b-2 border-blue-900 text-blue-900 transition">
+                    <i class="fa-solid fa-calendar-gear mr-1"></i> Tetapan Pendaftaran
+                </button>
+                <button id="admin-tab-btn-limits" onclick="switchAdminTab('limits')" class="pb-2.5 px-3 text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition">
+                    <i class="fa-solid fa-list-check mr-1"></i> Tetapan Kelayakan Acara
+                </button>
+            </div>
+
+            <!-- Tab 1: Date Settings -->
+            <div id="admin-tab-date" class="space-y-4">
+                <form onsubmit="handleSaveClosingDate(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+                                Pilih Tarikh
+                            </label>
+                            <input type="date" id="admin-date-input" required
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+                                Pilih Masa
+                            </label>
+                            <input type="time" id="admin-time-input" required
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs">
+                        <i class="fa-solid fa-circle-info mr-1"></i>
+                        Selepas tarikh dan masa ini, log masuk untuk akaun Pengurus Pasukan (Helang, Garuda, Rajawali, Kenyalang) akan dikunci secara automatik.
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2 pt-2">
+                        <button type="button" onclick="handleDeleteClosingDate()"
+                            class="px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-trash-can"></i> Padam Tarikh
+                        </button>
+
+                        <div class="flex gap-2">
+                            <button type="button" onclick="closeAdminModal()"
+                                class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                                Batal
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab 2: Event Limits Settings Table -->
+            <div id="admin-tab-limits" class="hidden space-y-4 overflow-y-auto flex-grow pr-1">
+                <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 text-xs">
                     <i class="fa-solid fa-circle-info mr-1"></i>
-                    Selepas tarikh dan masa ini, log masuk untuk akaun Pengurus Pasukan (Helang, Garuda, Rajawali, Kenyalang) akan dikunci secara automatik.
+                    Tetapkan had maksimum penyertaan atlet bagi setiap pasukan mengikut acara dan kategori jantina. Perubahan akan berkuat kuasa serta-merta.
                 </div>
 
-                <div class="flex items-center justify-between gap-2 pt-2">
-                    <button type="button" onclick="handleDeleteClosingDate()"
-                        class="px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-trash-can"></i> Padam Tarikh
-                    </button>
-
-                    <div class="flex gap-2">
-                        <button type="button" onclick="closeAdminModal()"
-                            class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
-                            Batal
-                        </button>
-                        <button type="submit"
-                            class="px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-floppy-disk"></i> Simpan
-                        </button>
+                <form id="admin-limits-form" onsubmit="handleSaveEventLimits(event)" class="space-y-4">
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3">Nama Acara</th>
+                                    <th class="p-3 text-center w-28">Lelaki (Max)</th>
+                                    <th class="p-3 text-center w-28">Perempuan (Max)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-limits-table-body" class="divide-y divide-slate-100">
+                                <!-- Generated via JS -->
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </form>
+
+                    <div class="flex items-center justify-between gap-2 pt-2">
+                        <button type="button" onclick="resetEventLimitsToDefault()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+                            Reset Nilai Asal (2)
+                        </button>
+                        <div class="flex gap-2">
+                            <button type="button" onclick="closeAdminModal()" class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                                Batal
+                            </button>
+                            <button type="submit" class="px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Tetapan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-xl"></i>
-        <span id="toast-message" class="text-xs font-medium">Mesej pemberitahuan.</span>
+    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in max-w-md">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-xl shrink-0"></i>
+        <span id="toast-message" class="text-xs font-medium leading-tight">Mesej pemberitahuan.</span>
     </div>
 
     <!-- Footer -->
     <footer class="bg-blue-950 text-blue-100 py-6 border-t border-blue-900 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs">
-            <p class="font-medium">Sistem Pendaftaran Athletix V 1.0.0</p>
+            <p class="font-medium">Sistem Pendaftaran Athletix V1.0.0</p>
             <p class="text-sky-300 mt-1">Hak Cipta Terpelihara © 2026 eL_mioZ Organiser Team</p>
         </div>
     </footer>
@@ -836,6 +941,26 @@
         // State Variables
         let athletes = [];
         let currentUser = null;
+
+        // --- Qualification Limits Logic ---
+        function getEventLimits() {
+            const stored = localStorage.getItem('skbk_event_limits');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch(e) {}
+            }
+            const defaults = {};
+            const allEvents = [...TRACK_INDIVIDUAL, ...TRACK_TEAM, ...FIELD_EVENTS];
+            allEvents.forEach(ev => {
+                defaults[ev] = { Lelaki: 2, Perempuan: 2 };
+            });
+            return defaults;
+        }
+
+        function saveEventLimits(limits) {
+            localStorage.setItem('skbk_event_limits', JSON.stringify(limits));
+        }
 
         function getClosingDate() {
             return localStorage.getItem('skbk_closing_date') || '2026-08-15';
@@ -885,12 +1010,89 @@
             const modal = document.getElementById('admin-date-modal');
             if (dateInput) dateInput.value = getClosingDate() || '';
             if (timeInput) timeInput.value = getClosingTime() || '23:59';
+            
+            switchAdminTab('date');
             if (modal) modal.classList.remove('hidden');
         }
 
         function closeAdminModal() {
             const modal = document.getElementById('admin-date-modal');
             if (modal) modal.classList.add('hidden');
+        }
+
+        function switchAdminTab(tab) {
+            const dateTab = document.getElementById('admin-tab-date');
+            const limitsTab = document.getElementById('admin-tab-limits');
+            const dateBtn = document.getElementById('admin-tab-btn-date');
+            const limitsBtn = document.getElementById('admin-tab-btn-limits');
+
+            if (tab === 'date') {
+                if (dateTab) dateTab.classList.remove('hidden');
+                if (limitsTab) limitsTab.classList.add('hidden');
+                if (dateBtn) { dateBtn.classList.add('border-blue-900', 'text-blue-900'); dateBtn.classList.remove('border-transparent', 'text-slate-500'); }
+                if (limitsBtn) { limitsBtn.classList.remove('border-blue-900', 'text-blue-900'); limitsBtn.classList.add('border-transparent', 'text-slate-500'); }
+            } else {
+                if (dateTab) dateTab.classList.add('hidden');
+                if (limitsTab) limitsTab.classList.remove('hidden');
+                if (limitsBtn) { limitsBtn.classList.add('border-blue-900', 'text-blue-900'); limitsBtn.classList.remove('border-transparent', 'text-slate-500'); }
+                if (dateBtn) { dateBtn.classList.remove('border-blue-900', 'text-blue-900'); dateBtn.classList.add('border-transparent', 'text-slate-500'); }
+                renderAdminLimitsTable();
+            }
+        }
+
+        function renderAdminLimitsTable() {
+            const tbody = document.getElementById('admin-limits-table-body');
+            if (!tbody) return;
+            const limits = getEventLimits();
+            const allEvents = [...TRACK_INDIVIDUAL, ...TRACK_TEAM, ...FIELD_EVENTS];
+
+            tbody.innerHTML = allEvents.map((ev) => {
+                const limitL = limits[ev]?.Lelaki ?? 2;
+                const limitP = limits[ev]?.Perempuan ?? 2;
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-bold text-slate-800">${ev}</td>
+                        <td class="p-3 text-center">
+                            <input type="number" min="1" max="50" data-event="${ev}" data-gender="Lelaki" value="${limitL}"
+                                class="limit-input w-20 px-2.5 py-1.5 border border-slate-300 rounded-xl text-center font-bold text-slate-800 focus:ring-2 focus:ring-blue-600">
+                        </td>
+                        <td class="p-3 text-center">
+                            <input type="number" min="1" max="50" data-event="${ev}" data-gender="Perempuan" value="${limitP}"
+                                class="limit-input w-20 px-2.5 py-1.5 border border-slate-300 rounded-xl text-center font-bold text-slate-800 focus:ring-2 focus:ring-blue-600">
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function handleSaveEventLimits(e) {
+            e.preventDefault();
+            const inputs = document.querySelectorAll('.limit-input');
+            const limits = getEventLimits();
+
+            inputs.forEach(input => {
+                const ev = input.dataset.event;
+                const gender = input.dataset.gender;
+                const val = parseInt(input.value, 10) || 2;
+                if (!limits[ev]) limits[ev] = { Lelaki: 2, Perempuan: 2 };
+                limits[ev][gender] = val;
+            });
+
+            saveEventLimits(limits);
+            showToast("Tetapan kelayakan acara berjaya disimpan!");
+            renderAll();
+        }
+
+        function resetEventLimitsToDefault() {
+            const defaults = {};
+            const allEvents = [...TRACK_INDIVIDUAL, ...TRACK_TEAM, ...FIELD_EVENTS];
+            allEvents.forEach(ev => {
+                defaults[ev] = { Lelaki: 2, Perempuan: 2 };
+            });
+            saveEventLimits(defaults);
+            renderAdminLimitsTable();
+            showToast("Tetapan kelayakan acara telah di-reset ke nilai asal (2).");
+            renderAll();
         }
 
         function handleSaveClosingDate(e) {
@@ -1038,7 +1240,7 @@
                     mBtn?.classList.remove('text-blue-100');
                 } else {
                     btn?.classList.remove('bg-blue-900', 'text-white', 'shadow-sm');
-                    mBtn?.classList.remove('bg-blue-900', 'text-white', 'font-bold', 'shadow-sm');
+                    mBtn?.classList.remove('bg-blue-900', 'text-white', 'shadow-sm');
                     mBtn?.classList.add('text-blue-100');
                 }
             });
@@ -1110,6 +1312,29 @@
 
             if (selectedEvents.length === 0) {
                 showToast("Sila pilih sekurang-kurangnya SATU acara!", "error");
+                return;
+            }
+
+            // --- Semakan Had Penyertaan Acara (Quota Check) ---
+            const limits = getEventLimits();
+            let limitErrors = [];
+
+            selectedEvents.forEach(ev => {
+                const maxAllowed = limits[ev]?.[jantina] ?? 2;
+                const currentTeamCount = athletes.filter(a =>
+                    a.id !== athleteId &&
+                    a.pasukan === pasukan &&
+                    a.jantina === jantina &&
+                    a.acara.includes(ev)
+                ).length;
+
+                if (currentTeamCount + 1 > maxAllowed) {
+                    limitErrors.push(`Acara ${ev} (${jantina}): Had maksimum ialah ${maxAllowed} orang bagi setiap pasukan.`);
+                }
+            });
+
+            if (limitErrors.length > 0) {
+                showToast(limitErrors[0], "error");
                 return;
             }
 
@@ -1227,6 +1452,21 @@
                 reasons.push(`Kategori ${athlete.tahun} tidak layak untuk acara: ${invalidEvents.join(', ')}`);
             }
 
+            // Semakan Kuota Had Penyertaan
+            const limits = getEventLimits();
+            athlete.acara.forEach(ev => {
+                const maxAllowed = limits[ev]?.[athlete.jantina] ?? 2;
+                const teamCount = athletes.filter(a => 
+                    a.pasukan === athlete.pasukan && 
+                    a.jantina === athlete.jantina && 
+                    a.acara.includes(ev)
+                ).length;
+
+                if (teamCount > maxAllowed) {
+                    reasons.push(`Kuota pasukan ${athlete.pasukan} bagi ${ev} (${athlete.jantina}) melebihi had (${teamCount}/${maxAllowed})`);
+                }
+            });
+
             if (reasons.length > 0) {
                 return { hasError: true, reason: reasons.join(" | ") };
             }
@@ -1239,7 +1479,6 @@
             const statClosing = document.getElementById('stat-closing-date');
             if (statClosing) statClosing.textContent = getFormattedClosingDate();
 
-            // Kemaskini dinamik angka Jumlah Atlet Berdaftar sahaja (Real-time)
             const statAthletes = document.getElementById('stat-total-athletes');
             if (statAthletes) statAthletes.textContent = filtered.length;
 
@@ -1353,7 +1592,7 @@
                 trackGrid.innerHTML = allTrack.map(ev => {
                     const count = filtered.filter(a => a.acara.includes(ev)).length;
                     return `
-                        <div onclick="openEventParticipantsModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-400 hover:shadow-md active:scale-[0.98] transition">
+                        <div onclick="openGenderSelectModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-400 hover:shadow-md active:scale-[0.98] transition">
                             <div>
                                 <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">${ev} <i class="fa-solid fa-circle-info text-blue-500 text-xs"></i></h4>
                                 <p class="text-xs text-slate-400 mt-0.5">Balapan</p>
@@ -1368,7 +1607,7 @@
                 fieldGrid.innerHTML = FIELD_EVENTS.map(ev => {
                     const count = filtered.filter(a => a.acara.includes(ev)).length;
                     return `
-                        <div onclick="openEventParticipantsModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-400 hover:shadow-md active:scale-[0.98] transition">
+                        <div onclick="openGenderSelectModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-400 hover:shadow-md active:scale-[0.98] transition">
                             <div>
                                 <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">${ev} <i class="fa-solid fa-circle-info text-amber-500 text-xs"></i></h4>
                                 <p class="text-xs text-slate-400 mt-0.5">Padang</p>
@@ -1380,17 +1619,68 @@
             }
         }
 
-        function openEventParticipantsModal(eventName) {
+        let activeEventForGender = '';
+
+        function openGenderSelectModal(eventName) {
+            activeEventForGender = eventName;
+            const modal = document.getElementById('gender-select-modal');
+            const titleEl = document.getElementById('gender-select-event-title');
+            const countMEl = document.getElementById('gender-count-m');
+            const countFEl = document.getElementById('gender-count-f');
+
+            if (titleEl) titleEl.textContent = `Acara: ${eventName}`;
+
+            const limits = getEventLimits();
+            const limitM = limits[eventName]?.Lelaki ?? 2;
+            const limitF = limits[eventName]?.Perempuan ?? 2;
+
+            const filteredAthletes = (currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
+                .filter(a => a.acara.includes(eventName));
+
+            const countM = filteredAthletes.filter(a => a.jantina === 'Lelaki').length;
+            const countF = filteredAthletes.filter(a => a.jantina === 'Perempuan').length;
+
+            if (currentUser?.team) {
+                if (countMEl) countMEl.textContent = `${countM} daripada ${limitM} peserta`;
+                if (countFEl) countFEl.textContent = `${countF} daripada ${limitF} peserta`;
+            } else {
+                const totalCapM = limitM * 4;
+                const totalCapF = limitF * 4;
+                if (countMEl) countMEl.textContent = `${countM} daripada ${totalCapM} peserta (${limitM}/pasukan)`;
+                if (countFEl) countFEl.textContent = `${countF} daripada ${totalCapF} peserta (${limitF}/pasukan)`;
+            }
+
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeGenderSelectModal() {
+            const modal = document.getElementById('gender-select-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function selectGenderCategory(gender) {
+            closeGenderSelectModal();
+            if (activeEventForGender) {
+                openEventParticipantsModal(activeEventForGender, gender);
+            }
+        }
+
+        function openEventParticipantsModal(eventName, gender = null) {
             const modal = document.getElementById('event-participants-modal');
             const titleEl = document.getElementById('event-participants-title');
             const countEl = document.getElementById('event-participants-count');
             const listEl = document.getElementById('event-participants-list');
             const printBtn = document.getElementById('btn-print-event-list');
 
-            if (titleEl) titleEl.textContent = `Senarai peserta - ${eventName}`;
+            const genderTitleStr = gender ? ` (${gender})` : '';
+            if (titleEl) titleEl.textContent = `Senarai peserta - ${eventName}${genderTitleStr}`;
 
-            const filteredAthletes = (currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
+            let filteredAthletes = (currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
                 .filter(a => a.acara.includes(eventName));
+
+            if (gender) {
+                filteredAthletes = filteredAthletes.filter(a => a.jantina === gender);
+            }
 
             if (countEl) countEl.textContent = `Jumlah: ${filteredAthletes.length} Peserta`;
 
@@ -1399,7 +1689,7 @@
                     listEl.innerHTML = `
                         <div class="py-12 text-center text-slate-400 text-sm">
                             <i class="fa-solid fa-users-slash text-3xl mb-2 text-slate-300 block"></i>
-                            Tiada peserta mendaftar untuk acara ini lagi.
+                            Tiada peserta yang didaftarkan bagi acara ini
                         </div>
                     `;
                 } else {
@@ -1431,7 +1721,7 @@
 
             if (printBtn) {
                 printBtn.onclick = function() {
-                    printEventParticipantsList(eventName, filteredAthletes);
+                    printEventParticipantsList(`${eventName}${genderTitleStr}`, filteredAthletes);
                 };
             }
 
@@ -1645,7 +1935,7 @@
             }
 
             toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3000);
+            setTimeout(() => toast.classList.add('hidden'), 3500);
         }
 
         function renderAll() {
