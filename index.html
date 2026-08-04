@@ -339,7 +339,7 @@
                         <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <span class="text-xs font-semibold text-slate-700 leading-relaxed">Pendaftaran sebelum tarikh tutup</span>
+                        <span class="text-xs font-semibold text-slate-700 leading-relaxed">Lengkapkan Pendaftaran sebelum tarikh tutup</span>
                     </div>
 
                     <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
@@ -783,32 +783,38 @@
     </div>
 
     <!-- Admin Date & Qualification Settings Modal -->
-    <div id="admin-date-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 border border-slate-100 animate-fade-in max-h-[90vh] flex flex-col">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4 shrink-0">
+    <div id="admin-date-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-4 sm:p-6 border border-slate-100 animate-fade-in max-h-[92vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-4 mb-3 sm:mb-4 shrink-0">
                 <div>
-                    <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-amber-500"></i> Tetapan Admin
                     </h3>
-                    <p class="text-xs text-slate-500">Pengurusan tarikh tutup dan kelayakan pendaftaran acara.</p>
+                    <p class="text-[11px] sm:text-xs text-slate-500">Pengurusan tarikh tutup, kelayakan, pengguna dan log aktiviti.</p>
                 </div>
-                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 text-lg p-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <!-- Sub-tab Bar -->
-            <div class="flex border-b border-slate-200 mb-4 shrink-0 gap-2">
-                <button id="admin-tab-btn-date" onclick="switchAdminTab('date')" class="pb-2.5 px-3 text-xs font-bold border-b-2 border-blue-900 text-blue-900 transition">
-                    <i class="fa-solid fa-calendar-gear mr-1"></i> Tetapan Pendaftaran
+            <div class="flex border-b border-slate-200 mb-3 sm:mb-4 shrink-0 gap-1 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
+                <button id="admin-tab-btn-date" onclick="switchAdminTab('date')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold border-b-2 border-blue-900 text-blue-900 transition whitespace-nowrap shrink-0">
+                    <i class="fa-solid fa-calendar-gear mr-1"></i> Pendaftaran
                 </button>
-                <button id="admin-tab-btn-limits" onclick="switchAdminTab('limits')" class="pb-2.5 px-3 text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition">
-                    <i class="fa-solid fa-list-check mr-1"></i> Tetapan Kelayakan Acara
+                <button id="admin-tab-btn-limits" onclick="switchAdminTab('limits')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0">
+                    <i class="fa-solid fa-list-check mr-1"></i> Had Penyertaan
+                </button>
+                <button id="admin-tab-btn-users" onclick="switchAdminTab('users')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0">
+                    <i class="fa-solid fa-users-gear mr-1"></i> Pengurusan Pengguna
+                </button>
+                <button id="admin-tab-btn-history" onclick="switchAdminTab('history')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0">
+                    <i class="fa-solid fa-clock-rotate-left mr-1"></i> Sejarah & Log Aktiviti
                 </button>
             </div>
 
             <!-- Tab 1: Date Settings -->
-            <div id="admin-tab-date" class="space-y-4">
+            <div id="admin-tab-date" class="space-y-4 overflow-y-auto flex-grow pr-1">
                 <form onsubmit="handleSaveClosingDate(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
@@ -816,35 +822,35 @@
                                 Pilih Tarikh
                             </label>
                             <input type="date" id="admin-date-input" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs sm:text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
                                 Pilih Masa
                             </label>
                             <input type="time" id="admin-time-input" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-sm">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs sm:text-sm">
                         </div>
                     </div>
 
-                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs">
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs leading-relaxed">
                         <i class="fa-solid fa-circle-info mr-1"></i>
                         Selepas tarikh dan masa ini, log masuk untuk akaun Pengurus Pasukan (Helang, Garuda, Rajawali, Kenyalang) akan dikunci secara automatik.
                     </div>
 
-                    <div class="flex items-center justify-between gap-2 pt-2">
+                    <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-2.5 pt-2">
                         <button type="button" onclick="handleDeleteClosingDate()"
-                            class="px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+                            class="w-full sm:w-auto justify-center px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
                             <i class="fa-solid fa-trash-can"></i> Padam Tarikh
                         </button>
 
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 w-full sm:w-auto">
                             <button type="button" onclick="closeAdminModal()"
-                                class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                                class="w-1/2 sm:w-auto px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
                                 Batal
                             </button>
                             <button type="submit"
-                                class="px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                                class="w-1/2 sm:w-auto justify-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
                                 <i class="fa-solid fa-floppy-disk"></i> Simpan
                             </button>
                         </div>
@@ -854,19 +860,19 @@
 
             <!-- Tab 2: Event Limits Settings Table -->
             <div id="admin-tab-limits" class="hidden space-y-4 overflow-y-auto flex-grow pr-1">
-                <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 text-xs">
+                <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 text-xs leading-relaxed">
                     <i class="fa-solid fa-circle-info mr-1"></i>
                     Tetapkan had maksimum penyertaan atlet bagi setiap pasukan mengikut acara dan kategori jantina. Perubahan akan berkuat kuasa serta-merta.
                 </div>
 
                 <form id="admin-limits-form" onsubmit="handleSaveEventLimits(event)" class="space-y-4">
                     <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
-                        <table class="w-full text-left text-xs">
+                        <table class="w-full text-left text-xs min-w-[340px]">
                             <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200">
                                 <tr>
-                                    <th class="p-3">Nama Acara</th>
-                                    <th class="p-3 text-center w-28">Lelaki (Max)</th>
-                                    <th class="p-3 text-center w-28">Perempuan (Max)</th>
+                                    <th class="p-2.5 sm:p-3">Nama Acara</th>
+                                    <th class="p-2.5 sm:p-3 text-center w-24 sm:w-28">Lelaki (Max)</th>
+                                    <th class="p-2.5 sm:p-3 text-center w-24 sm:w-28">Perempuan (Max)</th>
                                 </tr>
                             </thead>
                             <tbody id="admin-limits-table-body" class="divide-y divide-slate-100">
@@ -875,26 +881,265 @@
                         </table>
                     </div>
 
-                    <div class="flex items-center justify-between gap-2 pt-2">
-                        <button type="button" onclick="resetEventLimitsToDefault()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition">
+                    <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-2.5 pt-2">
+                        <button type="button" onclick="resetEventLimitsToDefault()" class="w-full sm:w-auto px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition text-center">
                             Reset Nilai Asal (2)
                         </button>
-                        <div class="flex gap-2">
-                            <button type="button" onclick="closeAdminModal()" class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button type="button" onclick="closeAdminModal()" class="w-1/2 sm:w-auto px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
                                 Batal
                             </button>
-                            <button type="submit" class="px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                            <button type="submit" class="w-1/2 sm:w-auto justify-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
                                 <i class="fa-solid fa-floppy-disk"></i> Simpan Tetapan
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
+
+            <!-- Tab 3: Pengurusan Pengguna (User Management Module) -->
+            <div id="admin-tab-users" class="hidden space-y-4 overflow-y-auto flex-grow pr-1">
+                <!-- Access Denied Alert Box for Non-Admin Utama -->
+                <div id="users-access-denied" class="hidden p-6 bg-rose-50 border border-rose-200 rounded-2xl text-center space-y-3">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl mx-auto font-bold shadow-sm">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </div>
+                    <h4 class="text-sm font-bold text-rose-900 font-heading">Akses Ditolak</h4>
+                    <p class="text-xs text-rose-700 font-semibold">Akses Ditolak. Anda tidak mempunyai kebenaran untuk mengurus pengguna.</p>
+                </div>
+
+                <!-- Main User Management Container -->
+                <div id="users-content-container" class="space-y-4">
+                    <!-- Controls Bar (Search, Filter, Add User Button) -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 sm:space-y-0 sm:flex sm:items-center sm:justify-between gap-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 flex-grow">
+                            <div class="relative">
+                                <input type="text" id="filter-user-search" oninput="renderUsersTable()" placeholder="🔍 Cari ID, Nama, Pasukan..."
+                                    class="w-full px-3 py-1.5 pl-8 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                            </div>
+                            <select id="filter-user-role" onchange="renderUsersTable()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                                <option value="">Semua Peranan & Status</option>
+                                <option value="manager">Pengurus Pasukan</option>
+                                <option value="admin">Admin Utama</option>
+                                <option value="Aktif">Akaun Aktif 🟢</option>
+                                <option value="Digantung">Akaun Digantung 🟡</option>
+                                <option value="Tidak Aktif">Akaun Tidak Aktif 🔴</option>
+                            </select>
+                        </div>
+                        <button onclick="openAddUserModal()" class="w-full sm:w-auto px-4 py-2 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-1.5 shrink-0">
+                            <i class="fa-solid fa-user-plus"></i> ➕ Tambah Pengguna
+                        </button>
+                    </div>
+
+                    <!-- Users Table -->
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                        <table class="w-full text-left text-xs min-w-[600px]">
+                            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="p-2.5 text-center w-10">Bil</th>
+                                    <th class="p-2.5">ID Pengguna</th>
+                                    <th class="p-2.5">Nama Pengguna</th>
+                                    <th class="p-2.5">Pasukan</th>
+                                    <th class="p-2.5">Peranan</th>
+                                    <th class="p-2.5">Kata Laluan</th>
+                                    <th class="p-2.5 text-center">Status</th>
+                                    <th class="p-2.5 text-center">Tindakan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-table-body" class="divide-y divide-slate-100">
+                                <!-- Generated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Data History & Log Aktiviti -->
+            <div id="admin-tab-history" class="hidden space-y-4 overflow-y-auto flex-grow pr-1">
+                <!-- Access Denied Alert Box -->
+                <div id="history-access-denied" class="hidden p-6 bg-rose-50 border border-rose-200 rounded-2xl text-center space-y-3">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl mx-auto font-bold shadow-sm">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </div>
+                    <h4 class="text-sm font-bold text-rose-900 font-heading">Akses Ditolak</h4>
+                    <p class="text-xs text-rose-700 font-semibold">Akses Ditolak. Anda tidak mempunyai kebenaran untuk melihat halaman ini.</p>
+                </div>
+
+                <!-- Main History Log Table Container -->
+                <div id="history-content-container" class="space-y-4">
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-blue-600 shrink-0"></i>
+                            <span>Pemantauan aktiviti dan sejarah perubahan data secara masa nyata.</span>
+                        </div>
+                        <button onclick="clearActivityLogs()" class="text-[11px] font-semibold text-rose-600 hover:text-rose-800 underline self-end sm:self-auto shrink-0">
+                            <i class="fa-solid fa-trash-can mr-1"></i> Padam Log
+                        </button>
+                    </div>
+
+                    <!-- Filter Log Controls -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <input type="text" id="filter-log-search" oninput="renderActivityLogs()" placeholder="Cari nama, tindakan, atau butiran..."
+                            class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                        <select id="filter-log-team" onchange="renderActivityLogs()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                            <option value="">Semua Pasukan / Pengguna</option>
+                            <option value="Admin">Admin Utama</option>
+                            <option value="Helang">Helang</option>
+                            <option value="Garuda">Garuda</option>
+                            <option value="Rajawali">Rajawali</option>
+                            <option value="Kenyalang">Kenyalang</option>
+                        </select>
+                    </div>
+
+                    <!-- Log Table -->
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                        <table class="w-full text-left text-xs min-w-[850px]">
+                            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border-b border-slate-200">
+                                <tr>
+                                    <th class="p-2.5">Tarikh & Masa</th>
+                                    <th class="p-2.5">ID Pengguna</th>
+                                    <th class="p-2.5">Pasukan</th>
+                                    <th class="p-2.5">Peranan</th>
+                                    <th class="p-2.5">Aktiviti & Butiran</th>
+                                    <th class="p-2.5 text-center">Status</th>
+                                    <th class="p-2.5">IP, Peranti & Sistem</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-history-table-body" class="divide-y divide-slate-100">
+                                <!-- Generated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Add/Edit Form Modal -->
+    <div id="user-form-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100 animate-fade-in space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 id="user-form-title" class="text-base font-bold text-slate-900 font-heading flex items-center gap-2">
+                    <i class="fa-solid fa-user-gear text-blue-900"></i> Tambah Pengguna Baharu
+                </h3>
+                <button onclick="closeUserFormModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="user-manage-form" onsubmit="handleUserFormSubmit(event)" class="space-y-3 text-xs">
+                <input type="hidden" id="form-user-original-id">
+
+                <div class="space-y-1">
+                    <div class="flex items-center justify-between">
+                        <label class="font-bold text-slate-700">ID Pengguna *</label>
+                        <label class="text-[11px] text-blue-700 font-semibold flex items-center gap-1 cursor-pointer">
+                            <input type="checkbox" id="form-auto-id-check" onchange="toggleAutoIdGeneration()" class="w-3.5 h-3.5 rounded text-blue-600 focus:ring-blue-500">
+                            ☑ Jana ID Automatik
+                        </label>
+                    </div>
+                    <input type="text" id="form-user-id" required placeholder="Contoh: PGR-HELANG-001"
+                        class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono focus:ring-2 focus:ring-blue-600 uppercase">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nama Pengguna / Pengurus *</label>
+                    <input type="text" id="form-user-name" required placeholder="Contoh: Pengurus Helang"
+                        class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Pilih Pasukan *</label>
+                        <select id="form-user-team" onchange="autoGenerateUserId()" required class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600">
+                            <option value="Helang">Helang</option>
+                            <option value="Garuda">Garuda</option>
+                            <option value="Rajawali">Rajawali</option>
+                            <option value="Kenyalang">Kenyalang</option>
+                            <option value="Tiada">Tiada (Admin)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Peranan *</label>
+                        <select id="form-user-role" onchange="autoGenerateUserId()" required class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600">
+                            <option value="manager">Pengurus Pasukan</option>
+                            <option value="admin">Admin Utama</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="font-bold text-slate-700">Kata Laluan *</label>
+                            <button type="button" onclick="generateRandomPassword()" class="text-[10px] text-cyan-700 hover:underline font-semibold">⚡ Jana</button>
+                        </div>
+                        <div class="relative">
+                            <input type="password" id="form-user-pass" required placeholder="••••••••"
+                                class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 pr-8">
+                            <button type="button" onclick="togglePasswordVisibility('form-user-pass')" class="absolute right-2 top-2 text-slate-400 hover:text-slate-600">
+                                <i class="fa-solid fa-eye text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Status Akaun *</label>
+                        <select id="form-user-status" required class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600">
+                            <option value="Aktif">🟢 Aktif</option>
+                            <option value="Digantung">🟡 Digantung</option>
+                            <option value="Tidak Aktif">🔴 Tidak Aktif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+                    <button type="button" onclick="closeUserFormModal()" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow flex items-center gap-1.5">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Delete User Modal -->
+    <div id="user-delete-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-rose-100 animate-fade-in space-y-4">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-xl mx-auto mb-2 shadow-sm">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="text-base font-bold text-slate-900 font-heading">Pengesahan Memadam Akaun</h3>
+                <p class="text-xs text-slate-500 mt-1">Adakah anda pasti ingin memadam akaun ini?</p>
+            </div>
+
+            <div class="bg-rose-50 p-3.5 rounded-xl border border-rose-100 space-y-1.5 text-xs text-slate-700">
+                <div class="flex justify-between">
+                    <span class="font-medium text-slate-500">ID Pengguna :</span>
+                    <strong id="delete-user-display-id" class="font-mono text-slate-900">PGR-HELANG-001</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="font-medium text-slate-500">Nama :</span>
+                    <strong id="delete-user-display-name" class="text-slate-900">Pengurus Helang</strong>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 pt-2">
+                <button onclick="closeUserDeleteModal()" class="w-1/2 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-semibold">
+                    Batal
+                </button>
+                <button onclick="executeDeleteUser()" class="w-1/2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow transition">
+                    Ya, Padam
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in max-w-md">
+    <div id="toast" class="hidden fixed top-5 left-1/2 -translate-x-1/2 sm:left-auto sm:right-5 sm:translate-x-0 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in max-w-md w-[90%] sm:w-auto">
         <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-xl shrink-0"></i>
         <span id="toast-message" class="text-xs font-medium leading-tight">Mesej pemberitahuan.</span>
     </div>
@@ -923,13 +1168,14 @@
             "Lompat Jauh", "Lompat Tinggi", "Lontar Peluru"
         ];
 
-        const USER_ACCOUNTS = {
-            "admin": { name: "Admin Utama", role: "admin", team: null, pass: "0000" },
-            "helang": { name: "Admin Helang", role: "manager", team: "Helang", pass: "0000" },
-            "garuda": { name: "Admin Garuda", role: "manager", team: "Garuda", pass: "0000" },
-            "rajawali": { name: "Admin Rajawali", role: "manager", team: "Rajawali", pass: "0000" },
-            "kenyalang": { name: "Admin Kenyalang", role: "manager", team: "Kenyalang", pass: "0000" }
-        };
+        // Initial System Accounts Default (Fallback if empty in storage)
+        const DEFAULT_ACCOUNTS = [
+            { id: "admin", name: "Admin Utama", role: "admin", team: "Tiada", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Sistem" },
+            { id: "helang", name: "Pengurus Helang", role: "manager", team: "Helang", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" },
+            { id: "garuda", name: "Pengurus Garuda", role: "manager", team: "Garuda", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" },
+            { id: "rajawali", name: "Pengurus Rajawali", role: "manager", team: "Rajawali", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" },
+            { id: "kenyalang", name: "Pengurus Kenyalang", role: "manager", team: "Kenyalang", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" }
+        ];
 
         const TEAM_COLORS = {
             "Helang": { bg: "bg-emerald-100", text: "text-emerald-800", border: "border-emerald-300", hex: "#10b981" },
@@ -938,9 +1184,113 @@
             "Kenyalang": { bg: "bg-amber-100", text: "text-amber-800", border: "border-amber-300", hex: "#f59e0b" }
         };
 
+        // System Users Persistence
+        function getSystemUsers() {
+            const stored = localStorage.getItem('skbk_system_users');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch(e) {}
+            }
+            localStorage.setItem('skbk_system_users', JSON.stringify(DEFAULT_ACCOUNTS));
+            return DEFAULT_ACCOUNTS;
+        }
+
+        function saveSystemUsers(users) {
+            localStorage.setItem('skbk_system_users', JSON.stringify(users));
+        }
+
         // State Variables
         let athletes = [];
         let currentUser = null;
+        let pendingDeleteUserId = null;
+
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            let os = "Windows";
+            if (ua.indexOf("Win") !== -1) os = "Windows";
+            else if (ua.indexOf("Android") !== -1) os = "Android";
+            else if (ua.indexOf("iPhone") !== -1 || ua.indexOf("iPad") !== -1 || ua.indexOf("like Mac") !== -1) os = "iOS";
+            else if (ua.indexOf("Mac") !== -1) os = "macOS";
+            else if (ua.indexOf("Linux") !== -1) os = "Linux";
+
+            let browser = "Chrome";
+            if (ua.indexOf("Edg") !== -1) browser = "Edge";
+            else if (ua.indexOf("Chrome") !== -1) browser = "Chrome";
+            else if (ua.indexOf("Safari") !== -1) browser = "Safari";
+            else if (ua.indexOf("Firefox") !== -1) browser = "Firefox";
+
+            let device = "Desktop";
+            if (/Mobi|Android|iPhone/i.test(ua)) device = "Telefon Bimbit";
+            else if (/Tablet|iPad/i.test(ua)) device = "Tablet";
+
+            return { os, browser, device };
+        }
+
+        function getActivityLogs() {
+            const stored = localStorage.getItem('skbk_activity_logs');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch(e) {}
+            }
+            // Sample initial logs if empty
+            const samples = [
+                { id: "l1", timestamp: new Date(Date.now() - 3600000).toISOString(), userId: "admin", userName: "Admin Utama", role: "Admin Utama", team: "Tiada", action: "Kemaskini Tarikh Tutup", details: "Menetapkan tarikh tutup pendaftaran pada 15 Ogos 2026, 11:59 malam.", status: "Berjaya", ip: "113.210.45.12", device: "Desktop", browser: "Chrome", os: "Windows" },
+                { id: "l2", timestamp: new Date(Date.now() - 7200000).toISOString(), userId: "PGR-HELANG-001", userName: "Pengurus Helang", role: "Pengurus Pasukan", team: "Helang", action: "Daftar Atlet Baharu", details: "Mendaftarkan atlet Muhammad Adam (H101) bagi pasukan Helang.", status: "Berjaya", ip: "175.143.12.88", device: "Telefon Bimbit", browser: "Safari", os: "iOS" },
+                { id: "l3", timestamp: new Date(Date.now() - 10800000).toISOString(), userId: "PGR-GARUDA-001", userName: "Pengurus Garuda", role: "Pengurus Pasukan", team: "Garuda", action: "Kemas Kini Atlet", details: "Mengemaskini acara bagi atlet Nur Aisyah (G201).", status: "Berjaya", ip: "182.239.90.15", device: "Desktop", browser: "Edge", os: "Windows" }
+            ];
+            localStorage.setItem('skbk_activity_logs', JSON.stringify(samples));
+            return samples;
+        }
+
+        function saveActivityLogs(logs) {
+            localStorage.setItem('skbk_activity_logs', JSON.stringify(logs));
+        }
+
+        function logActivity(action, details, status = "Berjaya", userOverride = null) {
+            const logs = getActivityLogs();
+            const activeUser = userOverride || currentUser || { id: "Sistem", name: "Sistem", role: "Sistem", team: "Sistem" };
+            const devInfo = getDeviceInfo();
+
+            let roleText = "Pengurus Pasukan";
+            if (activeUser.role === 'admin' || activeUser.id === 'admin') {
+                roleText = "Admin Utama";
+            } else if (activeUser.role) {
+                roleText = activeUser.role === 'manager' ? "Pengurus Pasukan" : activeUser.role;
+            }
+
+            const newLog = {
+                id: Date.now().toString(),
+                timestamp: new Date().toISOString(),
+                userId: activeUser.id || activeUser.name || "Sistem",
+                userName: activeUser.name || "Sistem",
+                team: activeUser.team || "Tiada",
+                role: roleText,
+                action: action,
+                details: details,
+                status: status,
+                ip: "113.210.45.12",
+                device: devInfo.device,
+                browser: devInfo.browser,
+                os: devInfo.os
+            };
+            logs.unshift(newLog);
+            saveActivityLogs(logs);
+            if (document.getElementById('admin-tab-history') && !document.getElementById('admin-tab-history').classList.contains('hidden')) {
+                renderActivityLogs();
+            }
+        }
+
+        function clearActivityLogs() {
+            if (currentUser?.role !== 'admin') {
+                showToast("Akses Ditolak. Anda tidak mempunyai kebenaran.", "error");
+                return;
+            }
+            saveActivityLogs([]);
+            renderActivityLogs();
+            showToast("Semua rekod log aktiviti telah dipadam.");
+        }
 
         // --- Qualification Limits Logic ---
         function getEventLimits() {
@@ -1023,21 +1373,514 @@
         function switchAdminTab(tab) {
             const dateTab = document.getElementById('admin-tab-date');
             const limitsTab = document.getElementById('admin-tab-limits');
+            const usersTab = document.getElementById('admin-tab-users');
+            const historyTab = document.getElementById('admin-tab-history');
+            
             const dateBtn = document.getElementById('admin-tab-btn-date');
             const limitsBtn = document.getElementById('admin-tab-btn-limits');
+            const usersBtn = document.getElementById('admin-tab-btn-users');
+            const historyBtn = document.getElementById('admin-tab-btn-history');
+
+            // Reset tab highlights
+            [dateBtn, limitsBtn, usersBtn, historyBtn].forEach(btn => {
+                if (btn) {
+                    btn.classList.remove('border-blue-900', 'text-blue-900');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                }
+            });
 
             if (tab === 'date') {
                 if (dateTab) dateTab.classList.remove('hidden');
                 if (limitsTab) limitsTab.classList.add('hidden');
+                if (usersTab) usersTab.classList.add('hidden');
+                if (historyTab) historyTab.classList.add('hidden');
                 if (dateBtn) { dateBtn.classList.add('border-blue-900', 'text-blue-900'); dateBtn.classList.remove('border-transparent', 'text-slate-500'); }
-                if (limitsBtn) { limitsBtn.classList.remove('border-blue-900', 'text-blue-900'); limitsBtn.classList.add('border-transparent', 'text-slate-500'); }
-            } else {
+            } else if (tab === 'limits') {
                 if (dateTab) dateTab.classList.add('hidden');
                 if (limitsTab) limitsTab.classList.remove('hidden');
+                if (usersTab) usersTab.classList.add('hidden');
+                if (historyTab) historyTab.classList.add('hidden');
                 if (limitsBtn) { limitsBtn.classList.add('border-blue-900', 'text-blue-900'); limitsBtn.classList.remove('border-transparent', 'text-slate-500'); }
-                if (dateBtn) { dateBtn.classList.remove('border-blue-900', 'text-blue-900'); dateBtn.classList.add('border-transparent', 'text-slate-500'); }
                 renderAdminLimitsTable();
+            } else if (tab === 'users') {
+                if (dateTab) dateTab.classList.add('hidden');
+                if (limitsTab) limitsTab.classList.add('hidden');
+                if (usersTab) usersTab.classList.remove('hidden');
+                if (historyTab) historyTab.classList.add('hidden');
+                if (usersBtn) { usersBtn.classList.add('border-blue-900', 'text-blue-900'); usersBtn.classList.remove('border-transparent', 'text-slate-500'); }
+
+                const accessDenied = document.getElementById('users-access-denied');
+                const contentCont = document.getElementById('users-content-container');
+
+                if (!currentUser || currentUser.role !== 'admin') {
+                    if (accessDenied) accessDenied.classList.remove('hidden');
+                    if (contentCont) contentCont.classList.add('hidden');
+                } else {
+                    if (accessDenied) accessDenied.classList.add('hidden');
+                    if (contentCont) contentCont.classList.remove('hidden');
+                    renderUsersTable();
+                }
+            } else if (tab === 'history') {
+                if (dateTab) dateTab.classList.add('hidden');
+                if (limitsTab) limitsTab.classList.add('hidden');
+                if (usersTab) usersTab.classList.add('hidden');
+                if (historyTab) historyTab.classList.remove('hidden');
+                if (historyBtn) { historyBtn.classList.add('border-blue-900', 'text-blue-900'); historyBtn.classList.remove('border-transparent', 'text-slate-500'); }
+
+                const accessDenied = document.getElementById('history-access-denied');
+                const contentCont = document.getElementById('history-content-container');
+
+                if (!currentUser || currentUser.role !== 'admin') {
+                    if (accessDenied) accessDenied.classList.remove('hidden');
+                    if (contentCont) contentCont.classList.add('hidden');
+                } else {
+                    if (accessDenied) accessDenied.classList.add('hidden');
+                    if (contentCont) contentCont.classList.remove('hidden');
+                    renderActivityLogs();
+                }
             }
+        }
+
+        // --- User Management Logic ---
+        function renderUsersTable() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+
+            const tbody = document.getElementById('admin-users-table-body');
+            if (!tbody) return;
+
+            const searchKey = document.getElementById('filter-user-search')?.value.toLowerCase().trim() || '';
+            const roleFilter = document.getElementById('filter-user-role')?.value || '';
+
+            let users = getSystemUsers();
+
+            if (roleFilter) {
+                if (['manager', 'admin'].includes(roleFilter)) {
+                    users = users.filter(u => u.role === roleFilter);
+                } else {
+                    users = users.filter(u => u.status === roleFilter);
+                }
+            }
+
+            if (searchKey) {
+                users = users.filter(u =>
+                    u.id.toLowerCase().includes(searchKey) ||
+                    u.name.toLowerCase().includes(searchKey) ||
+                    (u.team && u.team.toLowerCase().includes(searchKey))
+                );
+            }
+
+            if (users.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400 font-medium">Tiada akaun pengguna dijumpai.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = users.map((u, idx) => {
+                let statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">🟢 Aktif</span>';
+                if (u.status === 'Digantung') {
+                    statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">🟡 Digantung</span>';
+                } else if (u.status === 'Tidak Aktif') {
+                    statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">🔴 Tidak Aktif</span>';
+                }
+
+                const roleBadge = u.role === 'admin' ? 
+                    '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-900 border border-blue-300">Admin Utama</span>' :
+                    '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-300">Pengurus Pasukan</span>';
+
+                const teamInfo = TEAM_COLORS[u.team] || { bg: "bg-slate-100", text: "text-slate-800", border: "border-slate-300" };
+
+                const isMainAdmin = u.id.toLowerCase() === 'admin';
+
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-2.5 text-center font-semibold text-slate-400 text-xs">${idx + 1}</td>
+                        <td class="p-2.5 font-mono font-bold text-slate-900 text-xs">${u.id}</td>
+                        <td class="p-2.5 font-semibold text-slate-800 text-xs">${u.name}</td>
+                        <td class="p-2.5">
+                            <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${teamInfo.bg} ${teamInfo.text} ${teamInfo.border}">
+                                ${u.team || 'Tiada'}
+                            </span>
+                        </td>
+                        <td class="p-2.5">${roleBadge}</td>
+                        <td class="p-2.5 font-mono text-xs text-slate-500">
+                            <div class="flex items-center gap-1.5">
+                                <span id="pwd-text-${u.id}">••••••••</span>
+                                <button onclick="toggleTablePassword('${u.id}', '${u.pass}')" class="text-slate-400 hover:text-slate-600" title="Papar/Sembunyi Kata Laluan">
+                                    <i class="fa-solid fa-eye text-[11px]"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="p-2.5 text-center">${statusBadge}</td>
+                        <td class="p-2.5 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="editUserModal('${u.id}')" title="Edit Pengguna" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                ${!isMainAdmin ? `
+                                    <button onclick="promptDeleteUser('${u.id}')" title="Padam Pengguna" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                ` : '<span class="text-[10px] text-slate-300 px-1 font-semibold">Utama</span>'}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function toggleTablePassword(userId, passVal) {
+            const el = document.getElementById(`pwd-text-${userId}`);
+            if (!el) return;
+            if (el.textContent === '••••••••') {
+                el.textContent = passVal;
+                el.classList.add('text-blue-700', 'font-bold');
+            } else {
+                el.textContent = '••••••••';
+                el.classList.remove('text-blue-700', 'font-bold');
+            }
+        }
+
+        function openAddUserModal() {
+            document.getElementById('user-form-title').innerHTML = `<i class="fa-solid fa-user-plus text-blue-900"></i> Tambah Pengguna Baharu`;
+            document.getElementById('form-user-original-id').value = '';
+            document.getElementById('form-user-id').value = '';
+            document.getElementById('form-user-id').readOnly = false;
+            document.getElementById('form-user-name').value = '';
+            document.getElementById('form-user-team').value = 'Helang';
+            document.getElementById('form-user-role').value = 'manager';
+            document.getElementById('form-user-pass').value = '';
+            document.getElementById('form-user-status').value = 'Aktif';
+            document.getElementById('form-auto-id-check').checked = true;
+
+            autoGenerateUserId();
+            document.getElementById('user-form-modal').classList.remove('hidden');
+        }
+
+        function editUserModal(userId) {
+            const users = getSystemUsers();
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('user-form-title').innerHTML = `<i class="fa-solid fa-user-pen text-blue-900"></i> Edit Pengguna (${user.id})`;
+            document.getElementById('form-user-original-id').value = user.id;
+            document.getElementById('form-user-id').value = user.id;
+            document.getElementById('form-user-name').value = user.name;
+            document.getElementById('form-user-team').value = user.team || 'Helang';
+            document.getElementById('form-user-role').value = user.role;
+            document.getElementById('form-user-pass').value = user.pass;
+            document.getElementById('form-user-status').value = user.status || 'Aktif';
+            document.getElementById('form-auto-id-check').checked = false;
+
+            if (user.id.toLowerCase() === 'admin') {
+                document.getElementById('form-user-id').readOnly = true;
+                document.getElementById('form-user-role').disabled = true;
+            } else {
+                document.getElementById('form-user-id').readOnly = false;
+                document.getElementById('form-user-role').disabled = false;
+            }
+
+            document.getElementById('user-form-modal').classList.remove('hidden');
+        }
+
+        function closeUserFormModal() {
+            document.getElementById('user-form-modal').classList.add('hidden');
+        }
+
+        function toggleAutoIdGeneration() {
+            const autoCheck = document.getElementById('form-auto-id-check').checked;
+            const idInput = document.getElementById('form-user-id');
+            if (autoCheck) {
+                autoGenerateUserId();
+            } else {
+                idInput.readOnly = false;
+            }
+        }
+
+        function autoGenerateUserId() {
+            const autoCheck = document.getElementById('form-auto-id-check').checked;
+            if (!autoCheck) return;
+
+            const role = document.getElementById('form-user-role').value;
+            const team = document.getElementById('form-user-team').value;
+            const users = getSystemUsers();
+            const idInput = document.getElementById('form-user-id');
+
+            let prefix = 'PGR';
+            if (role === 'admin') {
+                prefix = 'ADM';
+            } else if (team) {
+                prefix = `PGR-${team.toUpperCase()}`;
+            }
+
+            let count = 1;
+            users.forEach(u => {
+                if (u.id.startsWith(prefix)) {
+                    count++;
+                }
+            });
+
+            const nextNum = String(count).padStart(3, '0');
+            idInput.value = `${prefix}-${nextNum}`;
+            idInput.readOnly = true;
+        }
+
+        function generateRandomPassword() {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            let pass = "";
+            for (let i = 0; i < 6; i++) {
+                pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('form-user-pass').value = pass;
+            showToast(`Kata laluan baharu dijana: ${pass}`);
+        }
+
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function handleUserFormSubmit(e) {
+            e.preventDefault();
+
+            const origId = document.getElementById('form-user-original-id').value;
+            const userId = document.getElementById('form-user-id').value.trim().toUpperCase();
+            const userName = document.getElementById('form-user-name').value.trim();
+            const team = document.getElementById('form-user-team').value;
+            const role = document.getElementById('form-user-role').value;
+            const pass = document.getElementById('form-user-pass').value.trim();
+            const status = document.getElementById('form-user-status').value;
+
+            const users = getSystemUsers();
+            const nowStr = new Date().toISOString().slice(0,10);
+
+            // Validation ID Unique
+            if (!origId || origId !== userId) {
+                if (users.some(u => u.id.toUpperCase() === userId)) {
+                    showToast("ID Pengguna sudah wujud! Sila gunakan ID lain.", "error");
+                    return;
+                }
+            }
+
+            if (origId) {
+                // Edit existing user
+                const idx = users.findIndex(u => u.id === origId);
+                if (idx !== -1) {
+                    const prevName = users[idx].name;
+                    users[idx] = {
+                        ...users[idx],
+                        id: userId,
+                        name: userName,
+                        team: role === 'admin' ? 'Tiada' : team,
+                        role: role,
+                        pass: pass,
+                        status: status,
+                        updatedDate: nowStr
+                    };
+                    saveSystemUsers(users);
+                    logActivity("Edit Akaun", `Kemaskini akaun ID: ${userId} (${userName}). Status: Berjaya.`);
+                    showToast("Maklumat pengguna berjaya dikemaskini.");
+                }
+            } else {
+                // Add new user
+                const newUser = {
+                    id: userId,
+                    name: userName,
+                    team: role === 'admin' ? 'Tiada' : team,
+                    role: role,
+                    pass: pass,
+                    status: status,
+                    createdDate: nowStr,
+                    updatedDate: nowStr,
+                    createdBy: currentUser ? currentUser.name : "Admin Utama"
+                };
+                users.push(newUser);
+                saveSystemUsers(users);
+                logActivity("Tambah Akaun", `Menambah akaun baharu ID: ${userId} (${userName}). Status: Berjaya.`);
+                showToast("Pengguna baharu berjaya ditambah.");
+            }
+
+            closeUserFormModal();
+            renderUsersTable();
+        }
+
+        function promptDeleteUser(userId) {
+            if (userId.toLowerCase() === 'admin') {
+                showToast("Akaun Admin Utama tidak boleh dipadam!", "error");
+                return;
+            }
+            const users = getSystemUsers();
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+
+            pendingDeleteUserId = userId;
+            document.getElementById('delete-user-display-id').textContent = user.id;
+            document.getElementById('delete-user-display-name').textContent = user.name;
+            document.getElementById('user-delete-modal').classList.remove('hidden');
+        }
+
+        function closeUserDeleteModal() {
+            pendingDeleteUserId = null;
+            document.getElementById('user-delete-modal').classList.add('hidden');
+        }
+
+        function executeDeleteUser() {
+            if (!pendingDeleteUserId) return;
+            let users = getSystemUsers();
+            const user = users.find(u => u.id === pendingDeleteUserId);
+
+            users = users.filter(u => u.id !== pendingDeleteUserId);
+            saveSystemUsers(users);
+
+            if (user) {
+                logActivity("Padam Akaun", `Memadam akaun ID: ${user.id} (${user.name}). Status: Berjaya.`);
+            }
+
+            closeUserDeleteModal();
+            renderUsersTable();
+            showToast("Akaun pengguna berjaya dipadam.");
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const uidInput = document.getElementById('login-userid')?.value.trim();
+            const pass = document.getElementById('login-password')?.value.trim();
+            const errDiv = document.getElementById('login-error');
+
+            const users = getSystemUsers();
+            const foundUser = users.find(u => u.id.toLowerCase() === uidInput.toLowerCase());
+
+            if (foundUser && foundUser.pass === pass) {
+                // Check status suspension
+                if (foundUser.status === 'Digantung') {
+                    if (errDiv) {
+                        errDiv.textContent = "Akaun anda telah digantung. Sila hubungi Admin Utama.";
+                        errDiv.classList.remove('hidden');
+                    }
+                    logActivity("Log Masuk Gagal", `Percubaan log masuk akaun digantung: ${foundUser.id}`, "Gagal", foundUser);
+                    return;
+                }
+                if (foundUser.status === 'Tidak Aktif') {
+                    if (errDiv) {
+                        errDiv.textContent = "Akaun anda tidak aktif. Sila hubungi Admin Utama.";
+                        errDiv.classList.remove('hidden');
+                    }
+                    logActivity("Log Masuk Gagal", `Percubaan log masuk akaun tidak aktif: ${foundUser.id}`, "Gagal", foundUser);
+                    return;
+                }
+
+                if (foundUser.role !== 'admin' && isPastClosingDate()) {
+                    if (errDiv) {
+                        errDiv.textContent = `Pendaftaran telah ditutup pada ${getFormattedClosingDate()}. Sila hubungi Admin Utama untuk sebarang bantuan.`;
+                        errDiv.classList.remove('hidden');
+                    }
+                    logActivity("Log Masuk Gagal", `Percubaan log masuk selepas tarikh tutup: ${foundUser.id}`, "Gagal", foundUser);
+                    return;
+                }
+
+                currentUser = foundUser;
+                sessionStorage.setItem('skbk_auth_user', foundUser.id);
+                if (errDiv) errDiv.classList.add('hidden');
+                const loginModal = document.getElementById('login-modal');
+                if (loginModal) loginModal.classList.add('hidden');
+                updateUserUI();
+                renderAll();
+                logActivity("Log Masuk", `Pengguna ${foundUser.name} (${foundUser.id}) berjaya log masuk ke dalam sistem.`, "Berjaya");
+                showToast(`Selamat datang, ${currentUser.name}!`);
+            } else {
+                if (errDiv) {
+                    errDiv.textContent = "ID Pengguna atau Kata Laluan tidak sah!";
+                    errDiv.classList.remove('hidden');
+                }
+                logActivity("Log Masuk Gagal", `ID Pengguna (${uidInput}) atau Kata Laluan tidak sah.`, "Gagal", { id: uidInput, name: uidInput, role: "Unknown", team: "Tiada" });
+            }
+        }
+
+        function checkAuth() {
+            const savedUserId = sessionStorage.getItem('skbk_auth_user');
+            const loginModal = document.getElementById('login-modal');
+            const users = getSystemUsers();
+
+            if (savedUserId) {
+                const foundUser = users.find(u => u.id.toLowerCase() === savedUserId.toLowerCase());
+                if (foundUser && foundUser.status === 'Aktif') {
+                    currentUser = foundUser;
+                    if (loginModal) loginModal.classList.add('hidden');
+                    updateUserUI();
+                    return;
+                }
+            }
+            if (loginModal) loginModal.classList.remove('hidden');
+        }
+
+        function renderActivityLogs() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+
+            const tbody = document.getElementById('admin-history-table-body');
+            if (!tbody) return;
+
+            const searchKey = document.getElementById('filter-log-search')?.value.toLowerCase() || '';
+            const teamKey = document.getElementById('filter-log-team')?.value || '';
+
+            let logs = getActivityLogs();
+
+            if (teamKey) {
+                logs = logs.filter(l => l.team === teamKey || l.userId === teamKey || l.userName === teamKey);
+            }
+
+            if (searchKey) {
+                logs = logs.filter(l => 
+                    (l.userId && l.userId.toLowerCase().includes(searchKey)) ||
+                    (l.userName && l.userName.toLowerCase().includes(searchKey)) ||
+                    (l.action && l.action.toLowerCase().includes(searchKey)) ||
+                    (l.details && l.details.toLowerCase().includes(searchKey)) ||
+                    (l.role && l.role.toLowerCase().includes(searchKey)) ||
+                    (l.ip && l.ip.toLowerCase().includes(searchKey))
+                );
+            }
+
+            if (logs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400 font-medium">Tiada rekod log aktiviti dijumpai.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = logs.map(l => {
+                const dt = new Date(l.timestamp);
+                const dateStr = dt.toLocaleDateString('ms-MY', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                const timeStr = dt.toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+                
+                const teamInfo = TEAM_COLORS[l.team] || { bg: "bg-slate-100", text: "text-slate-800", border: "border-slate-300" };
+                
+                const isSuccess = l.status !== "Gagal";
+                const statusBadge = isSuccess ? 
+                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">🟢 Berjaya</span>` :
+                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">🔴 Gagal</span>`;
+
+                const roleBadge = l.role === 'Admin Utama' || l.team === 'Admin' ? 
+                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">Admin Utama</span>` :
+                    `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-300">${l.role || 'Pengurus Pasukan'}</span>`;
+
+                const teamBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${teamInfo.bg} ${teamInfo.text} ${teamInfo.border}">${l.team || 'Tiada'}</span>`;
+
+                const sysInfo = `${l.ip || '113.210.45.12'}<br><span class="text-[10px] text-slate-400">${l.device || 'Desktop'} • ${l.browser || 'Chrome'} • ${l.os || 'Windows'}</span>`;
+
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-2.5 font-mono text-[11px] text-slate-600 whitespace-nowrap">
+                            <div class="font-bold text-slate-800">${dateStr}</div>
+                            <div class="text-[10px] text-slate-400">${timeStr}</div>
+                        </td>
+                        <td class="p-2.5 font-mono font-bold text-slate-900 text-xs">${l.userId || l.userName || '-'}</td>
+                        <td class="p-2.5">${teamBadge}</td>
+                        <td class="p-2.5">${roleBadge}</td>
+                        <td class="p-2.5">
+                            <div class="font-bold text-slate-800 text-xs">${l.action}</div>
+                            <div class="text-slate-500 text-[11px] leading-tight mt-0.5">${l.details}</div>
+                        </td>
+                        <td class="p-2.5 text-center whitespace-nowrap">${statusBadge}</td>
+                        <td class="p-2.5 font-mono text-xs text-slate-600 leading-tight">${sysInfo}</td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function renderAdminLimitsTable() {
@@ -1079,6 +1922,7 @@
             });
 
             saveEventLimits(limits);
+            logActivity("Kemaskini Had Kelayakan", "Menukar had maksimum penyertaan kelayakan acara.");
             showToast("Tetapan kelayakan acara berjaya disimpan!");
             renderAll();
         }
@@ -1091,6 +1935,7 @@
             });
             saveEventLimits(defaults);
             renderAdminLimitsTable();
+            logActivity("Reset Had Kelayakan", "Memulihkan had kelayakan acara ke nilai asal (2).");
             showToast("Tetapan kelayakan acara telah di-reset ke nilai asal (2).");
             renderAll();
         }
@@ -1102,6 +1947,7 @@
             setClosingDateTime(newDate, newTime);
             closeAdminModal();
             renderDashboard();
+            logActivity("Kemaskini Tarikh Tutup", `Menukar tarikh tutup pendaftaran kepada ${newDate}, ${newTime}.`);
             showToast("Tarikh dan masa tutup pendaftaran berjaya dikemas kini!");
         }
 
@@ -1109,6 +1955,7 @@
             setClosingDateTime(null, null);
             closeAdminModal();
             renderDashboard();
+            logActivity("Padam Tarikh Tutup", "Memadam had tarikh tutup pendaftaran.");
             showToast("Tarikh dan masa tutup pendaftaran telah dipadam.");
         }
 
@@ -1137,51 +1984,6 @@
                 { id: "3", nama: "Amirul Haziq", jantina: "Lelaki", pasukan: "Rajawali", bib: "R301", tahun: "Tahun 6", acara: ["100m Tahun 6", "4x200m Tahun 5", "Lompat Tinggi"] },
                 { id: "4", nama: "Siti Sarah", jantina: "Perempuan", pasukan: "Kenyalang", bib: "K401", tahun: "Tahun 5", acara: ["100m Tahun 5", "Lontar Peluru"] }
             ];
-        }
-
-        function checkAuth() {
-            const savedUser = sessionStorage.getItem('skbk_auth_user');
-            const loginModal = document.getElementById('login-modal');
-            if (savedUser && USER_ACCOUNTS[savedUser]) {
-                currentUser = USER_ACCOUNTS[savedUser];
-                if (loginModal) loginModal.classList.add('hidden');
-                updateUserUI();
-            } else {
-                if (loginModal) loginModal.classList.remove('hidden');
-            }
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const uid = document.getElementById('login-userid')?.value.trim().toLowerCase();
-            const pass = document.getElementById('login-password')?.value.trim();
-            const errDiv = document.getElementById('login-error');
-
-            if (USER_ACCOUNTS[uid] && USER_ACCOUNTS[uid].pass === pass) {
-                const user = USER_ACCOUNTS[uid];
-
-                if (user.role !== 'admin' && isPastClosingDate()) {
-                    if (errDiv) {
-                        errDiv.textContent = `Pendaftaran telah ditutup pada ${getFormattedClosingDate()}. Sila hubungi Admin Utama untuk sebarang bantuan.`;
-                        errDiv.classList.remove('hidden');
-                    }
-                    return;
-                }
-
-                currentUser = user;
-                sessionStorage.setItem('skbk_auth_user', uid);
-                if (errDiv) errDiv.classList.add('hidden');
-                const loginModal = document.getElementById('login-modal');
-                if (loginModal) loginModal.classList.add('hidden');
-                updateUserUI();
-                renderAll();
-                showToast(`Selamat datang, ${currentUser.name}!`);
-            } else {
-                if (errDiv) {
-                    errDiv.textContent = "ID Pengguna atau Kata Laluan tidak sah!";
-                    errDiv.classList.remove('hidden');
-                }
-            }
         }
 
         function handleLogout() {
@@ -1216,7 +2018,7 @@
             const pasSelect = document.getElementById('input-pasukan');
             const pasFilter = document.getElementById('filter-pasukan');
 
-            if (currentUser.team) {
+            if (currentUser.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin') {
                 if (pasSelect) { pasSelect.value = currentUser.team; pasSelect.disabled = true; }
                 if (pasFilter) { pasFilter.value = currentUser.team; pasFilter.disabled = true; }
             } else {
@@ -1342,6 +2144,7 @@
                 const idx = athletes.findIndex(a => a.id === athleteId);
                 if (idx !== -1) {
                     athletes[idx] = { id: athleteId, nama, jantina, pasukan, bib, tahun, acara: selectedEvents };
+                    logActivity("Kemas Kini Atlet", `Mengemaskini maklumat atlet ${nama} (${bib}) bagi pasukan ${pasukan}.`);
                     showToast("Rekod atlet berjaya dikemas kini!");
                 }
             } else {
@@ -1350,6 +2153,7 @@
                     nama, jantina, pasukan, bib, tahun, acara: selectedEvents
                 };
                 athletes.unshift(newObj);
+                logActivity("Daftar Atlet Baharu", `Mendaftarkan atlet baharu ${nama} (${bib}) bagi pasukan ${pasukan} (${selectedEvents.length} acara).`);
                 showToast("Pendaftaran atlet baharu berjaya disimpan!");
             }
 
@@ -1360,6 +2164,10 @@
         }
 
         function deleteAthlete(id) {
+            const ath = athletes.find(a => a.id === id);
+            if (ath) {
+                logActivity("Padam Rekod Atlet", `Memadam atlet ${ath.nama} (${ath.bib}) dari pasukan ${ath.pasukan}.`);
+            }
             athletes = athletes.filter(a => a.id !== id);
             saveAthletesData();
             renderAll();
@@ -1474,7 +2282,8 @@
         }
 
         function renderDashboard() {
-            const filtered = currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
+            const hasTeamFilter = currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin';
+            const filtered = hasTeamFilter ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
 
             const statClosing = document.getElementById('stat-closing-date');
             if (statClosing) statClosing.textContent = getFormattedClosingDate();
@@ -1556,7 +2365,7 @@
 
             let filtered = athletes;
 
-            if (currentUser?.team) {
+            if (currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin') {
                 filtered = filtered.filter(a => a.pasukan === currentUser.team);
             } else if (pasukan) {
                 filtered = filtered.filter(a => a.pasukan === pasukan);
@@ -1586,7 +2395,8 @@
             const trackGrid = document.getElementById('summary-track-grid');
             const fieldGrid = document.getElementById('summary-field-grid');
 
-            const filtered = currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
+            const hasTeamFilter = currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin';
+            const filtered = hasTeamFilter ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
 
             if (trackGrid) {
                 trackGrid.innerHTML = allTrack.map(ev => {
@@ -1634,13 +2444,14 @@
             const limitM = limits[eventName]?.Lelaki ?? 2;
             const limitF = limits[eventName]?.Perempuan ?? 2;
 
-            const filteredAthletes = (currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
+            const hasTeamFilter = currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin';
+            const filteredAthletes = (hasTeamFilter ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
                 .filter(a => a.acara.includes(eventName));
 
             const countM = filteredAthletes.filter(a => a.jantina === 'Lelaki').length;
             const countF = filteredAthletes.filter(a => a.jantina === 'Perempuan').length;
 
-            if (currentUser?.team) {
+            if (hasTeamFilter) {
                 if (countMEl) countMEl.textContent = `${countM} daripada ${limitM} peserta`;
                 if (countFEl) countFEl.textContent = `${countF} daripada ${limitF} peserta`;
             } else {
@@ -1675,7 +2486,8 @@
             const genderTitleStr = gender ? ` (${gender})` : '';
             if (titleEl) titleEl.textContent = `Senarai peserta - ${eventName}${genderTitleStr}`;
 
-            let filteredAthletes = (currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
+            const hasTeamFilter = currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin';
+            let filteredAthletes = (hasTeamFilter ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
                 .filter(a => a.acara.includes(eventName));
 
             if (gender) {
@@ -1891,7 +2703,8 @@
         }
 
         function exportToCSV() {
-            let data = currentUser?.team ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
+            const hasTeamFilter = currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin';
+            let data = hasTeamFilter ? athletes.filter(a => a.pasukan === currentUser.team) : athletes;
             if (data.length === 0) {
                 showToast("Tiada data untuk dieksport!", "error");
                 return;
@@ -1953,3 +2766,5 @@
     </script>
 </body>
 </html>
+
+"Demo V1.0.6"
