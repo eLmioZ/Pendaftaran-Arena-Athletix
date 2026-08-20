@@ -2,7 +2,7 @@
 <html lang="ms" class="h-full bg-slate-50">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SMART DIGITAL - Pendaftaran Pasukan</title>
     
     <!-- Tailwind CSS CDN -->
@@ -22,10 +22,46 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
         }
         h1, h2, h3, h4, h5, h6, .font-heading {
             font-family: 'Montserrat', sans-serif;
         }
+        
+        /* Mengelakkan auto-zoom pada peranti iOS Safari semasa menekan input borang */
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        select,
+        textarea {
+            font-size: 16px !important;
+            touch-action: manipulation;
+        }
+        @media (min-width: 640px) {
+            input[type="text"],
+            input[type="password"],
+            input[type="date"],
+            input[type="time"],
+            input[type="number"],
+            select,
+            textarea {
+                font-size: 0.75rem !important; /* Kembali ke text-xs pada tablet/desktop */
+            }
+        }
+
+        /* Sokongan tatalan lancar untuk iOS & Android */
+        .overflow-y-auto, .overflow-x-auto {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ruang dinamik bawah skrin untuk tapak tatalan iOS Home Indicator */
+        .safe-area-bottom {
+            padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+        }
+
         @keyframes pulse-fast {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.4; transform: scale(0.92); }
@@ -40,20 +76,82 @@
         .animate-fade-in {
             animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        /* Gaya Mod Gelap Custom */
+        html.dark {
+            color-scheme: dark;
+        }
+        html.dark body {
+            background-color: #090d16;
+            color: #f1f5f9;
+        }
+        html.dark .bg-white {
+            background-color: #111827 !important;
+            border-color: #1f2937 !important;
+            color: #f3f4f6 !important;
+        }
+        html.dark .bg-slate-50, html.dark .bg-slate-50\/80, html.dark .bg-slate-50\/50 {
+            background-color: #1f2937 !important;
+            color: #f3f4f6 !important;
+        }
+        html.dark .bg-slate-100 {
+            background-color: #374151 !important;
+            color: #f3f4f6 !important;
+        }
+        html.dark .text-slate-900, 
+        html.dark .text-slate-800, 
+        html.dark .text-slate-700,
+        html.dark .text-slate-600 {
+            color: #f3f4f6 !important;
+        }
+        html.dark .text-slate-500,
+        html.dark .text-slate-400 {
+            color: #9ca3af !important;
+        }
+        html.dark .border-slate-100, 
+        html.dark .border-slate-200, 
+        html.dark .border-slate-300 {
+            border-color: #374151 !important;
+        }
+        html.dark input[type="text"],
+        html.dark input[type="password"],
+        html.dark input[type="date"],
+        html.dark input[type="time"],
+        html.dark input[type="number"],
+        html.dark select,
+        html.dark textarea {
+            background-color: #1f2937 !important;
+            color: #f9fafb !important;
+            border-color: #4b5563 !important;
+        }
+        html.dark table thead {
+            background-color: #1f2937 !important;
+            color: #d1d5db !important;
+            border-color: #374151 !important;
+        }
+        html.dark table tbody tr:hover {
+            background-color: #1e293b !important;
+        }
+        html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+            border-color: #374151 !important;
+        }
+        html.dark .bg-slate-900\/80, html.dark .bg-slate-900\/60 {
+            background-color: rgba(3, 7, 18, 0.85) !important;
+        }
     </style>
 </head>
-<body class="min-h-full flex flex-col bg-slate-50 text-slate-800">
+<body class="min-h-full flex flex-col bg-slate-50 text-slate-800 antialiased selection:bg-blue-200">
 
-    <header class="bg-blue-950 text-white shadow-lg sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="bg-blue-950 text-white shadow-lg sticky top-0 z-40 border-b border-blue-900/60">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-blue-950 font-black text-xl shadow">
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-500 rounded-xl flex items-center justify-center text-blue-950 font-black text-lg sm:text-xl shadow">
                         <i class="fa-solid fa-trophy"></i>
                     </div>
                     <div>
-                        <h1 class="text-lg font-bold font-heading tracking-wide">SMART DIGITAL</h1>
-                        <p class="text-[10px] text-blue-300 -mt-1 font-medium">Sistem Pendaftaran Olahraga</p>
+                        <h1 class="text-base sm:text-lg font-bold font-heading tracking-wide leading-tight">SMART DIGITAL</h1>
+                        <p class="text-[10px] text-blue-300 font-medium">Sistem Pendaftaran Olahraga</p>
                     </div>
                 </div>
 
@@ -76,97 +174,100 @@
                     </button>
                 </nav>
 
-                <!-- User Profile / Logout -->
-                <div class="flex items-center gap-3">
-                    <span id="current-user-badge" class="px-3 py-1 bg-blue-900 border border-blue-800 rounded-full text-xs font-semibold text-amber-300 flex items-center gap-1.5">
-                        <i class="fa-solid fa-user-shield text-[10px]"></i> Pengguna
+                <!-- User Profile / Logout / Theme Toggle -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button onclick="toggleDarkMode()" title="Tukar Mod Terang / Gelap" class="p-2 bg-blue-900 hover:bg-blue-800 text-amber-300 rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation flex items-center justify-center">
+                        <i class="fa-solid fa-moon theme-toggle-icon"></i>
+                    </button>
+                    <span id="current-user-badge" class="px-2.5 sm:px-3 py-1 bg-blue-900 border border-blue-800 rounded-full text-[11px] sm:text-xs font-semibold text-amber-300 flex items-center gap-1.5 truncate max-w-[130px] sm:max-w-none">
+                        <i class="fa-solid fa-user-shield text-[10px] shrink-0"></i> <span class="truncate">Pengguna</span>
                     </span>
-                    <button onclick="handleLogout()" title="Log Keluar" class="p-2 bg-blue-900 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold transition">
+                    <button onclick="handleLogout()" title="Log Keluar" class="p-2 bg-blue-900 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Navigation Bar -->
-        <div class="md:hidden bg-blue-900 border-t border-blue-800 px-2 py-1.5 flex justify-around text-xs">
-            <button id="mobile-nav-dashboard" onclick="switchTab('dashboard')" class="p-2 rounded-lg text-white font-bold bg-blue-950 flex flex-col items-center">
-                <i class="fa-solid fa-chart-line text-sm mb-0.5"></i> Utama
+        <!-- Mobile Navigation Bar (Mesra Android & iOS) -->
+        <div class="md:hidden bg-blue-900 border-t border-blue-800/80 px-1 py-1 flex justify-around text-xs safe-area-bottom">
+            <button id="mobile-nav-dashboard" onclick="switchTab('dashboard')" class="flex-1 py-1.5 px-1 rounded-lg text-white font-bold bg-blue-950 flex flex-col items-center justify-center active:scale-95 transition">
+                <i class="fa-solid fa-chart-line text-sm mb-0.5"></i> <span class="text-[10px]">Utama</span>
             </button>
-            <button id="mobile-nav-register" onclick="switchTab('register')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
-                <i class="fa-solid fa-user-plus text-sm mb-0.5"></i> Daftar
+            <button id="mobile-nav-register" onclick="switchTab('register')" class="flex-1 py-1.5 px-1 rounded-lg text-blue-200 flex flex-col items-center justify-center active:scale-95 transition">
+                <i class="fa-solid fa-user-plus text-sm mb-0.5"></i> <span class="text-[10px]">Daftar</span>
             </button>
-            <button id="mobile-nav-directory" onclick="switchTab('directory')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
-                <i class="fa-solid fa-users text-sm mb-0.5"></i> Senarai
+            <button id="mobile-nav-directory" onclick="switchTab('directory')" class="flex-1 py-1.5 px-1 rounded-lg text-blue-200 flex flex-col items-center justify-center active:scale-95 transition">
+                <i class="fa-solid fa-users text-sm mb-0.5"></i> <span class="text-[10px]">Senarai</span>
             </button>
-            <button id="mobile-nav-summary" onclick="switchTab('summary')" class="p-2 rounded-lg text-blue-200 flex flex-col items-center">
-                <i class="fa-solid fa-list-check text-sm mb-0.5"></i> Analisis
+            <button id="mobile-nav-summary" onclick="switchTab('summary')" class="flex-1 py-1.5 px-1 rounded-lg text-blue-200 flex flex-col items-center justify-center active:scale-95 transition">
+                <i class="fa-solid fa-list-check text-sm mb-0.5"></i> <span class="text-[10px]">Analisis</span>
             </button>
-            <button id="mobile-nav-admin" onclick="openAdminModal()" class="p-2 rounded-lg text-amber-300 flex flex-col items-center hidden">
-                <i class="fa-solid fa-gear text-sm mb-0.5"></i> Admin
+            <button id="mobile-nav-admin" onclick="openAdminModal()" class="flex-1 py-1.5 px-1 rounded-lg text-amber-300 flex flex-col items-center justify-center active:scale-95 transition hidden">
+                <i class="fa-solid fa-gear text-sm mb-0.5"></i> <span class="text-[10px]">Admin</span>
             </button>
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-5 sm:space-y-6">
 
         <!-- TAB 1: DASHBOARD -->
-        <section id="tab-dashboard" class="tab-content space-y-6">
-            <div class="bg-gradient-to-r from-blue-950 to-slate-900 rounded-3xl p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <section id="tab-dashboard" class="tab-content space-y-5 sm:space-y-6">
+            <div class="bg-gradient-to-r from-blue-950 to-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-2xl font-bold font-heading">Selamat Datang ke SMART DIGITAL Pendaftaran</h2>
-                    <p class="text-xs text-blue-200 mt-1">Pengurusan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah.</p>
+                    <h2 class="text-xl sm:text-2xl font-bold font-heading">Selamat Datang ke SMART DIGITAL Pendaftaran</h2>
+                    <p class="text-xs text-blue-200 mt-1 leading-relaxed">Pengurusan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah.</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="switchTab('register')" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold rounded-xl text-xs shadow transition flex items-center gap-2">
+                    <button onclick="switchTab('register')" class="w-full sm:w-auto px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold rounded-xl text-xs shadow transition flex items-center justify-center gap-2 active:scale-95 touch-manipulation">
                         <i class="fa-solid fa-plus"></i> Tambah Atlet Baharu
                     </button>
                 </div>
             </div>
 
-            <!-- Stats Overview (Modern Soft Gradient Cards) -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <!-- Stats Overview (Kad Berwarna Gradien Moden) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
                 <!-- Kad 1 – Tarikh Tutup Pendaftaran -->
-                <div class="p-[20px] rounded-[20px] border border-white/50 border-l-[5px] border-l-[#F59E0B] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(15,23,42,0.14)] transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #FFF8E8, #FFF2CC);">
+                <div class="p-4 sm:p-[20px] rounded-[18px] sm:rounded-[20px] border border-white/50 border-l-[5px] border-l-[#F59E0B] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #FFF8E8, #FFF2CC);">
                     <div>
-                        <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Tarikh Tutup Pendaftaran</p>
-                        <h3 id="stat-closing-date" class="text-[18px] sm:text-[18px] font-bold text-[#0F172A] mt-1 leading-snug">-</h3>
+                        <p class="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Tarikh Tutup Pendaftaran</p>
+                        <h3 id="stat-closing-date" class="text-base sm:text-[18px] font-bold text-[#0F172A] mt-1 leading-snug">-</h3>
                     </div>
-                    <div class="w-12 h-12 bg-amber-500/20 text-[#F59E0B] rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-amber-500/20 text-[#F59E0B] rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm ml-2">
                         <i class="fa-solid fa-calendar-check"></i>
                     </div>
                 </div>
 
                 <!-- Kad 2 – Jumlah Atlet Berdaftar -->
-                <div class="p-[20px] rounded-[20px] border border-white/50 border-l-[5px] border-l-[#2563EB] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(15,23,42,0.14)] transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #EEF4FF, #DCEBFF);">
+                <div class="p-4 sm:p-[20px] rounded-[18px] sm:rounded-[20px] border border-white/50 border-l-[5px] border-l-[#2563EB] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #EEF4FF, #DCEBFF);">
                     <div>
-                        <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Atlet Berdaftar</p>
-                        <h3 id="stat-total-athletes" class="text-[18px] sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
+                        <p class="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Atlet Berdaftar</p>
+                        <h3 id="stat-total-athletes" class="text-lg sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
                     </div>
-                    <div class="w-12 h-12 bg-blue-600/20 text-[#2563EB] rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600/20 text-[#2563EB] rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm ml-2">
                         <i class="fa-solid fa-user-ninja"></i>
                     </div>
                 </div>
 
                 <!-- Kad 3 – Penyertaan Pasukan -->
-                <div class="p-[20px] rounded-[20px] border border-white/50 border-l-[5px] border-l-[#10B981] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(15,23,42,0.14)] transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #ECFDF5, #D1FAE5);">
+                <div class="p-4 sm:p-[20px] rounded-[18px] sm:rounded-[20px] border border-white/50 border-l-[5px] border-l-[#10B981] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #ECFDF5, #D1FAE5);">
                     <div>
-                        <p class="text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Penyertaan Pasukan</p>
-                        <h3 id="stat-total-teams" class="text-[18px] sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
+                        <p class="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Penyertaan Pasukan</p>
+                        <h3 id="stat-total-teams" class="text-lg sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
                     </div>
-                    <div class="w-12 h-12 bg-emerald-600/20 text-[#10B981] rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-600/20 text-[#10B981] rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm ml-2">
                         <i class="fa-solid fa-people-group"></i>
                     </div>
                 </div>
             </div>
 
             <!-- Seksyen 1: Acara Yang Dipertandingkan -->
-            <div class="bg-white p-5 rounded-[20px] border border-slate-200 shadow-sm space-y-4">
+            <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[20px] border border-slate-200 shadow-sm space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 class="font-bold text-slate-900 text-sm font-heading flex items-center gap-2">
-                        <span class="text-lg">🏅</span> Acara Yang Dipertandingkan
+                    <h3 class="font-bold text-slate-900 text-xs sm:text-sm font-heading flex items-center gap-2">
+                        <span class="text-base sm:text-lg">🏅</span> Acara Yang Dipertandingkan
                     </h3>
-                    <span class="text-[11px] font-semibold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+                    <span class="text-[10px] sm:text-[11px] font-semibold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 shrink-0">
                         16 Acara Keseluruhan
                     </span>
                 </div>
@@ -176,54 +277,54 @@
                     <p class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 mb-2 flex items-center gap-1.5">
                         <i class="fa-solid fa-person-running"></i> Balapan Individu
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-bolt"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">80m Tahun 1</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">80m Tahun 1</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-bolt"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">80m Tahun 2</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">80m Tahun 2</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-bolt"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">80m Tahun 3</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">80m Tahun 3</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-gauge-high"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">100m Tahun 4</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">100m Tahun 4</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-gauge-high"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">100m Tahun 5</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">100m Tahun 5</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-gauge-high"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">100m Tahun 6</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">100m Tahun 6</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-person-running"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">200m Tahun 4</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">200m Tahun 4</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-person-running"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">200m Tahun 5</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">200m Tahun 5</span>
                         </div>
                     </div>
                 </div>
@@ -233,36 +334,36 @@
                     <p class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-2 flex items-center gap-1.5">
                         <i class="fa-solid fa-users-line"></i> Lari Beraganti-ganti (Berpasukan)
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                        <div class="p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-flag-checkered"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">4x100m Tahap 1</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">4x100m Tahap 1</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-flag-checkered"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">4x100m Tahun 4</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">4x100m Tahun 4</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-flag-checkered"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">4x100m Tahun 5</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">4x100m Tahun 5</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-stopwatch-20"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">4x200m Tahun 4</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">4x200m Tahun 4</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-stopwatch-20"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">4x200m Tahun 5</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">4x200m Tahun 5</span>
                         </div>
                     </div>
                 </div>
@@ -272,78 +373,78 @@
                     <p class="text-[11px] font-bold uppercase tracking-wider text-amber-700 mb-2 flex items-center gap-1.5">
                         <i class="fa-solid fa-child-reaching"></i> Acara Padang
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                        <div class="p-3 bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-arrows-left-right-to-line"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">Lompat Jauh</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">Lompat Jauh</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-arrows-up-to-line"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">Lompat Tinggi</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">Lompat Tinggi</span>
                         </div>
-                        <div class="p-3 bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-300 rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer" onclick="switchTab('register')">
-                            <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
+                        <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-amber-50/60 border border-slate-200/80 hover:border-amber-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xs font-bold group-hover:scale-110 transition">
                                 <i class="fa-solid fa-circle-dot"></i>
                             </div>
-                            <span class="text-xs font-bold text-slate-800">Lontar Peluru</span>
+                            <span class="text-[11px] sm:text-xs font-bold text-slate-800 leading-tight">Lontar Peluru</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Seksyen 2: Syarat Kelayakan -->
-            <div class="bg-white p-5 rounded-[20px] border border-slate-200 shadow-sm space-y-4">
+            <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[20px] border border-slate-200 shadow-sm space-y-4">
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 class="font-bold text-slate-900 text-sm font-heading flex items-center gap-2">
-                        <span class="text-lg">📋</span> Syarat Kelayakan
+                    <h3 class="font-bold text-slate-900 text-xs sm:text-sm font-heading flex items-center gap-2">
+                        <span class="text-base sm:text-lg">📋</span> Syarat Kelayakan
                     </h3>
-                    <span class="text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/80">
+                    <span class="text-[10px] sm:text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/80 shrink-0">
                         Panduan Pendaftaran
                     </span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
+                    <div class="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-[16px] sm:rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <span class="text-xs font-semibold text-slate-700 leading-relaxed">Murid berdaftar di <strong>SK Bukit Kalam</strong></span>
                     </div>
 
-                    <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
+                    <div class="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-[16px] sm:rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <span class="text-xs font-semibold text-slate-700 leading-relaxed">Mengikut kategori umur yang ditetapkan</span>
                     </div>
 
-                    <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
+                    <div class="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-[16px] sm:rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <span class="text-xs font-semibold text-slate-700 leading-relaxed">Seorang atlet maksimum <strong>2 acara individu</strong> dan <strong>2 acara berpasukan</strong></span>
                     </div>
 
-                    <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
+                    <div class="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-[16px] sm:rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <span class="text-xs font-semibold text-slate-700 leading-relaxed">Acara hanya dibenarkan mengikut kategori & syarat kejohanan</span>
                     </div>
 
-                    <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
+                    <div class="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-[16px] sm:rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <span class="text-xs font-semibold text-slate-700 leading-relaxed">Lengkapkan Pendaftaran sebelum tarikh tutup</span>
                     </div>
 
-                    <div class="flex items-start gap-3 p-3.5 rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
-                        <div class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
+                    <div class="flex items-start gap-2.5 sm:gap-3 p-3 sm:p-3.5 rounded-[16px] sm:rounded-[18px] bg-slate-50/80 border border-slate-200/60 hover:border-emerald-300 hover:bg-emerald-50/30 transition duration-200">
+                        <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xs font-black shadow-sm mt-0.5">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <span class="text-xs font-semibold text-slate-700 leading-relaxed">Sila semak sekiranya berlaku <strong>Ralat</strong> dalam pendaftaran</span>
@@ -354,15 +455,15 @@
             <!-- Recent Registration Table -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="p-4 border-b border-slate-100 flex items-center justify-between">
-                    <h3 class="font-bold text-slate-900 text-sm font-heading flex items-center gap-2">
+                    <h3 class="font-bold text-slate-900 text-xs sm:text-sm font-heading flex items-center gap-2">
                         <i class="fa-solid fa-clock-rotate-left text-blue-600"></i> Pendaftaran Terbaharu
                     </h3>
-                    <button onclick="switchTab('directory')" class="text-xs font-semibold text-blue-600 hover:underline">
+                    <button onclick="switchTab('directory')" class="text-xs font-semibold text-blue-600 hover:underline touch-manipulation">
                         Lihat Semua <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
                     </button>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left text-xs min-w-[650px]">
                         <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
                             <tr>
                                 <th class="py-3 px-4">Nama Atlet</th>
@@ -384,24 +485,24 @@
 
         <!-- TAB 2: REGISTER ATHLETE -->
         <section id="tab-register" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h2 class="text-xl font-bold font-heading text-slate-900 mb-1">Borang Pendaftaran Atlet</h2>
-                <p class="text-xs text-slate-500 mb-6">Sila isi maklumat atlet dan pilih acara yang ingin disertai.</p>
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-lg sm:text-xl font-bold font-heading text-slate-900 mb-1">Borang Pendaftaran Atlet</h2>
+                <p class="text-xs text-slate-500 mb-5 sm:mb-6">Sila isi maklumat atlet dan pilih acara yang ingin disertai.</p>
 
                 <form id="athlete-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
                     <input type="hidden" id="athlete-id">
 
                     <!-- Basic Information -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nama Penuh Atlet *</label>
                             <input type="text" id="input-nama" required placeholder="Contoh: Muhammad Adam"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                                class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Jantina *</label>
-                            <select id="input-jantina" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                            <select id="input-jantina" required class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                                 <option value="Lelaki">Lelaki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
@@ -409,7 +510,7 @@
 
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Pasukan / Rumah Sukan *</label>
-                            <select id="input-pasukan" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                            <select id="input-pasukan" required class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                                 <option value="Helang">Helang (Hijau)</option>
                                 <option value="Garuda">Garuda (Merah)</option>
                                 <option value="Rajawali">Rajawali (Biru)</option>
@@ -420,12 +521,12 @@
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nombor Bib *</label>
                             <input type="text" id="input-bib" required placeholder="Contoh: H101"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium uppercase">
+                                class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium uppercase">
                         </div>
 
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Tahun Persekolahan *</label>
-                            <select id="input-tahun" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                            <select id="input-tahun" required class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                                 <option value="Tahun 1">Tahun 1</option>
                                 <option value="Tahun 2">Tahun 2</option>
                                 <option value="Tahun 3">Tahun 3</option>
@@ -438,14 +539,14 @@
 
                     <!-- Event Selection Checkboxes -->
                     <div class="space-y-4 pt-2">
-                        <h3 class="text-sm font-bold font-heading text-slate-900 border-b border-slate-100 pb-2 flex items-center gap-2">
+                        <h3 class="text-xs sm:text-sm font-bold font-heading text-slate-900 border-b border-slate-100 pb-2 flex items-center gap-2">
                             <i class="fa-solid fa-list-check text-blue-600"></i> Pilih Acara Disertai (Maksimum 4 Acara)
                         </h3>
 
                         <!-- Track Individual -->
                         <div>
                             <p class="text-xs font-bold text-cyan-700 mb-2">Acara Balapan Individu</p>
-                            <div id="container-track-individual" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                            <div id="container-track-individual" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                                 <!-- Generated by JS -->
                             </div>
                         </div>
@@ -453,7 +554,7 @@
                         <!-- Track Team -->
                         <div>
                             <p class="text-xs font-bold text-green-700 mb-2">Acara Balapan Berpasukan / Lari Beraganti-ganti</p>
-                            <div id="container-track-team" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                            <div id="container-track-team" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                                 <!-- Generated by JS -->
                             </div>
                         </div>
@@ -461,7 +562,7 @@
                         <!-- Field Events -->
                         <div>
                             <p class="text-xs font-bold text-amber-700 mb-2">Acara Padang</p>
-                            <div id="container-field" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                            <div id="container-field" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                                 <!-- Generated by JS -->
                             </div>
                         </div>
@@ -469,10 +570,10 @@
 
                     <!-- Submit Buttons -->
                     <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
-                        <button type="submit" class="px-5 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2">
+                        <button type="submit" class="flex-1 sm:flex-none px-5 py-3 sm:py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-2 active:scale-95 touch-manipulation">
                             <i class="fa-solid fa-floppy-disk"></i> Simpan Pendaftaran
                         </button>
-                        <button type="button" onclick="resetForm()" class="px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition">
+                        <button type="button" onclick="resetForm()" class="px-4 py-3 sm:py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
                             Reset Semula
                         </button>
                     </div>
@@ -483,12 +584,12 @@
         <!-- TAB 3: ATHLETE DIRECTORY -->
         <section id="tab-directory" class="tab-content hidden space-y-4">
             <!-- Search & Filters -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
+            <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full md:w-auto flex-grow">
                     <input type="text" id="filter-search" oninput="renderAthletesTable()" placeholder="Cari nama atau No. Bib..."
-                        class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                        class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
 
-                    <select id="filter-pasukan" onchange="renderAthletesTable()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                    <select id="filter-pasukan" onchange="renderAthletesTable()" class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Pasukan</option>
                         <option value="Helang">Helang</option>
                         <option value="Garuda">Garuda</option>
@@ -496,7 +597,7 @@
                         <option value="Kenyalang">Kenyalang</option>
                     </select>
 
-                    <select id="filter-tahun" onchange="renderAthletesTable()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                    <select id="filter-tahun" onchange="renderAthletesTable()" class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Tahun</option>
                         <option value="Tahun 1">Tahun 1</option>
                         <option value="Tahun 2">Tahun 2</option>
@@ -506,21 +607,21 @@
                         <option value="Tahun 6">Tahun 6</option>
                     </select>
 
-                    <select id="filter-acara" onchange="renderAthletesTable()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                    <select id="filter-acara" onchange="renderAthletesTable()" class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Acara</option>
                         <!-- Populated by JS -->
                     </select>
                 </div>
 
-                <button onclick="exportToCSV()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2 shrink-0 w-full md:w-auto justify-center">
+                <button onclick="exportToCSV()" class="px-4 py-2.5 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2 shrink-0 w-full md:w-auto justify-center active:scale-95 touch-manipulation">
                     <i class="fa-solid fa-file-csv"></i> Eksport CSV
                 </button>
             </div>
 
             <!-- Table -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs">
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left text-xs min-w-[680px]">
                         <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
                             <tr>
                                 <th class="py-3.5 px-4">Nama Atlet</th>
@@ -541,28 +642,28 @@
         </section>
 
         <!-- TAB 4: SUMMARY -->
-        <section id="tab-summary" class="tab-content hidden space-y-8">
+        <section id="tab-summary" class="tab-content hidden space-y-6 sm:space-y-8">
             <div>
-                <h2 class="text-2xl font-bold font-heading text-slate-900">Analisis Penyertaan</h2>
-                <p class="text-xs text-slate-500 mt-0.5">Bilangan penyertaan peserta bagi setiap acara pertandingan. Klik pada mana-mana acara untuk melihat senarai peserta.</p>
+                <h2 class="text-xl sm:text-2xl font-bold font-heading text-slate-900">Analisis Penyertaan</h2>
+                <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Bilangan penyertaan peserta bagi setiap acara pertandingan. Klik pada mana-mana acara untuk melihat senarai peserta.</p>
             </div>
 
             <!-- Track Events Breakdown -->
-            <div class="space-y-4">
-                <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2 border-b border-slate-200 pb-2">
+            <div class="space-y-3.5 sm:space-y-4">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading flex items-center gap-2 border-b border-slate-200 pb-2">
                     <i class="fa-solid fa-stopwatch text-cyan-600"></i> Acara Balapan (Track Events)
                 </h3>
-                <div id="summary-track-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div id="summary-track-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     <!-- JS generated cards -->
                 </div>
             </div>
 
             <!-- Field Events Breakdown -->
-            <div class="space-y-4 pt-4">
-                <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2 border-b border-slate-200 pb-2">
+            <div class="space-y-3.5 sm:space-y-4 pt-2">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading flex items-center gap-2 border-b border-slate-200 pb-2">
                     <i class="fa-solid fa-child-reaching text-amber-600"></i> Acara Padang (Field Events)
                 </h3>
-                <div id="summary-field-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div id="summary-field-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                     <!-- JS generated cards -->
                 </div>
             </div>
@@ -571,18 +672,18 @@
     </main>
 
     <!-- Login Modal Pop-up -->
-    <div id="login-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 animate-fade-in">
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 bg-blue-950 text-amber-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg">
+    <div id="login-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-5 sm:p-6 border border-slate-100 animate-fade-in my-auto">
+            <div class="text-center mb-5 sm:mb-6">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-blue-950 text-amber-400 rounded-2xl flex items-center justify-center text-xl sm:text-2xl mx-auto mb-2.5 sm:mb-3 shadow-lg">
                     <i class="fa-solid fa-user-lock"></i>
                 </div>
-                <h3 class="text-xl font-bold font-heading text-slate-900">Log Masuk Pengguna</h3>
+                <h3 class="text-lg sm:text-xl font-bold font-heading text-slate-900">Log Masuk Pengguna</h3>
                 <p class="text-xs text-slate-500 mt-1">Sila masukkan ID dan Kata Laluan anda.</p>
             </div>
 
             <form onsubmit="handleLogin(event)" class="space-y-4">
-                <div id="login-error" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs hidden">
+                <div id="login-error" class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs hidden leading-relaxed">
                     ID atau Kata Laluan Salah!
                 </div>
 
@@ -598,93 +699,93 @@
                         class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                 </div>
 
-                <button type="submit" class="w-full py-3 bg-blue-950 hover:bg-blue-900 text-white rounded-xl text-xs font-bold shadow-lg transition">
+                <button type="submit" class="w-full py-3 bg-blue-950 hover:bg-blue-900 text-white rounded-xl text-xs font-bold shadow-lg transition active:scale-95 touch-manipulation">
                     Log Masuk
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Modal Selection Kategori Jantina (Popup Pertama Analisis Penyertaan) -->
-    <div id="gender-select-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-[18px] shadow-2xl max-w-md w-full overflow-hidden border border-slate-100 animate-fade-in">
+    <!-- Modal Selection Kategori Jantina -->
+    <div id="gender-select-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-[18px] shadow-2xl max-w-md w-full overflow-hidden border border-slate-100 animate-fade-in my-auto">
             <!-- Header Modal -->
-            <div class="p-5 bg-gradient-to-r from-blue-950 to-slate-900 text-white flex items-center justify-between">
+            <div class="p-4 sm:p-5 bg-gradient-to-r from-blue-950 to-slate-900 text-white flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center text-lg">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center text-base sm:text-lg shrink-0">
                         <i class="fa-solid fa-venus-mars"></i>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold font-heading">Pilih Kategori Jantina</h3>
+                        <h3 class="text-sm sm:text-base font-bold font-heading">Pilih Kategori Jantina</h3>
                         <p id="gender-select-event-title" class="text-xs text-blue-200 mt-0.5">Acara: -</p>
                     </div>
                 </div>
-                <button onclick="closeGenderSelectModal()" class="text-white/80 hover:text-white text-lg transition">
+                <button onclick="closeGenderSelectModal()" class="text-white/80 hover:text-white text-lg transition p-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <!-- Body Modal -->
-            <div class="p-6 space-y-4 text-center">
+            <div class="p-4 sm:p-6 space-y-4 text-center">
                 <p class="text-xs text-slate-600 font-medium">Sila pilih kategori jantina peserta untuk melihat senarai pendaftaran:</p>
-                <div class="grid grid-cols-2 gap-4 pt-1">
-                    <button onclick="selectGenderCategory('Lelaki')" class="p-5 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-500 rounded-2xl flex flex-col items-center justify-center gap-2 group transition shadow-sm active:scale-95">
-                        <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl group-hover:scale-110 transition shadow">
+                <div class="grid grid-cols-2 gap-3 sm:gap-4 pt-1">
+                    <button onclick="selectGenderCategory('Lelaki')" class="p-4 sm:p-5 bg-blue-50 hover:bg-blue-100 border-2 border-blue-200 hover:border-blue-500 rounded-2xl flex flex-col items-center justify-center gap-2 group transition shadow-sm active:scale-95 touch-manipulation">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg sm:text-xl group-hover:scale-110 transition shadow">
                             <i class="fa-solid fa-mars"></i>
                         </div>
-                        <span class="text-sm font-bold text-slate-800">Lelaki</span>
-                        <span id="gender-count-m" class="text-[11px] font-semibold text-blue-700 bg-blue-100/80 px-2.5 py-0.5 rounded-full">0 daripada 2 peserta</span>
+                        <span class="text-xs sm:text-sm font-bold text-slate-800">Lelaki</span>
+                        <span id="gender-count-m" class="text-[10px] sm:text-[11px] font-semibold text-blue-700 bg-blue-100/80 px-2 sm:px-2.5 py-0.5 rounded-full">0 daripada 2 peserta</span>
                     </button>
 
-                    <button onclick="selectGenderCategory('Perempuan')" class="p-5 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 hover:border-pink-500 rounded-2xl flex flex-col items-center justify-center gap-2 group transition shadow-sm active:scale-95">
-                        <div class="w-12 h-12 rounded-full bg-pink-600 text-white flex items-center justify-center text-xl group-hover:scale-110 transition shadow">
+                    <button onclick="selectGenderCategory('Perempuan')" class="p-4 sm:p-5 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 hover:border-pink-500 rounded-2xl flex flex-col items-center justify-center gap-2 group transition shadow-sm active:scale-95 touch-manipulation">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pink-600 text-white flex items-center justify-center text-lg sm:text-xl group-hover:scale-110 transition shadow">
                             <i class="fa-solid fa-venus"></i>
                         </div>
-                        <span class="text-sm font-bold text-slate-800">Perempuan</span>
-                        <span id="gender-count-f" class="text-[11px] font-semibold text-pink-700 bg-pink-100/80 px-2.5 py-0.5 rounded-full">0 daripada 2 peserta</span>
+                        <span class="text-xs sm:text-sm font-bold text-slate-800">Perempuan</span>
+                        <span id="gender-count-f" class="text-[10px] sm:text-[11px] font-semibold text-pink-700 bg-pink-100/80 px-2 sm:px-2.5 py-0.5 rounded-full">0 daripada 2 peserta</span>
                     </button>
                 </div>
             </div>
 
             <!-- Footer Modal -->
-            <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
-                <button onclick="closeGenderSelectModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition">
+            <div class="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="closeGenderSelectModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
                     Batal
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Pop-Up Senarai Peserta Acara (Analisis Penyertaan - Popup Kedua) -->
-    <div id="event-participants-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-[12px] shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 animate-fade-in flex flex-col max-h-[90vh]">
+    <!-- Modal Pop-Up Senarai Peserta Acara -->
+    <div id="event-participants-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-[12px] shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 animate-fade-in flex flex-col max-h-[85vh] my-auto">
             <!-- Header Modal -->
-            <div class="p-5 bg-gradient-to-r from-blue-900 to-slate-900 text-white flex items-center justify-between shrink-0">
+            <div class="p-4 sm:p-5 bg-gradient-to-r from-blue-900 to-slate-900 text-white flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-amber-400 text-lg">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 rounded-xl flex items-center justify-center text-amber-400 text-base sm:text-lg shrink-0">
                         <i class="fa-solid fa-trophy"></i>
                     </div>
                     <div>
-                        <h3 id="event-participants-title" class="text-lg font-bold font-heading">Senarai peserta - 80m tahun 1</h3>
+                        <h3 id="event-participants-title" class="text-base sm:text-lg font-bold font-heading">Senarai peserta - 80m tahun 1</h3>
                         <p id="event-participants-count" class="text-blue-200 text-xs mt-0.5">Jumlah: 0 Peserta</p>
                     </div>
                 </div>
-                <button onclick="closeEventParticipantsModal()" class="text-white/80 hover:text-white text-xl transition">
+                <button onclick="closeEventParticipantsModal()" class="text-white/80 hover:text-white text-xl transition p-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <!-- Body / Senarai Kad Kecil Atlet -->
-            <div class="p-5 overflow-y-auto space-y-3 flex-grow bg-slate-50/50" id="event-participants-list">
+            <div class="p-3.5 sm:p-5 overflow-y-auto space-y-2.5 sm:space-y-3 flex-grow bg-slate-50/50" id="event-participants-list">
                 <!-- Populated via JS -->
             </div>
 
             <!-- Footer Modal -->
-            <div class="p-4 bg-white border-t border-slate-200 flex items-center justify-between shrink-0">
-                <button onclick="closeEventParticipantsModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition">
+            <div class="p-3.5 sm:p-4 bg-white border-t border-slate-200 flex items-center justify-between shrink-0">
+                <button onclick="closeEventParticipantsModal()" class="px-3.5 sm:px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition active:scale-95 touch-manipulation">
                     <i class="fa-solid fa-xmark"></i> Tutup
                 </button>
-                <button id="btn-print-event-list" onclick="" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-md transition">
+                <button id="btn-print-event-list" onclick="" class="px-3.5 sm:px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-md transition active:scale-95 touch-manipulation">
                     <i class="fa-solid fa-print"></i> Cetak Senarai
                 </button>
             </div>
@@ -692,51 +793,51 @@
     </div>
 
     <!-- Athlete Detail View Modal -->
-    <div id="detail-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-[12px] shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 animate-fade-in">
-            <div id="detail-header" class="p-6 text-white bg-blue-950">
+    <div id="detail-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-[12px] shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 animate-fade-in my-auto">
+            <div id="detail-header" class="p-5 sm:p-6 text-white bg-blue-950">
                 <div class="flex items-center justify-between">
                     <span id="detail-pasukan-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-white/20">
                         Pasukan
                     </span>
-                    <button onclick="closeDetailModal()" class="text-white/80 hover:text-white text-xl">
+                    <button onclick="closeDetailModal()" class="text-white/80 hover:text-white text-xl p-1">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <h3 id="detail-nama" class="text-xl font-bold font-heading mt-3">Nama Atlet</h3>
+                <h3 id="detail-nama" class="text-lg sm:text-xl font-bold font-heading mt-3">Nama Atlet</h3>
                 <p id="detail-bib" class="text-blue-100 text-xs font-mono mt-0.5">Bib: -</p>
             </div>
 
-            <div class="p-6 space-y-4 text-sm">
-                <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+            <div class="p-4 sm:p-6 space-y-4 text-sm">
+                <div class="grid grid-cols-2 gap-3 sm:gap-4 bg-slate-50 p-3.5 sm:p-4 rounded-2xl border border-slate-100">
                     <div>
                         <p class="text-xs text-slate-400 font-medium">Jantina</p>
-                        <p id="detail-jantina" class="font-semibold text-slate-800">-</p>
+                        <p id="detail-jantina" class="font-semibold text-slate-800 text-xs sm:text-sm">-</p>
                     </div>
                     <div>
                         <p class="text-xs text-slate-400 font-medium">Tahun Persekolahan</p>
-                        <p id="detail-tahun" class="font-semibold text-slate-800">-</p>
+                        <p id="detail-tahun" class="font-semibold text-slate-800 text-xs sm:text-sm">-</p>
                     </div>
                 </div>
 
                 <div>
                     <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Acara Disertai</h4>
-                    <div id="detail-acara-list" class="flex flex-wrap gap-2">
+                    <div id="detail-acara-list" class="flex flex-wrap gap-1.5 sm:gap-2">
                         <!-- JS generated badges -->
                     </div>
                 </div>
             </div>
 
-            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
+            <div class="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
                 <div class="flex items-center gap-2">
-                    <button id="detail-action-edit" onclick="" class="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                    <button id="detail-action-edit" onclick="" class="px-3 sm:px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5 active:scale-95 touch-manipulation">
                         <i class="fa-solid fa-pen-to-square"></i> Edit
                     </button>
-                    <button id="detail-action-delete" onclick="" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                    <button id="detail-action-delete" onclick="" class="px-3 sm:px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5 active:scale-95 touch-manipulation">
                         <i class="fa-solid fa-trash"></i> Padam
                     </button>
                 </div>
-                <button onclick="closeDetailModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition">
+                <button onclick="closeDetailModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
                     Tutup
                 </button>
             </div>
@@ -744,25 +845,25 @@
     </div>
 
     <!-- Modal Pop-Up Ralat Pendaftaran Atlet -->
-    <div id="error-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-rose-100 animate-fade-in">
-            <div class="p-6 text-white bg-rose-600 flex items-center justify-between">
+    <div id="error-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-rose-100 animate-fade-in my-auto">
+            <div class="p-5 sm:p-6 text-white bg-rose-600 flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white text-lg">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-white/20 rounded-xl flex items-center justify-center text-white text-base sm:text-lg shrink-0">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold font-heading">Senarai Ralat Pendaftaran</h3>
+                        <h3 class="text-base sm:text-lg font-bold font-heading">Senarai Ralat Pendaftaran</h3>
                         <p id="error-modal-subtitle" class="text-rose-100 text-xs">Atlet</p>
                     </div>
                 </div>
-                <button onclick="closeErrorModal()" class="text-white/80 hover:text-white text-xl">
+                <button onclick="closeErrorModal()" class="text-white/80 hover:text-white text-xl p-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <div class="p-6 space-y-4 text-sm">
-                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs">
+            <div class="p-4 sm:p-6 space-y-4 text-sm">
+                <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs leading-relaxed">
                     <i class="fa-solid fa-circle-info mr-1"></i>
                     Sila semak dan kemas kini maklumat atlet untuk menyelesaikan isu berikut:
                 </div>
@@ -771,11 +872,11 @@
                 </ul>
             </div>
 
-            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-                <button onclick="closeErrorModal()" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold">
+            <div class="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                <button onclick="closeErrorModal()" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold active:scale-95 touch-manipulation">
                     Tutup
                 </button>
-                <button id="error-modal-edit-btn" onclick="" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                <button id="error-modal-edit-btn" onclick="" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5 active:scale-95 touch-manipulation">
                     <i class="fa-solid fa-pen-to-square"></i> Kemas Kini Atlet
                 </button>
             </div>
@@ -784,7 +885,7 @@
 
     <!-- Admin Date & Qualification Settings Modal -->
     <div id="admin-date-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-4 sm:p-6 border border-slate-100 animate-fade-in max-h-[92vh] flex flex-col">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-4 sm:p-6 border border-slate-100 animate-fade-in max-h-[90vh] flex flex-col my-auto">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3 sm:pb-4 mb-3 sm:mb-4 shrink-0">
                 <div>
                     <h3 class="text-base sm:text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
@@ -799,16 +900,16 @@
 
             <!-- Sub-tab Bar -->
             <div class="flex border-b border-slate-200 mb-3 sm:mb-4 shrink-0 gap-1 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
-                <button id="admin-tab-btn-date" onclick="switchAdminTab('date')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold border-b-2 border-blue-900 text-blue-900 transition whitespace-nowrap shrink-0">
+                <button id="admin-tab-btn-date" onclick="switchAdminTab('date')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold border-b-2 border-blue-900 text-blue-900 transition whitespace-nowrap shrink-0 touch-manipulation">
                     <i class="fa-solid fa-calendar-gear mr-1"></i> Pendaftaran
                 </button>
-                <button id="admin-tab-btn-limits" onclick="switchAdminTab('limits')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0">
+                <button id="admin-tab-btn-limits" onclick="switchAdminTab('limits')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0 touch-manipulation">
                     <i class="fa-solid fa-list-check mr-1"></i> Had Penyertaan
                 </button>
-                <button id="admin-tab-btn-users" onclick="switchAdminTab('users')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0">
+                <button id="admin-tab-btn-users" onclick="switchAdminTab('users')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0 touch-manipulation">
                     <i class="fa-solid fa-users-gear mr-1"></i> Pengurusan Pengguna
                 </button>
-                <button id="admin-tab-btn-history" onclick="switchAdminTab('history')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0">
+                <button id="admin-tab-btn-history" onclick="switchAdminTab('history')" class="pb-2 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent transition whitespace-nowrap shrink-0 touch-manipulation">
                     <i class="fa-solid fa-clock-rotate-left mr-1"></i> Sejarah & Log Aktiviti
                 </button>
             </div>
@@ -840,17 +941,17 @@
 
                     <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-2.5 pt-2">
                         <button type="button" onclick="handleDeleteClosingDate()"
-                            class="w-full sm:w-auto justify-center px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5">
+                            class="w-full sm:w-auto justify-center px-4 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 active:scale-95 touch-manipulation">
                             <i class="fa-solid fa-trash-can"></i> Padam Tarikh
                         </button>
 
                         <div class="flex gap-2 w-full sm:w-auto">
                             <button type="button" onclick="closeAdminModal()"
-                                class="w-1/2 sm:w-auto px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                                class="w-1/2 sm:w-auto px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
                                 Batal
                             </button>
                             <button type="submit"
-                                class="w-1/2 sm:w-auto justify-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                                class="w-1/2 sm:w-auto justify-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5 active:scale-95 touch-manipulation">
                                 <i class="fa-solid fa-floppy-disk"></i> Simpan
                             </button>
                         </div>
@@ -882,14 +983,14 @@
                     </div>
 
                     <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-2.5 pt-2">
-                        <button type="button" onclick="resetEventLimitsToDefault()" class="w-full sm:w-auto px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition text-center">
+                        <button type="button" onclick="resetEventLimitsToDefault()" class="w-full sm:w-auto px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition text-center active:scale-95 touch-manipulation">
                             Reset Nilai Asal (2)
                         </button>
                         <div class="flex gap-2 w-full sm:w-auto">
-                            <button type="button" onclick="closeAdminModal()" class="w-1/2 sm:w-auto px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition">
+                            <button type="button" onclick="closeAdminModal()" class="w-1/2 sm:w-auto px-4 py-2.5 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
                                 Batal
                             </button>
-                            <button type="submit" class="w-1/2 sm:w-auto justify-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5">
+                            <button type="submit" class="w-1/2 sm:w-auto justify-center px-4 py-2.5 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-1.5 active:scale-95 touch-manipulation">
                                 <i class="fa-solid fa-floppy-disk"></i> Simpan Tetapan
                             </button>
                         </div>
@@ -915,10 +1016,10 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 flex-grow">
                             <div class="relative">
                                 <input type="text" id="filter-user-search" oninput="renderUsersTable()" placeholder="🔍 Cari ID, Nama, Pasukan..."
-                                    class="w-full px-3 py-1.5 pl-8 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
-                                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                                    class="w-full px-3 py-2 sm:py-1.5 pl-8 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-3 sm:top-2.5 text-slate-400 text-xs"></i>
                             </div>
-                            <select id="filter-user-role" onchange="renderUsersTable()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                            <select id="filter-user-role" onchange="renderUsersTable()" class="px-3 py-2 sm:py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                                 <option value="">Semua Peranan & Status</option>
                                 <option value="manager">Pengurus Pasukan</option>
                                 <option value="admin">Admin Utama</option>
@@ -927,7 +1028,7 @@
                                 <option value="Tidak Aktif">Akaun Tidak Aktif 🔴</option>
                             </select>
                         </div>
-                        <button onclick="openAddUserModal()" class="w-full sm:w-auto px-4 py-2 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-1.5 shrink-0">
+                        <button onclick="openAddUserModal()" class="w-full sm:w-auto px-4 py-2 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-1.5 shrink-0 active:scale-95 touch-manipulation">
                             <i class="fa-solid fa-user-plus"></i> ➕ Tambah Pengguna
                         </button>
                     </div>
@@ -973,7 +1074,7 @@
                             <i class="fa-solid fa-clock-rotate-left text-blue-600 shrink-0"></i>
                             <span>Pemantauan aktiviti dan sejarah perubahan data secara masa nyata.</span>
                         </div>
-                        <button onclick="clearActivityLogs()" class="text-[11px] font-semibold text-rose-600 hover:text-rose-800 underline self-end sm:self-auto shrink-0">
+                        <button onclick="clearActivityLogs()" class="text-[11px] font-semibold text-rose-600 hover:text-rose-800 underline self-end sm:self-auto shrink-0 touch-manipulation">
                             <i class="fa-solid fa-trash-can mr-1"></i> Padam Log
                         </button>
                     </div>
@@ -981,8 +1082,8 @@
                     <!-- Filter Log Controls -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         <input type="text" id="filter-log-search" oninput="renderActivityLogs()" placeholder="Cari nama, tindakan, atau butiran..."
-                            class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
-                        <select id="filter-log-team" onchange="renderActivityLogs()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                            class="px-3 py-2 sm:py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                        <select id="filter-log-team" onchange="renderActivityLogs()" class="px-3 py-2 sm:py-1.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                             <option value="">Semua Pasukan / Pengguna</option>
                             <option value="Admin">Admin Utama</option>
                             <option value="Helang">Helang</option>
@@ -1017,13 +1118,13 @@
     </div>
 
     <!-- User Add/Edit Form Modal -->
-    <div id="user-form-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-100 animate-fade-in space-y-4">
+    <div id="user-form-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 sm:p-6 border border-slate-100 animate-fade-in space-y-4 my-auto">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 id="user-form-title" class="text-base font-bold text-slate-900 font-heading flex items-center gap-2">
+                <h3 id="user-form-title" class="text-sm sm:text-base font-bold text-slate-900 font-heading flex items-center gap-2">
                     <i class="fa-solid fa-user-gear text-blue-900"></i> Tambah Pengguna Baharu
                 </h3>
-                <button onclick="closeUserFormModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                <button onclick="closeUserFormModal()" class="text-slate-400 hover:text-slate-600 text-lg p-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -1073,12 +1174,12 @@
                     <div>
                         <div class="flex items-center justify-between mb-1">
                             <label class="font-bold text-slate-700">Kata Laluan *</label>
-                            <button type="button" onclick="generateRandomPassword()" class="text-[10px] text-cyan-700 hover:underline font-semibold">⚡ Jana</button>
+                            <button type="button" onclick="generateRandomPassword()" class="text-[10px] text-cyan-700 hover:underline font-semibold touch-manipulation">⚡ Jana</button>
                         </div>
                         <div class="relative">
                             <input type="password" id="form-user-pass" required placeholder="••••••••"
                                 class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 pr-8">
-                            <button type="button" onclick="togglePasswordVisibility('form-user-pass')" class="absolute right-2 top-2 text-slate-400 hover:text-slate-600">
+                            <button type="button" onclick="togglePasswordVisibility('form-user-pass')" class="absolute right-2 top-2 text-slate-400 hover:text-slate-600 p-1">
                                 <i class="fa-solid fa-eye text-xs"></i>
                             </button>
                         </div>
@@ -1094,10 +1195,10 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-                    <button type="button" onclick="closeUserFormModal()" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold">
+                    <button type="button" onclick="closeUserFormModal()" class="px-4 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold active:scale-95 touch-manipulation">
                         Batal
                     </button>
-                    <button type="submit" class="px-5 py-2 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow flex items-center gap-1.5">
+                    <button type="submit" class="px-5 py-2 bg-blue-900 hover:bg-blue-950 text-white rounded-xl text-xs font-bold shadow flex items-center gap-1.5 active:scale-95 touch-manipulation">
                         <i class="fa-solid fa-floppy-disk"></i> Simpan
                     </button>
                 </div>
@@ -1106,13 +1207,13 @@
     </div>
 
     <!-- Confirm Delete User Modal -->
-    <div id="user-delete-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-rose-100 animate-fade-in space-y-4">
+    <div id="user-delete-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-5 sm:p-6 border border-rose-100 animate-fade-in space-y-4 my-auto">
             <div class="text-center">
                 <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center text-xl mx-auto mb-2 shadow-sm">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
-                <h3 class="text-base font-bold text-slate-900 font-heading">Pengesahan Memadam Akaun</h3>
+                <h3 class="text-sm sm:text-base font-bold text-slate-900 font-heading">Pengesahan Memadam Akaun</h3>
                 <p class="text-xs text-slate-500 mt-1">Adakah anda pasti ingin memadam akaun ini?</p>
             </div>
 
@@ -1128,10 +1229,10 @@
             </div>
 
             <div class="flex items-center justify-center gap-2 pt-2">
-                <button onclick="closeUserDeleteModal()" class="w-1/2 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-semibold">
+                <button onclick="closeUserDeleteModal()" class="w-1/2 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-semibold active:scale-95 touch-manipulation">
                     Batal
                 </button>
-                <button onclick="executeDeleteUser()" class="w-1/2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow transition">
+                <button onclick="executeDeleteUser()" class="w-1/2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow transition active:scale-95 touch-manipulation">
                     Ya, Padam
                 </button>
             </div>
@@ -1139,7 +1240,7 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="hidden fixed top-5 left-1/2 -translate-x-1/2 sm:left-auto sm:right-5 sm:translate-x-0 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in max-w-md w-[90%] sm:w-auto">
+    <div id="toast" class="hidden fixed top-5 left-1/2 -translate-x-1/2 sm:left-auto sm:right-5 sm:translate-x-0 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in max-w-md w-[92%] sm:w-auto">
         <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-xl shrink-0"></i>
         <span id="toast-message" class="text-xs font-medium leading-tight">Mesej pemberitahuan.</span>
     </div>
@@ -1153,6 +1254,36 @@
     </footer>
 
     <script>
+        // Theme / Mod Gelap Logic
+        function initTheme() {
+            const savedTheme = localStorage.getItem('skbk_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                updateThemeToggleIcons(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeToggleIcons(false);
+            }
+        }
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('skbk_theme', isDark ? 'dark' : 'light');
+            updateThemeToggleIcons(isDark);
+            showToast(isDark ? "Mod Gelap diaktifkan 🌙" : "Mod Terang diaktifkan ☀️");
+        }
+
+        function updateThemeToggleIcons(isDark) {
+            const icons = document.querySelectorAll('.theme-toggle-icon');
+            icons.forEach(icon => {
+                if (isDark) {
+                    icon.className = 'fa-solid fa-sun text-amber-400 theme-toggle-icon';
+                } else {
+                    icon.className = 'fa-solid fa-moon text-amber-300 theme-toggle-icon';
+                }
+            });
+        }
+
         // Data Definitions
         const TRACK_INDIVIDUAL = [
             "80m Tahun 1", "80m Tahun 2", "80m Tahun 3",
@@ -1504,7 +1635,7 @@
                         <td class="p-2.5 font-mono text-xs text-slate-500">
                             <div class="flex items-center gap-1.5">
                                 <span id="pwd-text-${u.id}">••••••••</span>
-                                <button onclick="toggleTablePassword('${u.id}', '${u.pass}')" class="text-slate-400 hover:text-slate-600" title="Papar/Sembunyi Kata Laluan">
+                                <button onclick="toggleTablePassword('${u.id}', '${u.pass}')" class="text-slate-400 hover:text-slate-600 p-1 touch-manipulation" title="Papar/Sembunyi Kata Laluan">
                                     <i class="fa-solid fa-eye text-[11px]"></i>
                                 </button>
                             </div>
@@ -1512,11 +1643,11 @@
                         <td class="p-2.5 text-center">${statusBadge}</td>
                         <td class="p-2.5 text-center">
                             <div class="flex items-center justify-center gap-1.5">
-                                <button onclick="editUserModal('${u.id}')" title="Edit Pengguna" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                                <button onclick="editUserModal('${u.id}')" title="Edit Pengguna" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition touch-manipulation">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 ${!isMainAdmin ? `
-                                    <button onclick="promptDeleteUser('${u.id}')" title="Padam Pengguna" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition">
+                                    <button onclick="promptDeleteUser('${u.id}')" title="Padam Pengguna" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition touch-manipulation">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 ` : '<span class="text-[10px] text-slate-300 px-1 font-semibold">Utama</span>'}
@@ -1665,7 +1796,6 @@
                 // Edit existing user
                 const idx = users.findIndex(u => u.id === origId);
                 if (idx !== -1) {
-                    const prevName = users[idx].name;
                     users[idx] = {
                         ...users[idx],
                         id: userId,
@@ -2038,12 +2168,12 @@
 
                 if (id === tabId) {
                     btn?.classList.add('bg-blue-900', 'text-white', 'shadow-sm');
-                    mBtn?.classList.add('bg-blue-900', 'text-white', 'font-bold', 'shadow-sm');
-                    mBtn?.classList.remove('text-blue-100');
+                    mBtn?.classList.add('bg-blue-950', 'text-white', 'font-bold', 'shadow-sm');
+                    mBtn?.classList.remove('text-blue-200');
                 } else {
                     btn?.classList.remove('bg-blue-900', 'text-white', 'shadow-sm');
-                    mBtn?.classList.remove('bg-blue-900', 'text-white', 'shadow-sm');
-                    mBtn?.classList.add('text-blue-100');
+                    mBtn?.classList.remove('bg-blue-950', 'text-white', 'font-bold', 'shadow-sm');
+                    mBtn?.classList.add('text-blue-200');
                 }
             });
 
@@ -2319,7 +2449,7 @@
             }).join(' ');
 
             const lightHtml = errorStatus.hasError ? 
-                `<button type="button" onclick="showAthleteErrors('${ath.id}')" title="Klik untuk lihat ralat: ${errorStatus.reason}" class="w-3.5 h-3.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50 animate-pulse-fast inline-block cursor-pointer hover:scale-125 transition-transform" aria-label="Lihat Ralat"></button>` :
+                `<button type="button" onclick="showAthleteErrors('${ath.id}')" title="Klik untuk lihat ralat: ${errorStatus.reason}" class="w-3.5 h-3.5 rounded-full bg-rose-500 shadow-md shadow-rose-500/50 animate-pulse-fast inline-block cursor-pointer hover:scale-125 transition-transform touch-manipulation" aria-label="Lihat Ralat"></button>` :
                 `<span title="Status Sah" class="w-3.5 h-3.5 rounded-full bg-emerald-500 inline-block"></span>`;
 
             return `
@@ -2337,13 +2467,13 @@
                     <td class="py-3 px-4 text-center">
                         <div class="flex items-center justify-center gap-2">
                             ${lightHtml}
-                            <button onclick="viewAthleteDetails('${ath.id}')" title="Lihat Butiran" class="p-1.5 text-slate-500 hover:text-blue-800 transition">
+                            <button onclick="viewAthleteDetails('${ath.id}')" title="Lihat Butiran" class="p-1.5 text-slate-500 hover:text-blue-800 transition touch-manipulation">
                                 <i class="fa-solid fa-eye text-sm"></i>
                             </button>
-                            <button onclick="editAthlete('${ath.id}')" title="Kemas Kini" class="p-1.5 text-slate-500 hover:text-blue-600 transition">
+                            <button onclick="editAthlete('${ath.id}')" title="Kemas Kini" class="p-1.5 text-slate-500 hover:text-blue-600 transition touch-manipulation">
                                 <i class="fa-solid fa-pen-to-square text-sm"></i>
                             </button>
-                            <button onclick="deleteAthlete('${ath.id}')" title="Padam Rekod" class="p-1.5 text-slate-500 hover:text-rose-600 transition">
+                            <button onclick="deleteAthlete('${ath.id}')" title="Padam Rekod" class="p-1.5 text-slate-500 hover:text-rose-600 transition touch-manipulation">
                                 <i class="fa-solid fa-trash text-sm"></i>
                             </button>
                         </div>
@@ -2400,14 +2530,29 @@
 
             if (trackGrid) {
                 trackGrid.innerHTML = allTrack.map(ev => {
-                    const count = filtered.filter(a => a.acara.includes(ev)).length;
+                    const eventAthletes = filtered.filter(a => a.acara.includes(ev));
+                    const count = eventAthletes.length;
+
+                    let statusLight = '';
+                    if (count > 0) {
+                        const hasError = eventAthletes.some(a => getAthleteErrorStatus(a).hasError);
+                        if (hasError) {
+                            statusLight = `<span title="Status Ralat: Terdapat atlet mempunyai ralat pendaftaran" class="w-3 h-3 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50 animate-pulse-fast shrink-0 inline-block" aria-label="Status Ralat"></span>`;
+                        } else {
+                            statusLight = `<span title="Status Sah: Semua pendaftaran atlet sah" class="w-3 h-3 rounded-full bg-emerald-500 shrink-0 inline-block" aria-label="Status Sah"></span>`;
+                        }
+                    }
+
                     return `
-                        <div onclick="openGenderSelectModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-400 hover:shadow-md active:scale-[0.98] transition">
+                        <div onclick="openGenderSelectModal('${ev}')" class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-blue-400 hover:shadow-md active:scale-[0.98] transition touch-manipulation">
                             <div>
-                                <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">${ev} <i class="fa-solid fa-circle-info text-blue-500 text-xs"></i></h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Balapan</p>
+                                <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-1.5">
+                                    ${statusLight}
+                                    ${ev} <i class="fa-solid fa-circle-info text-blue-500 text-xs"></i>
+                                </h4>
+                                <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Balapan</p>
                             </div>
-                            <span class="px-3 py-1 bg-cyan-100 text-cyan-800 font-extrabold text-sm rounded-xl">${count} Peserta</span>
+                            <span class="px-2.5 sm:px-3 py-1 bg-cyan-100 text-cyan-800 font-extrabold text-xs sm:text-sm rounded-xl shrink-0">${count} Peserta</span>
                         </div>
                     `;
                 }).join('');
@@ -2415,14 +2560,29 @@
 
             if (fieldGrid) {
                 fieldGrid.innerHTML = FIELD_EVENTS.map(ev => {
-                    const count = filtered.filter(a => a.acara.includes(ev)).length;
+                    const eventAthletes = filtered.filter(a => a.acara.includes(ev));
+                    const count = eventAthletes.length;
+
+                    let statusLight = '';
+                    if (count > 0) {
+                        const hasError = eventAthletes.some(a => getAthleteErrorStatus(a).hasError);
+                        if (hasError) {
+                            statusLight = `<span title="Status Ralat: Terdapat atlet mempunyai ralat pendaftaran" class="w-3 h-3 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50 animate-pulse-fast shrink-0 inline-block" aria-label="Status Ralat"></span>`;
+                        } else {
+                            statusLight = `<span title="Status Sah: Semua pendaftaran atlet sah" class="w-3 h-3 rounded-full bg-emerald-500 shrink-0 inline-block" aria-label="Status Sah"></span>`;
+                        }
+                    }
+
                     return `
-                        <div onclick="openGenderSelectModal('${ev}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-400 hover:shadow-md active:scale-[0.98] transition">
+                        <div onclick="openGenderSelectModal('${ev}')" class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-400 hover:shadow-md active:scale-[0.98] transition touch-manipulation">
                             <div>
-                                <h4 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">${ev} <i class="fa-solid fa-circle-info text-amber-500 text-xs"></i></h4>
-                                <p class="text-xs text-slate-400 mt-0.5">Padang</p>
+                                <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-1.5">
+                                    ${statusLight}
+                                    ${ev} <i class="fa-solid fa-circle-info text-amber-500 text-xs"></i>
+                                </h4>
+                                <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Padang</p>
                             </div>
-                            <span class="px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-sm rounded-xl">${count} Peserta</span>
+                            <span class="px-2.5 sm:px-3 py-1 bg-amber-100 text-amber-800 font-extrabold text-xs sm:text-sm rounded-xl shrink-0">${count} Peserta</span>
                         </div>
                     `;
                 }).join('');
@@ -2447,6 +2607,15 @@
             const hasTeamFilter = currentUser?.team && currentUser.team !== "Tiada" && currentUser.role !== 'admin';
             const filteredAthletes = (hasTeamFilter ? athletes.filter(a => a.pasukan === currentUser.team) : athletes)
                 .filter(a => a.acara.includes(eventName));
+
+            // Sekatan tindakan interaktif untuk Pengurus Pasukan sekiranya terdapat ralat pendaftaran atlet
+            if (currentUser?.role !== 'admin') {
+                const hasErrorInEvent = filteredAthletes.some(a => getAthleteErrorStatus(a).hasError);
+                if (hasErrorInEvent) {
+                    showToast("Tindakan tidak dibenarkan! Terdapat ralat pendaftaran atlet dalam acara ini yang perlu diperbaiki terlebih dahulu.", "error");
+                    return;
+                }
+            }
 
             const countM = filteredAthletes.filter(a => a.jantina === 'Lelaki').length;
             const countF = filteredAthletes.filter(a => a.jantina === 'Perempuan').length;
@@ -2508,22 +2677,22 @@
                     listEl.innerHTML = filteredAthletes.map(ath => {
                         const teamInfo = TEAM_COLORS[ath.pasukan] || { bg: "bg-slate-100", text: "text-slate-800", border: "border-slate-300" };
                         return `
-                            <div onclick="viewAthleteDetails('${ath.id}')" class="bg-white p-3.5 rounded-xl border border-slate-200 hover:border-blue-400 shadow-sm transition flex items-center justify-between group cursor-pointer">
+                            <div onclick="viewAthleteDetails('${ath.id}')" class="bg-white p-3 sm:p-3.5 rounded-xl border border-slate-200 hover:border-blue-400 shadow-sm transition flex items-center justify-between group cursor-pointer touch-manipulation">
                                 <div class="space-y-1">
                                     <div class="flex items-center gap-2 flex-wrap">
-                                        <span class="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition">${ath.nama}</span>
-                                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${teamInfo.bg} ${teamInfo.text} ${teamInfo.border}">
+                                        <span class="font-bold text-slate-900 text-xs sm:text-sm group-hover:text-blue-600 transition">${ath.nama}</span>
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold border ${teamInfo.bg} ${teamInfo.text} ${teamInfo.border}">
                                             ${ath.pasukan}
                                         </span>
                                     </div>
-                                    <div class="flex items-center gap-3 text-xs text-slate-500">
+                                    <div class="flex items-center gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-slate-500 flex-wrap">
                                         <span><i class="fa-solid fa-venus-mars text-slate-400 mr-1"></i>${ath.jantina}</span>
                                         <span><i class="fa-solid fa-graduation-cap text-slate-400 mr-1"></i>${ath.tahun}</span>
                                         <span><i class="fa-solid fa-id-badge text-slate-400 mr-1"></i>Bib: <strong class="text-slate-700 font-mono">${ath.bib || '-'}</strong></span>
                                     </div>
                                 </div>
-                                <button onclick="event.stopPropagation(); viewAthleteDetails('${ath.id}')" title="Lihat Maklumat Atlet" class="w-9 h-9 bg-slate-100 hover:bg-blue-100 text-slate-600 hover:text-blue-800 rounded-xl flex items-center justify-center transition shrink-0 ml-2">
-                                    <i class="fa-solid fa-eye text-base"></i>
+                                <button onclick="event.stopPropagation(); viewAthleteDetails('${ath.id}')" title="Lihat Maklumat Atlet" class="w-8 h-8 sm:w-9 sm:h-9 bg-slate-100 hover:bg-blue-100 text-slate-600 hover:text-blue-800 rounded-xl flex items-center justify-center transition shrink-0 ml-2 touch-manipulation">
+                                    <i class="fa-solid fa-eye text-sm sm:text-base"></i>
                                 </button>
                             </div>
                         `;
@@ -2626,7 +2795,7 @@
 
             if (listCont) {
                 listCont.innerHTML = ath.acara.map(ev => `
-                    <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
+                    <span class="px-2.5 sm:px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                         ${ev}
                     </span>
                 `).join('');
@@ -2710,6 +2879,15 @@
                 return;
             }
 
+            // Sekatan Eksport CSV untuk Pengurus Pasukan jika terdapat isu ralat pendaftaran
+            if (currentUser?.role !== 'admin') {
+                const hasErrorAthletes = data.some(a => getAthleteErrorStatus(a).hasError);
+                if (hasErrorAthletes) {
+                    showToast("Eksport CSV tidak dibenarkan! Sila perbaiki ralat pendaftaran atlet pasukan anda terlebih dahulu.", "error");
+                    return;
+                }
+            }
+
             let csvContent = "data:text/csv;charset=utf-8,Nama Atlet,Jantina,Pasukan,No Bib,Tahun,Acara Disertai\n";
 
             data.forEach(a => {
@@ -2742,9 +2920,9 @@
 
             message.textContent = msg;
             if (type === "error") {
-                icon.className = "fa-solid fa-circle-xmark text-rose-400 text-xl";
+                icon.className = "fa-solid fa-circle-xmark text-rose-400 text-xl shrink-0";
             } else {
-                icon.className = "fa-solid fa-circle-check text-sky-400 text-xl";
+                icon.className = "fa-solid fa-circle-check text-sky-400 text-xl shrink-0";
             }
 
             toast.classList.remove('hidden');
@@ -2758,6 +2936,7 @@
         }
 
         window.onload = function() {
+            initTheme();
             loadAthletesData();
             initEventCheckboxes();
             checkAuth();
@@ -2766,5 +2945,3 @@
     </script>
 </body>
 </html>
-
-"Demo V1.0.6"
