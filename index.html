@@ -275,7 +275,7 @@
                 <!-- Acara Balapan Individu -->
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 mb-2 flex items-center gap-1.5">
-                        <i class="fa-solid fa-person-running"></i> Balapan Individu
+                        <i class="fa-solid fa-person-running"></i> Acara Balapan
                     </p>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
                         <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-cyan-50/60 border border-slate-200/80 hover:border-cyan-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
@@ -332,7 +332,7 @@
                 <!-- Acara Balapan Berpasukan -->
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-2 flex items-center gap-1.5">
-                        <i class="fa-solid fa-users-line"></i> Lari Beraganti-ganti (Berpasukan)
+                        <i class="fa-solid fa-users-line"></i> Relay
                     </p>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2.5">
                         <div class="p-2.5 sm:p-3 bg-slate-50 hover:bg-emerald-50/60 border border-slate-200/80 hover:border-emerald-300 rounded-[16px] sm:rounded-[18px] transition duration-200 shadow-sm hover:shadow active:scale-95 flex items-center gap-2.5 group cursor-pointer touch-manipulation" onclick="switchTab('register')">
@@ -2358,7 +2358,18 @@
             if (isNamaDuplicate) reasons.push("Nama Atlet Pertindihan / Duplikasi");
             
             const isOverEvents = athlete.acara.length > 4;
-            if (isOverEvents) reasons.push("Penyertaan melebihi 4 acara");
+            if (isOverEvents) reasons.push("Penyertaan melebihi 4 acara secara keseluruhan");
+
+            // Semakan Kategori Acara (Maksimum 2 Acara Individu & 2 Acara Berpasukan)
+            const indEventsCount = athlete.acara.filter(ev => TRACK_INDIVIDUAL.includes(ev) || FIELD_EVENTS.includes(ev)).length;
+            const teamEventsCount = athlete.acara.filter(ev => TRACK_TEAM.includes(ev)).length;
+
+            if (indEventsCount > 2) {
+                reasons.push(`Penyertaan melebihi had 2 acara individu (${indEventsCount} acara individu dipilih)`);
+            }
+            if (teamEventsCount > 2) {
+                reasons.push(`Penyertaan melebihi had 2 acara berpasukan (${teamEventsCount} acara berpasukan dipilih)`);
+            }
 
             const EVENT_ELIGIBILITY = {
                 "80m Tahun 1": ["Tahun 1"],
