@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SMART DIGITAL - Pendaftaran Pasukan</title>
+    <title>SMART DIGITAL - Pendaftaran Pasukan V.2.0</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,19 +14,21 @@
     <!-- Google Fonts: Montserrat & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
             -webkit-text-size-adjust: 100%;
+            background-color: #f8fafc;
         }
         h1, h2, h3, h4, h5, h6, .font-heading {
             font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.02em;
         }
         
         /* Mengelakkan auto-zoom pada peranti iOS Safari semasa menekan input borang */
@@ -48,7 +50,7 @@
             input[type="number"],
             select,
             textarea {
-                font-size: 0.75rem !important; /* Kembali ke text-xs pada tablet/desktop */
+                font-size: 0.8125rem !important;
             }
         }
 
@@ -57,61 +59,107 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Ruang dinamik bawah skrin untuk tapak tatalan iOS Home Indicator */
+        /* Custom Scrollbar Premium */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+
         .safe-area-bottom {
             padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
         }
 
+        /* Ambient Glow & Shadow Tokens */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .shadow-premium {
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+        }
+        .shadow-glow-amber {
+            box-shadow: 0 8px 25px -4px rgba(245, 158, 11, 0.35);
+        }
+        .shadow-glow-blue {
+            box-shadow: 0 8px 25px -4px rgba(37, 99, 235, 0.35);
+        }
+
         @keyframes pulse-fast {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.92); }
+            50% { opacity: 0.35; transform: scale(0.9); }
         }
         .animate-pulse-fast {
             animation: pulse-fast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: scale(0.97) translateY(4px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
         .animate-fade-in {
-            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Gaya Mod Gelap Custom */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(1.25rem) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .toast-bottom {
+            bottom: max(1.25rem, calc(0.75rem + env(safe-area-inset-bottom, 0px)));
+        }
+
+        /* Mod Gelap Premium */
         html.dark {
             color-scheme: dark;
         }
         html.dark body {
-            background-color: #090d16;
+            background-color: #080c14;
             color: #f1f5f9;
         }
-        html.dark .bg-white {
-            background-color: #111827 !important;
-            border-color: #1f2937 !important;
+        html.dark .bg-white, html.dark .glass-card {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
             color: #f3f4f6 !important;
         }
         html.dark .bg-slate-50, html.dark .bg-slate-50\/80, html.dark .bg-slate-50\/50 {
-            background-color: #1f2937 !important;
+            background-color: #162032 !important;
             color: #f3f4f6 !important;
         }
         html.dark .bg-slate-100 {
-            background-color: #374151 !important;
+            background-color: #1e293b !important;
             color: #f3f4f6 !important;
         }
         html.dark .text-slate-900, 
         html.dark .text-slate-800, 
         html.dark .text-slate-700,
         html.dark .text-slate-600 {
-            color: #f3f4f6 !important;
+            color: #f8fafc !important;
         }
         html.dark .text-slate-500,
         html.dark .text-slate-400 {
-            color: #9ca3af !important;
+            color: #94a3b8 !important;
         }
         html.dark .border-slate-100, 
         html.dark .border-slate-200, 
         html.dark .border-slate-300 {
-            border-color: #374151 !important;
+            border-color: #1e293b !important;
         }
         html.dark input[type="text"],
         html.dark input[type="password"],
@@ -120,90 +168,87 @@
         html.dark input[type="number"],
         html.dark select,
         html.dark textarea {
-            background-color: #1f2937 !important;
+            background-color: #162032 !important;
             color: #f9fafb !important;
-            border-color: #4b5563 !important;
+            border-color: #334155 !important;
         }
         html.dark table thead {
-            background-color: #1f2937 !important;
-            color: #d1d5db !important;
-            border-color: #374151 !important;
+            background-color: #162032 !important;
+            color: #cbd5e1 !important;
+            border-color: #1e293b !important;
         }
         html.dark table tbody tr:hover {
-            background-color: #1e293b !important;
+            background-color: #1e293b\/70 !important;
         }
         html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
-            border-color: #374151 !important;
-        }
-        html.dark .bg-slate-900\/80, html.dark .bg-slate-900\/60 {
-            background-color: rgba(3, 7, 18, 0.85) !important;
+            border-color: #1e293b !important;
         }
     </style>
 </head>
-<body class="min-h-full flex flex-col bg-slate-50 text-slate-800 antialiased selection:bg-blue-200">
+<body class="min-h-full flex flex-col bg-slate-50/70 text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
 
-    <header class="bg-blue-950 text-white shadow-lg sticky top-0 z-40 border-b border-blue-900/60">
+    <header class="bg-gradient-to-r from-slate-950 via-blue-950 to-slate-950 text-white shadow-xl sticky top-0 z-40 border-b border-blue-900/40 backdrop-blur-md bg-opacity-95">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-2.5 sm:gap-3">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 bg-amber-500 rounded-xl flex items-center justify-center text-blue-950 font-black text-lg sm:text-xl shadow">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-amber-500 to-amber-300 rounded-2xl flex items-center justify-center text-blue-950 font-black text-xl shadow-glow-amber">
                         <i class="fa-solid fa-trophy"></i>
                     </div>
                     <div>
-                        <h1 class="text-base sm:text-lg font-bold font-heading tracking-wide leading-tight">SMART DIGITAL</h1>
-                        <p class="text-[10px] text-blue-300 font-medium">Sistem Pendaftaran Olahraga</p>
+                        <h1 class="text-base sm:text-lg font-black font-heading tracking-tight leading-tight bg-gradient-to-r from-white via-slate-100 to-amber-300 bg-clip-text text-transparent">SMART DIGITAL</h1>
+                        <p class="text-[10px] text-blue-300/80 font-medium tracking-wide">Sistem Pendaftaran Olahraga</p>
                     </div>
                 </div>
 
                 <!-- Desktop Nav -->
-                <nav class="hidden md:flex items-center gap-1">
-                    <button id="nav-dashboard" onclick="switchTab('dashboard')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-blue-900 text-white shadow-sm transition flex items-center gap-2">
+                <nav class="hidden md:flex items-center gap-1.5 bg-blue-900/30 p-1 rounded-2xl border border-blue-800/40">
+                    <button id="nav-dashboard" onclick="switchTab('dashboard')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-md shadow-blue-600/30 transition-all duration-200 flex items-center gap-2">
                         <i class="fa-solid fa-chart-line"></i> Papan Utama
                     </button>
-                    <button id="nav-register" onclick="switchTab('register')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
+                    <button id="nav-register" onclick="switchTab('register')" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-white/10 transition-all duration-200 flex items-center gap-2">
                         <i class="fa-solid fa-user-plus"></i> Daftar Atlet
                     </button>
-                    <button id="nav-directory" onclick="switchTab('directory')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
+                    <button id="nav-directory" onclick="switchTab('directory')" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-white/10 transition-all duration-200 flex items-center gap-2">
                         <i class="fa-solid fa-users"></i> Senarai Atlet
                     </button>
-                    <button id="nav-summary" onclick="switchTab('summary')" class="px-3 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-blue-900 transition flex items-center gap-2">
+                    <button id="nav-summary" onclick="switchTab('summary')" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-blue-100 hover:bg-white/10 transition-all duration-200 flex items-center gap-2">
                         <i class="fa-solid fa-list-check"></i> Analisis
                     </button>
-                    <button id="nav-admin" onclick="openAdminModal()" class="px-3 py-2 rounded-xl text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition flex items-center gap-2 hidden">
+                    <button id="nav-admin" onclick="openAdminModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-amber-300 hover:bg-amber-400/20 transition-all duration-200 flex items-center gap-2 hidden">
                         <i class="fa-solid fa-gear"></i> Tetapan Admin
                     </button>
                 </nav>
 
                 <!-- User Profile / Logout / Theme Toggle -->
                 <div class="flex items-center gap-2 sm:gap-3">
-                    <button onclick="toggleDarkMode()" title="Tukar Mod Terang / Gelap" class="p-2 bg-blue-900 hover:bg-blue-800 text-amber-300 rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation flex items-center justify-center">
+                    <button onclick="toggleDarkMode()" title="Tukar Mod Terang / Gelap" class="p-2.5 bg-white/10 hover:bg-white/20 text-amber-300 rounded-xl text-xs font-semibold transition-all duration-200 active:scale-95 touch-manipulation flex items-center justify-center border border-white/10">
                         <i class="fa-solid fa-moon theme-toggle-icon"></i>
                     </button>
-                    <span id="current-user-badge" class="px-2.5 sm:px-3 py-1 bg-blue-900 border border-blue-800 rounded-full text-[11px] sm:text-xs font-semibold text-amber-300 flex items-center gap-1.5 truncate max-w-[130px] sm:max-w-none">
+                    <span id="current-user-badge" class="px-3 py-1.5 bg-white/10 border border-white/10 rounded-xl text-[11px] sm:text-xs font-bold text-amber-300 flex items-center gap-1.5 truncate max-w-[130px] sm:max-w-none backdrop-blur-sm">
                         <i class="fa-solid fa-user-shield text-[10px] shrink-0"></i> <span class="truncate">Pengguna</span>
                     </span>
-                    <button onclick="handleLogout()" title="Log Keluar" class="p-2 bg-blue-900 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold transition active:scale-95 touch-manipulation">
+                    <button onclick="handleLogout()" title="Log Keluar" class="p-2.5 bg-white/10 hover:bg-rose-600 text-white rounded-xl text-xs font-semibold transition-all duration-200 active:scale-95 touch-manipulation border border-white/10">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Navigation Bar (Mesra Android & iOS) -->
-        <div class="md:hidden bg-blue-900 border-t border-blue-800/80 px-1 py-1 flex justify-around text-xs safe-area-bottom">
-            <button id="mobile-nav-dashboard" onclick="switchTab('dashboard')" class="flex-1 py-1.5 px-1 rounded-lg text-white font-bold bg-blue-950 flex flex-col items-center justify-center active:scale-95 transition">
+        <!-- Mobile Navigation Bar -->
+        <div class="md:hidden bg-slate-950/95 backdrop-blur-md border-t border-blue-900/40 px-1 py-1 flex justify-around text-xs safe-area-bottom">
+            <button id="mobile-nav-dashboard" onclick="switchTab('dashboard')" class="flex-1 py-2 px-1 rounded-xl text-white font-bold bg-blue-600 shadow-md flex flex-col items-center justify-center active:scale-95 transition-all">
                 <i class="fa-solid fa-chart-line text-sm mb-0.5"></i> <span class="text-[10px]">Utama</span>
             </button>
-            <button id="mobile-nav-register" onclick="switchTab('register')" class="flex-1 py-1.5 px-1 rounded-lg text-blue-200 flex flex-col items-center justify-center active:scale-95 transition">
+            <button id="mobile-nav-register" onclick="switchTab('register')" class="flex-1 py-2 px-1 rounded-xl text-blue-200 flex flex-col items-center justify-center active:scale-95 transition-all">
                 <i class="fa-solid fa-user-plus text-sm mb-0.5"></i> <span class="text-[10px]">Daftar</span>
             </button>
-            <button id="mobile-nav-directory" onclick="switchTab('directory')" class="flex-1 py-1.5 px-1 rounded-lg text-blue-200 flex flex-col items-center justify-center active:scale-95 transition">
+            <button id="mobile-nav-directory" onclick="switchTab('directory')" class="flex-1 py-2 px-1 rounded-xl text-blue-200 flex flex-col items-center justify-center active:scale-95 transition-all">
                 <i class="fa-solid fa-users text-sm mb-0.5"></i> <span class="text-[10px]">Senarai</span>
             </button>
-            <button id="mobile-nav-summary" onclick="switchTab('summary')" class="flex-1 py-1.5 px-1 rounded-lg text-blue-200 flex flex-col items-center justify-center active:scale-95 transition">
+            <button id="mobile-nav-summary" onclick="switchTab('summary')" class="flex-1 py-2 px-1 rounded-xl text-blue-200 flex flex-col items-center justify-center active:scale-95 transition-all">
                 <i class="fa-solid fa-list-check text-sm mb-0.5"></i> <span class="text-[10px]">Analisis</span>
             </button>
-            <button id="mobile-nav-admin" onclick="openAdminModal()" class="flex-1 py-1.5 px-1 rounded-lg text-amber-300 flex flex-col items-center justify-center active:scale-95 transition hidden">
+            <button id="mobile-nav-admin" onclick="openAdminModal()" class="flex-1 py-2 px-1 rounded-xl text-amber-300 flex flex-col items-center justify-center active:scale-95 transition-all hidden">
                 <i class="fa-solid fa-gear text-sm mb-0.5"></i> <span class="text-[10px]">Admin</span>
             </button>
         </div>
@@ -213,61 +258,62 @@
 
         <!-- TAB 1: DASHBOARD -->
         <section id="tab-dashboard" class="tab-content space-y-5 sm:space-y-6">
-            <div class="bg-gradient-to-r from-blue-950 to-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-6 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-bold font-heading">Selamat Datang ke SMART DIGITAL Pendaftaran</h2>
-                    <p class="text-xs text-blue-200 mt-1 leading-relaxed">Pengurusan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah.</p>
+            <div class="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 rounded-2xl sm:rounded-3xl p-6 sm:p-7 text-white shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-5 border border-blue-900/30 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10">
+                    <h2 class="text-xl sm:text-2xl font-black font-heading tracking-tight">Selamat Datang ke SMART DIGITAL Pendaftaran</h2>
+                    <p class="text-xs text-blue-200/90 mt-1.5 leading-relaxed max-w-2xl">Pengurusan pendaftaran peserta dan semak status kelayakan pasukan dengan mudah dan pantas secara sistematik.</p>
                 </div>
-                <div class="flex items-center gap-3">
-                    <button onclick="switchTab('register')" class="w-full sm:w-auto px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold rounded-xl text-xs shadow transition flex items-center justify-center gap-2 active:scale-95 touch-manipulation">
+                <div class="flex items-center gap-3 relative z-10 shrink-0">
+                    <button onclick="switchTab('register')" class="w-full sm:w-auto px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-blue-950 font-black rounded-xl text-xs shadow-glow-amber transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 touch-manipulation">
                         <i class="fa-solid fa-plus"></i> Tambah Atlet Baharu
                     </button>
                 </div>
             </div>
 
             <!-- Stats Overview (Kad Berwarna Gradien Moden) -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
                 <!-- Kad 1 – Tarikh Tutup Pendaftaran -->
-                <div class="p-4 sm:p-[20px] rounded-[18px] sm:rounded-[20px] border border-white/50 border-l-[5px] border-l-[#F59E0B] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #FFF8E8, #FFF2CC);">
+                <div class="p-5 rounded-2xl border border-amber-200/60 border-l-[6px] border-l-amber-500 shadow-premium bg-gradient-to-br from-amber-50/90 via-amber-50/40 to-white backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-300 cursor-default">
                     <div>
-                        <p class="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Tarikh Tutup Pendaftaran</p>
-                        <h3 id="stat-closing-date" class="text-base sm:text-[18px] font-bold text-[#0F172A] mt-1 leading-snug">-</h3>
+                        <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-900/70">Tarikh Tutup Pendaftaran</p>
+                        <h3 id="stat-closing-date" class="text-base sm:text-lg font-black text-slate-900 mt-1 leading-snug">-</h3>
                     </div>
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-amber-500/20 text-[#F59E0B] rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm ml-2">
+                    <div class="w-12 h-12 bg-amber-500/15 text-amber-600 rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2 border border-amber-200/50">
                         <i class="fa-solid fa-calendar-check"></i>
                     </div>
                 </div>
 
                 <!-- Kad 2 – Jumlah Atlet Berdaftar -->
-                <div class="p-4 sm:p-[20px] rounded-[18px] sm:rounded-[20px] border border-white/50 border-l-[5px] border-l-[#2563EB] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #EEF4FF, #DCEBFF);">
+                <div class="p-5 rounded-2xl border border-blue-200/60 border-l-[6px] border-l-blue-600 shadow-premium bg-gradient-to-br from-blue-50/90 via-blue-50/40 to-white backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-300 cursor-default">
                     <div>
-                        <p class="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Atlet Berdaftar</p>
-                        <h3 id="stat-total-athletes" class="text-lg sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
+                        <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-blue-900/70">Atlet Berdaftar</p>
+                        <h3 id="stat-total-athletes" class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5 leading-none">0</h3>
                     </div>
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600/20 text-[#2563EB] rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm ml-2">
+                    <div class="w-12 h-12 bg-blue-600/15 text-blue-600 rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2 border border-blue-200/50">
                         <i class="fa-solid fa-user-ninja"></i>
                     </div>
                 </div>
 
                 <!-- Kad 3 – Penyertaan Pasukan -->
-                <div class="p-4 sm:p-[20px] rounded-[18px] sm:rounded-[20px] border border-white/50 border-l-[5px] border-l-[#10B981] shadow-[0_8px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-250 ease-in-out cursor-default" style="background: linear-gradient(135deg, #ECFDF5, #D1FAE5);">
+                <div class="p-5 rounded-2xl border border-emerald-200/60 border-l-[6px] border-l-emerald-500 shadow-premium bg-gradient-to-br from-emerald-50/90 via-emerald-50/40 to-white backdrop-blur-sm flex items-center justify-between hover:-translate-y-1 transition-all duration-300 cursor-default">
                     <div>
-                        <p class="text-[11px] sm:text-[13px] font-semibold uppercase tracking-wider text-[#64748B]">Penyertaan Pasukan</p>
-                        <h3 id="stat-total-teams" class="text-lg sm:text-[18px] font-bold text-[#0F172A] mt-0.5 leading-none">0</h3>
+                        <p class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-emerald-900/70">Penyertaan Pasukan</p>
+                        <h3 id="stat-total-teams" class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5 leading-none">0</h3>
                     </div>
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-600/20 text-[#10B981] rounded-2xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-sm ml-2">
+                    <div class="w-12 h-12 bg-emerald-600/15 text-emerald-600 rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm ml-2 border border-emerald-200/50">
                         <i class="fa-solid fa-people-group"></i>
                     </div>
                 </div>
             </div>
 
             <!-- Seksyen 1: Acara Yang Dipertandingkan -->
-            <div class="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[20px] border border-slate-200 shadow-sm space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/80 shadow-premium space-y-5">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3.5">
                     <h3 class="font-bold text-slate-900 text-xs sm:text-sm font-heading flex items-center gap-2">
                         <span class="text-base sm:text-lg">🏅</span> Acara Yang Dipertandingkan
                     </h3>
-                    <span class="text-[10px] sm:text-[11px] font-semibold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 shrink-0">
+                    <span class="text-[10px] sm:text-[11px] font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full border border-blue-200/80 shrink-0">
                         16 Acara Keseluruhan
                     </span>
                 </div>
@@ -453,26 +499,26 @@
             </div>
 
             <!-- Recent Registration Table -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-premium overflow-hidden">
+                <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                     <h3 class="font-bold text-slate-900 text-xs sm:text-sm font-heading flex items-center gap-2">
                         <i class="fa-solid fa-clock-rotate-left text-blue-600"></i> Pendaftaran Terbaharu
                     </h3>
-                    <button onclick="switchTab('directory')" class="text-xs font-semibold text-blue-600 hover:underline touch-manipulation">
+                    <button onclick="switchTab('directory')" class="text-xs font-bold text-blue-600 hover:text-blue-800 hover:underline touch-manipulation">
                         Lihat Semua <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
                     </button>
                 </div>
                 <div class="overflow-x-auto w-full">
                     <table class="w-full text-left text-xs min-w-[650px]">
-                        <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
+                        <thead class="bg-slate-100/70 text-slate-600 uppercase tracking-wider font-bold border-b border-slate-200/80">
                             <tr>
-                                <th class="py-3 px-4">Nama Atlet</th>
-                                <th class="py-3 px-4">Jantina</th>
-                                <th class="py-3 px-4">Pasukan</th>
-                                <th class="py-3 px-4">Bib</th>
-                                <th class="py-3 px-4">Tahun</th>
-                                <th class="py-3 px-4">Acara</th>
-                                <th class="py-3 px-4 text-center">Tindakan</th>
+                                <th class="py-3.5 px-4">Nama Atlet</th>
+                                <th class="py-3.5 px-4">Jantina</th>
+                                <th class="py-3.5 px-4">Pasukan</th>
+                                <th class="py-3.5 px-4">Bib</th>
+                                <th class="py-3.5 px-4">Tahun</th>
+                                <th class="py-3.5 px-4">Acara</th>
+                                <th class="py-3.5 px-4 text-center">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody id="recent-table-body" class="divide-y divide-slate-100">
@@ -485,32 +531,32 @@
 
         <!-- TAB 2: REGISTER ATHLETE -->
         <section id="tab-register" class="tab-content hidden space-y-6">
-            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="bg-white p-5 sm:p-7 rounded-3xl border border-slate-200/80 shadow-premium">
                 <h2 class="text-lg sm:text-xl font-bold font-heading text-slate-900 mb-1">Borang Pendaftaran Atlet</h2>
-                <p class="text-xs text-slate-500 mb-5 sm:mb-6">Sila isi maklumat atlet dan pilih acara yang ingin disertai.</p>
+                <p class="text-xs text-slate-500 mb-6">Sila isi maklumat atlet dan pilih acara yang ingin disertai.</p>
 
                 <form id="athlete-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
                     <input type="hidden" id="athlete-id">
 
                     <!-- Basic Information -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nama Penuh Atlet *</label>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Penuh Atlet *</label>
                             <input type="text" id="input-nama" required placeholder="Contoh: Muhammad Adam"
-                                class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Jantina *</label>
-                            <select id="input-jantina" required class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Jantina *</label>
+                            <select id="input-jantina" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium transition-all">
                                 <option value="Lelaki">Lelaki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Pasukan / Rumah Sukan *</label>
-                            <select id="input-pasukan" required class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Pasukan / Rumah Sukan *</label>
+                            <select id="input-pasukan" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium transition-all">
                                 <option value="Helang">Helang (Hijau)</option>
                                 <option value="Garuda">Garuda (Merah)</option>
                                 <option value="Rajawali">Rajawali (Biru)</option>
@@ -519,14 +565,14 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Nombor Bib *</label>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nombor Bib *</label>
                             <input type="text" id="input-bib" required placeholder="Contoh: H101"
-                                class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium uppercase">
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium uppercase transition-all">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Tahun Persekolahan *</label>
-                            <select id="input-tahun" required class="w-full px-3.5 sm:px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Tahun Persekolahan *</label>
+                            <select id="input-tahun" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 text-xs font-medium transition-all">
                                 <option value="Tahun 1">Tahun 1</option>
                                 <option value="Tahun 2">Tahun 2</option>
                                 <option value="Tahun 3">Tahun 3</option>
@@ -584,12 +630,12 @@
         <!-- TAB 3: ATHLETE DIRECTORY -->
         <section id="tab-directory" class="tab-content hidden space-y-4">
             <!-- Search & Filters -->
-            <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full md:w-auto flex-grow">
+            <div class="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-premium flex flex-col md:flex-row gap-3 items-center justify-between">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 w-full md:w-auto flex-grow">
                     <input type="text" id="filter-search" oninput="renderAthletesTable()" placeholder="Cari nama atau No. Bib..."
-                        class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                        class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
 
-                    <select id="filter-pasukan" onchange="renderAthletesTable()" class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                    <select id="filter-pasukan" onchange="renderAthletesTable()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Pasukan</option>
                         <option value="Helang">Helang</option>
                         <option value="Garuda">Garuda</option>
@@ -597,7 +643,7 @@
                         <option value="Kenyalang">Kenyalang</option>
                     </select>
 
-                    <select id="filter-tahun" onchange="renderAthletesTable()" class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                    <select id="filter-tahun" onchange="renderAthletesTable()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Tahun</option>
                         <option value="Tahun 1">Tahun 1</option>
                         <option value="Tahun 2">Tahun 2</option>
@@ -607,22 +653,22 @@
                         <option value="Tahun 6">Tahun 6</option>
                     </select>
 
-                    <select id="filter-acara" onchange="renderAthletesTable()" class="px-3.5 py-2.5 sm:py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
+                    <select id="filter-acara" onchange="renderAthletesTable()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-blue-600">
                         <option value="">Semua Acara</option>
                         <!-- Populated by JS -->
                     </select>
                 </div>
 
-                <button onclick="exportToCSV()" class="px-4 py-2.5 sm:py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow transition flex items-center gap-2 shrink-0 w-full md:w-auto justify-center active:scale-95 touch-manipulation">
+                <button onclick="exportToCSV()" class="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition-all active:scale-95 shrink-0 w-full md:w-auto justify-center flex items-center gap-2 touch-manipulation">
                     <i class="fa-solid fa-file-csv"></i> Eksport CSV
                 </button>
             </div>
 
             <!-- Table -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-premium overflow-hidden">
                 <div class="overflow-x-auto w-full">
                     <table class="w-full text-left text-xs min-w-[680px]">
-                        <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
+                        <thead class="bg-slate-100/70 text-slate-600 uppercase tracking-wider font-bold border-b border-slate-200/80">
                             <tr>
                                 <th class="py-3.5 px-4">Nama Atlet</th>
                                 <th class="py-3.5 px-4">Jantina</th>
@@ -1240,7 +1286,7 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="hidden fixed top-5 left-1/2 -translate-x-1/2 sm:left-auto sm:right-5 sm:translate-x-0 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 animate-fade-in max-w-md w-[92%] sm:w-auto">
+    <div id="toast" class="hidden fixed toast-bottom left-1/2 -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0 z-50 bg-slate-950/95 text-white px-4 py-3 rounded-2xl shadow-2xl border border-slate-800/80 flex items-center gap-3 animate-slide-up max-w-md w-[92%] sm:w-auto backdrop-blur-md">
         <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-xl shrink-0"></i>
         <span id="toast-message" class="text-xs font-medium leading-tight">Mesej pemberitahuan.</span>
     </div>
@@ -1249,7 +1295,7 @@
     <footer class="bg-blue-950 text-blue-100 py-6 border-t border-blue-900 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs">
             <p class="font-medium">Sistem Pendaftaran Athletix V1.0.0</p>
-            <p class="text-sky-300 mt-1">Hak Cipta Terpelihara © 2026 eL_mioZ Organiser Team</p>
+            <p class="text-sky-300 mt-1">Hak Cipta Terpelihara © 2026 eL_mioZ</p>
         </div>
     </footer>
 
@@ -1301,7 +1347,7 @@
 
         // Initial System Accounts Default (Fallback if empty in storage)
         const DEFAULT_ACCOUNTS = [
-            { id: "admin", name: "Admin Utama", role: "admin", team: "Tiada", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Sistem" },
+            { id: "0000", name: "Admin Utama", role: "admin", team: "Tiada", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Sistem" },
             { id: "helang", name: "Pengurus Helang", role: "manager", team: "Helang", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" },
             { id: "garuda", name: "Pengurus Garuda", role: "manager", team: "Garuda", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" },
             { id: "rajawali", name: "Pengurus Rajawali", role: "manager", team: "Rajawali", pass: "0000", status: "Aktif", createdDate: "2026-08-01", updatedDate: "2026-08-01", createdBy: "Admin Utama" },
@@ -1367,7 +1413,7 @@
             }
             // Sample initial logs if empty
             const samples = [
-                { id: "l1", timestamp: new Date(Date.now() - 3600000).toISOString(), userId: "admin", userName: "Admin Utama", role: "Admin Utama", team: "Tiada", action: "Kemaskini Tarikh Tutup", details: "Menetapkan tarikh tutup pendaftaran pada 15 Ogos 2026, 11:59 malam.", status: "Berjaya", ip: "113.210.45.12", device: "Desktop", browser: "Chrome", os: "Windows" },
+                { id: "l1", timestamp: new Date(Date.now() - 3600000).toISOString(), userId: "admin", userName: "Admin Utama", role: "Admin Utama", team: "Tiada", action: "Kemaskini Tarikh Tutup", details: "Menetapkan tarikh tutup pendaftaran pada 15 September 2026, 11:59 malam.", status: "Berjaya", ip: "113.210.45.12", device: "Desktop", browser: "Chrome", os: "Windows" },
                 { id: "l2", timestamp: new Date(Date.now() - 7200000).toISOString(), userId: "PGR-HELANG-001", userName: "Pengurus Helang", role: "Pengurus Pasukan", team: "Helang", action: "Daftar Atlet Baharu", details: "Mendaftarkan atlet Muhammad Adam (H101) bagi pasukan Helang.", status: "Berjaya", ip: "175.143.12.88", device: "Telefon Bimbit", browser: "Safari", os: "iOS" },
                 { id: "l3", timestamp: new Date(Date.now() - 10800000).toISOString(), userId: "PGR-GARUDA-001", userName: "Pengurus Garuda", role: "Pengurus Pasukan", team: "Garuda", action: "Kemas Kini Atlet", details: "Mengemaskini acara bagi atlet Nur Aisyah (G201).", status: "Berjaya", ip: "182.239.90.15", device: "Desktop", browser: "Edge", os: "Windows" }
             ];
@@ -2352,10 +2398,10 @@
             }
 
             const isBibDuplicate = athletes.filter(a => a.bib.toUpperCase() === athlete.bib.toUpperCase()).length > 1;
-            if (isBibDuplicate) reasons.push("No. Bib Pertindihan / Duplikasi");
+            if (isBibDuplicate) reasons.push("No. Bib Sudah Digunakan / Duplikasi");
 
             const isNamaDuplicate = athletes.filter(a => a.nama.trim().toLowerCase() === athlete.nama.trim().toLowerCase()).length > 1;
-            if (isNamaDuplicate) reasons.push("Nama Atlet Pertindihan / Duplikasi");
+            if (isNamaDuplicate) reasons.push("Nama Atlet Sudah Didaftarkan / Duplikasi");
             
             const isOverEvents = athlete.acara.length > 4;
             if (isOverEvents) reasons.push("Penyertaan melebihi 4 acara secara keseluruhan");
